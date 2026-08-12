@@ -3381,9 +3381,16 @@ logSwarm('Requesting GPU...');
                         // misplaced atom shows itself, and watching them settle
                         // is the useful signal.
                         //
-                        // Only trigger UI updates if the search actually found a better structure
+                       // Only trigger UI updates if the search actually found a better structure
                         if (p.bestSites && p.bestSites.length && Number.isFinite(p.best) && p.best > liveBestSoFar) {
                             liveBestSoFar = p.best;
+
+                            // Update the live candidates list immediately so it matches the Best Fitness readout
+                            const sitesForList = p.bestSites.map(st => ({
+                                element: st.element, x: st.x, y: st.y, z: st.z,
+                                mult: st.multiplicity, wyckoff: st.wyckoff
+                            }));
+                            recordLiveCandidate(p, sitesForList);
 
                             const now = performance.now();
                             // Keep the throttle so rapid early improvements don't crash the framerate
@@ -3535,11 +3542,10 @@ logSwarm('Requesting GPU...');
 
             if (state.contactsSite === null || state.contactsSite === undefined ||
                 state.contactsSite >= n) state.contactsSite = 0;
-            rebuildStructureEditor();
+          rebuildStructureEditor();
             refreshStructureView();
             updateDensityReadout(mass, massKnown);
             showStructureQuality();
-            recordLiveCandidate(p, sites);
         }
 
         /**
@@ -3673,6 +3679,7 @@ logSwarm('Requesting GPU...');
             // during a search the left panel stayed live, Calculate Map could be
             // pressed mid-run and a new file could be loaded out from under the
             // GPU buffers. Setting it is what makes that gating real.
+
             state.swarmRunning = true;
             runSwarmBtn.disabled = true;
             stopSwarmBtn.disabled = false;
@@ -3683,8 +3690,11 @@ logSwarm('Requesting GPU...');
             statusMessage.classList.remove('is-error', 'is-warn', 'is-success');
             statusMessage.textContent = "Solving from composition...";
             
+            updateUIStates();
+
             try {
                 const out = await runWyckoffSolve();
+
                 if (out.candidates.length && Number.isFinite(out.overallB) &&
                     typeof setTemperatureFactorB === 'function') {
                     setTemperatureFactorB(out.overallB);

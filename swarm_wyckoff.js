@@ -587,26 +587,35 @@ async function runWyckoffSearch(o) {
     const tempOf = new Float32Array(numParticles);
     let acceptRate = NaN, swapRate = NaN;
 
+ 
+    const stateBufferSize = 16 + numParticles * 32;
+    const stateArray = new ArrayBuffer(stateBufferSize);
+    const stateF32 = new Float32Array(stateArray);
+    const stateU32 = new Uint32Array(stateArray);
+
+    function pushStateToGPU(currentAssignOf) {
+        stateU32[0] = 0; // reset accept count
+        for (let i = 0; i < numParticles; i++) {
+            const base = 4 + i * 8;
+            stateF32[base + 0] = curFit[i];
+            stateF32[base + 1] = curCC[i];
+            stateF32[base + 2] = stepSize[i];
+            stateF32[base + 3] = curCC[i];
+            stateF32[base + 4] = curPen[i];
+            stateF32[base + 5] = tempOf[i];
+            stateU32[base + 6] = currentAssignOf[i];
+            stateU32[base + 7] = 0; // padding
+        }
+        device.queue.writeBuffer(bufState, 0, stateArray);
+    }
+
     const bufPos       = swBuffer(device, positions, S | GPUBufferUsage.COPY_SRC);
-    const bufAssign    = swBuffer(device, new Uint32Array(numParticles), S);
-    const bufFit       = device.createBuffer({ size: numParticles * 8, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
-    
-    // New Bindings for GPU State
+    const bufState     = swBuffer(device, stateArray, S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
     const bufSiteProj  = swBuffer(device, T.siteProj, S);
-    const bufStepSizes = swBuffer(device, stepSize, S);
-const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
-    const bufCurPen    = swBuffer(device, curPen, S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
-    const bufTempOf    = swBuffer(device, tempOf, S);
-    const bufAccept    = swBuffer(device, new Uint32Array([0]), S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
 
-    // Readback buffers for the Decoupled Batching
     const R = GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST;
-    const bufRead      = device.createBuffer({ size: numParticles * 8, usage: R });
+    const bufReadState = device.createBuffer({ size: stateBufferSize, usage: R });
     const bufReadPos   = device.createBuffer({ size: numParticles * coordsPerParticle * 4, usage: R });
-    const bufReadCC    = device.createBuffer({ size: numParticles * 4, usage: R });
-    const bufReadPen   = device.createBuffer({ size: numParticles * 4, usage: R });
-    const bufReadAccept= device.createBuffer({ size: 4, usage: R });
-
     const PARAM = Object.freeze({
         o0: 0, o1: 4, o2: 8,
         r0: 12, r1: 16, r2: 20,
@@ -635,24 +644,19 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
     
     if (params[PARAM.centro]) say('Centrosymmetric group: F is real, so the kernel skips the imaginary part.');
 
+    
     const bind = device.createBindGroup({
         layout: pipeline.getBindGroupLayout(0),
         entries: [
             { binding: 0, resource: { buffer: bufPos } },
-            { binding: 1, resource: { buffer: bufAssign } },
+            { binding: 1, resource: { buffer: bufState } },
             { binding: 2, resource: { buffer: bufGen } },
             { binding: 3, resource: { buffer: bufSym } },
             { binding: 4, resource: { buffer: bufRefl } },
             { binding: 5, resource: { buffer: bufGroup } },
             { binding: 6, resource: { buffer: bufTab } },
-            { binding: 7, resource: { buffer: bufFit } },
-            { binding: 8, resource: { buffer: bufParams } },
-            { binding: 9, resource: { buffer: bufSiteProj } },
-            { binding: 10, resource: { buffer: bufStepSizes } },
-            { binding: 11, resource: { buffer: bufCurCC } },
-            { binding: 12, resource: { buffer: bufCurPen } },
-            { binding: 13, resource: { buffer: bufTempOf } },
-            { binding: 14, resource: { buffer: bufAccept } },
+            { binding: 7, resource: { buffer: bufSiteProj } },
+            { binding: 8, resource: { buffer: bufParams } }
         ]
     });
 
@@ -696,6 +700,7 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
         const gBestPen = new Float32Array(assignments.length);   // raw, at weight 1
         const gBestPos = new Float32Array(assignments.length * coordsPerParticle);
 
+        
         for (let i = 0; i < numParticles; i++) {
             const base = i * coordsPerParticle;
             for (let k = 0; k < coordsPerParticle; k++) positions[base + k] = Math.random();
@@ -703,7 +708,6 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
             curFit[i] = -Infinity; curCC[i] = NaN; curPen[i] = 0;
             stepSize[i] = SW_DEFAULTS.stepInit;
         }
-        device.queue.writeBuffer(bufAssign, 0, assignOf);
         let ladders = [];
 
         /**
@@ -789,7 +793,7 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
             if (tried) swapRate = taken / tried;
         }
 
-
+/*
         async function evaluateCoords(coords) {
             params[PARAM.is_quench] = 1.0;
             device.queue.writeBuffer(bufParams, 0, params);
@@ -808,7 +812,37 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
             return out;
         }
 
+        function recordBest(fitArr, coords, scale) { */
+
+        // after
+        async function evaluateCoords(coords) {
+            params[PARAM.is_quench] = 1.0;
+            device.queue.writeBuffer(bufParams, 0, params);
+            device.queue.writeBuffer(bufPos, 0, coords);
+            const enc = device.createCommandEncoder();
+            const pass = enc.beginComputePass();
+            pass.setPipeline(pipeline);
+            pass.setBindGroup(0, bind);
+            pass.dispatchWorkgroups(numParticles);
+            pass.end();
+            enc.copyBufferToBuffer(bufState, 0, bufReadState, 0, stateBufferSize);
+            device.queue.submit([enc.finish()]);
+            await bufReadState.mapAsync(GPUMapMode.READ);
+            const mappedState = new Float32Array(bufReadState.getMappedRange().slice(0));
+            bufReadState.unmap();
+            
+            const out = new Float32Array(numParticles * 2);
+            for(let i = 0; i < numParticles; i++) {
+                out[i] = mappedState[4 + i*8 + 0];
+                out[numParticles + i] = mappedState[4 + i*8 + 1];
+            }
+            return out;
+        }
+
         function recordBest(fitArr, coords, scale) {
+
+
+
             for (let i = 0; i < numParticles; i++) {
                 const A = assignOf[i], base = i * coordsPerParticle;
                 const f = fitArr[i];
@@ -849,7 +883,9 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
                 (Number.isFinite(swapRate) ? `, exchange ${(swapRate * 100).toFixed(0)}%.` : '.'));
         }
 
-        ladders = buildLadders();
+
+
+ladders = buildLadders();
         if (wi === 0 && restart === 0) {
             const R = Math.max(2, SW_DEFAULTS.rungs);
             say(`Replica exchange: ${ladders.length} ladder(s) of ${R} rungs, ` +
@@ -858,10 +894,7 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
         }
 
 // Initialize chain state buffers for this restart
-        device.queue.writeBuffer(bufTempOf, 0, tempOf);
-        device.queue.writeBuffer(bufStepSizes, 0, stepSize);
-        device.queue.writeBuffer(bufCurCC, 0, curCC);
-        device.queue.writeBuffer(bufCurPen, 0, curPen);
+        pushStateToGPU(assignOf);
 
         let firstEval = (wi === 0);
         let gensSinceSync = 0;
@@ -884,8 +917,7 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
                     curPen[i] = (Number.isFinite(curCC[i]) && Number.isFinite(f0[i])) ? (curCC[i] - f0[i]) / scale : 0;
                     curFit[i] = f0[i];
                 }
-                device.queue.writeBuffer(bufCurCC, 0, curCC);
-                device.queue.writeBuffer(bufCurPen, 0, curPen);
+                pushStateToGPU(assignOf);
             }
 
             paramsU32[PARAM.seed] = Math.floor(Math.random() * 4294967296);
@@ -905,32 +937,35 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
             
 
             if (isSyncGen) {
-                enc.copyBufferToBuffer(bufFit, 0, bufRead, 0, numParticles * 8);
+                enc.copyBufferToBuffer(bufState, 0, bufReadState, 0, stateBufferSize);
                 enc.copyBufferToBuffer(bufPos, 0, bufReadPos, 0, numParticles * coordsPerParticle * 4);
-                enc.copyBufferToBuffer(bufCurCC, 0, bufReadCC, 0, numParticles * 4);
-                enc.copyBufferToBuffer(bufCurPen, 0, bufReadPen, 0, numParticles * 4);
-                enc.copyBufferToBuffer(bufAccept, 0, bufReadAccept, 0, 4);
                 device.queue.submit([enc.finish()]);
 
                 await Promise.all([
-                    bufRead.mapAsync(GPUMapMode.READ),
-                    bufReadPos.mapAsync(GPUMapMode.READ),
-                    bufReadCC.mapAsync(GPUMapMode.READ),
-                    bufReadPen.mapAsync(GPUMapMode.READ),
-                    bufReadAccept.mapAsync(GPUMapMode.READ)
+                    bufReadState.mapAsync(GPUMapMode.READ),
+                    bufReadPos.mapAsync(GPUMapMode.READ)
                 ]);
 
-                const fp = new Float32Array(bufRead.getMappedRange().slice(0));
+                const mappedStateF32 = new Float32Array(bufReadState.getMappedRange().slice(0));
+                const mappedStateU32 = new Uint32Array(mappedStateF32.buffer);
                 positions.set(new Float32Array(bufReadPos.getMappedRange().slice(0)));
-                curCC.set(new Float32Array(bufReadCC.getMappedRange().slice(0)));
-                curPen.set(new Float32Array(bufReadPen.getMappedRange().slice(0)));
-                const accepts = new Uint32Array(bufReadAccept.getMappedRange())[0];
+                
+                const fp = new Float32Array(numParticles * 2);
+                for(let i = 0; i < numParticles; i++) {
+                    const base = 4 + i * 8;
+                    fp[i] = mappedStateF32[base + 0];
+                    fp[numParticles + i] = mappedStateF32[base + 1];
+                    stepSize[i] = mappedStateF32[base + 2];
+                    curCC[i] = mappedStateF32[base + 3];
+                    curPen[i] = mappedStateF32[base + 4];
+                }
+                const accepts = mappedStateU32[0];
 
-                bufRead.unmap(); bufReadPos.unmap(); bufReadCC.unmap(); bufReadPen.unmap(); bufReadAccept.unmap();
+                bufReadState.unmap(); bufReadPos.unmap();
 
                 acceptRate = accepts / (numParticles * gensSinceSync);
                 gensSinceSync = 0;
-                device.queue.writeBuffer(bufAccept, 0, new Uint32Array([0]));
+                device.queue.writeBuffer(bufState, 0, new Uint32Array([0]));
 
                 for (let i = 0; i < numParticles; i++) {
                     curFit[i] = Number.isFinite(curCC[i]) ? curCC[i] - curPen[i] * scale : -Infinity;
@@ -942,10 +977,12 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
                 if (ladders.length && (gen + 1) % SW_DEFAULTS.swapEvery === 0) {
                     exchangeSweep(((gen + 1) / SW_DEFAULTS.swapEvery) % 2, scale);
                     device.queue.writeBuffer(bufPos, 0, positions);
-                    device.queue.writeBuffer(bufCurCC, 0, curCC);
-                    device.queue.writeBuffer(bufCurPen, 0, curPen);
-                    // GPU completely owns StepSizes now. Do NOT overwrite them!
+                    pushStateToGPU(assignOf);
                 }
+
+
+
+
 
                 if (o.onProgress && (gen % 10 === 0 || gen === generations - 1)) {
                     let best = -Infinity, bestA = -1;
@@ -1023,11 +1060,13 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
                         stepSize[i] = SW_DEFAULTS.stepInit;
                         curFit[i] = -Infinity; curCC[i] = NaN; curPen[i] = 0;
                     }
-                    device.queue.writeBuffer(bufAssign, 0, assignOf);
+                   
+                    device.queue.writeBuffer(bufPos, 0, positions);
+                    pushStateToGPU(assignOf);
                     // Those chains have no energy for their new subspace, so the
                     // next generation has to measure one before it can test
                     // anything against it.
-                    needCurrentEval = true;
+                    firstEval = true;
                     ladders = buildLadders();
                     say(`gen ${gen}: ${ids.length} assignment(s) still in contention.`);
                 }
@@ -1099,9 +1138,8 @@ const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBu
         }
     }
 
-    for (const b of [bufGen, bufSym, bufRefl, bufGroup, bufTab, bufPos, bufAssign,
-                     bufFit, bufRead, bufParams]) { try { b.destroy(); } catch (e) {} }
-
+// after
+    for (const b of [bufGen, bufSym, bufRefl, bufGroup, bufTab, bufSiteProj, bufPos, bufState, bufReadState, bufReadPos, bufParams]) { try { b.destroy(); } catch (e) {} }
     /* ---- 9. Report ---- */
     // Ranked by CC alone - the agreement between the observed and calculated
     // Patterson maps, which is the quantity that actually means something.

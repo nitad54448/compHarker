@@ -50,23 +50,37 @@
 // translations are searched as well, which is exact at any distance. The common
 // case injects 0 and the loop collapses to a single iteration.
 
+// after
 struct WyckoffProj { row0: vec4<f32>, row1: vec4<f32>, row2: vec4<f32> }
 
+struct ParticleMeta {
+    fit: f32,
+    cc: f32,
+    stepSize: f32,
+    curCC: f32,
+    curPen: f32,
+    tempOf: f32,
+    assign: u32,
+    pad: u32,
+}
+
+struct GlobalState {
+    acceptCount: atomic<u32>,
+    pad1: u32,
+    pad2: u32,
+    pad3: u32,
+    particles: array<ParticleMeta>,
+}
+
 @group(0) @binding(0) var<storage, read_write> particles: array<f32>;
-@group(0) @binding(1) var<storage, read> particleAssign: array<u32>;
+@group(0) @binding(1) var<storage, read_write> stateBuf: GlobalState;
 @group(0) @binding(2) var<storage, read> genPack: array<u32>;
 @group(0) @binding(3) var<storage, read> symOps: array<f32>;
 @group(0) @binding(4) var<storage, read> reflPack: array<u32>;
 @group(0) @binding(5) var<storage, read> groupData: array<f32>;
 @group(0) @binding(6) var<storage, read> tables: array<f32>;
-@group(0) @binding(7) var<storage, read_write> fitnesses: array<f32>;
+@group(0) @binding(7) var<storage, read> siteProj: array<WyckoffProj>;
 @group(0) @binding(8) var<uniform> params: Params;
-@group(0) @binding(9) var<storage, read> siteProj: array<WyckoffProj>;
-@group(0) @binding(10) var<storage, read_write> stepSizes: array<f32>;
-@group(0) @binding(11) var<storage, read_write> curCC: array<f32>;
-@group(0) @binding(12) var<storage, read_write> curPen: array<f32>;
-@group(0) @binding(13) var<storage, read> tempOf: array<f32>;
-@group(0) @binding(14) var<storage, read_write> acceptCount: array<atomic<u32>>;
 
 struct Params {
     o0: vec4<f32>, o1: vec4<f32>, o2: vec4<f32>,
@@ -180,7 +194,7 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
     let fTabOff  = u32(params.fTabOff);
     let centro   = params.centro > 0.5;
 
-    let A     = particleAssign[pIdx];
+  let A     = stateBuf.particles[pIdx].assign;
     let gBase = A * nTot;
     let pBase = pIdx * maxSites * 3u;
 
@@ -194,7 +208,7 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
                 prop_coords[s*3u + 2u] = particles[pBase + s*3u + 2u];
             }
         } else {
-            let step = stepSizes[pIdx];
+            let step = stateBuf.particles[pIdx].stepSize;
             let base_seed = params.seed ^ pIdx ^ params.generation;
 
             for (var s = 0u; s < mSites; s = s + 1u) {
@@ -561,14 +575,14 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
         //
         // Slot [pIdx] is the score the search follows; [numParticles + pIdx] is
         // the bare correlation.
-        fitnesses[pIdx] = cc - rPen[0];
-        fitnesses[u32(params.numParticles) + pIdx] = cc;
+        stateBuf.particles[pIdx].fit = cc - rPen[0];
+        stateBuf.particles[pIdx].cc = cc;
 
         // --- METROPOLIS ACCEPT/REJECT PHASE ---
         if (params.is_quench < 0.5) {
             let fProp = cc - rPen[0];
-            let cCC = curCC[pIdx];
-            let cPen = curPen[pIdx];
+            let cCC = stateBuf.particles[pIdx].curCC;
+            let cPen = stateBuf.particles[pIdx].curPen;
             
             var fCur: f32 = -1e30;
             if (cCC > -2.0) { fCur = cCC - cPen * params.penScale; }
@@ -577,12 +591,12 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
             if (fProp >= fCur || fCur < -9999.0) {
                 take = true;
             } else {
-                let threshold = exp((fProp - fCur) / tempOf[pIdx]);
+                let threshold = exp((fProp - fCur) / stateBuf.particles[pIdx].tempOf);
                 let rand_val = f32(pcg_hash(params.seed ^ pIdx ^ 9999u)) / 4294967295.0;
                 if (rand_val < threshold) { take = true; }
             }
 
-let step = stepSizes[pIdx];
+let step = stateBuf.particles[pIdx].stepSize;
             if (take) {
                 let mSites = u32(params.maxSites);
                 for (var s = 0u; s < mSites; s = s + 1u) {
@@ -590,12 +604,12 @@ let step = stepSizes[pIdx];
                     particles[pBase + s*3u + 1u] = prop_coords[s*3u + 1u];
                     particles[pBase + s*3u + 2u] = prop_coords[s*3u + 2u];
                 }
-                curCC[pIdx]  = cc;
-                curPen[pIdx] = rPen[0] / params.penScale; 
-                stepSizes[pIdx] = min(0.5, step * 1.058);
-                atomicAdd(&acceptCount[0], 1u);
+                stateBuf.particles[pIdx].curCC  = cc;
+                stateBuf.particles[pIdx].curPen = rPen[0] / params.penScale; 
+                stateBuf.particles[pIdx].stepSize = min(0.5, step * 1.058);
+                atomicAdd(&stateBuf.acceptCount, 1u);
             } else {
-                stepSizes[pIdx] = max(0.0002, step * 0.976);
+                stateBuf.particles[pIdx].stepSize = max(0.0002, step * 0.976);
             }
         }
     }
