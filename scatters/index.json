@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "generated_by": "cctbx_scatterers_v1.py",
+  "formula": "f(stol) = c + sum_i a_i * exp(-b_i * stol^2)",
+  "stol": "sin(theta)/lambda = 1/(2d) = s/2, where s = 1/d",
+  "preferred": "xray_wk1995.json",
+  "files": [
+    {
+      "name": "xray_wk1995.json",
+      "bytes": 49152
+    },
+    {
+      "name": "xray_it1992.json",
+      "bytes": 40773
+    },
+    {
+      "name": "neutron.json",
+      "bytes": 4639
+    }
+  ]
+}

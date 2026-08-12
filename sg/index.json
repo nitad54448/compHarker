@@ -1,0 +1,6982 @@
+{
+  "schema_version": 8,
+  "generated_by": "cctbx_Harko_v1.py",
+  "space_groups": {
+    "1": {
+      "number": 1,
+      "standard_symbol": "P 1",
+      "crystal_system": "triclinic",
+      "point_group": "1",
+      "laue_class": "-1",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/1.json",
+      "settings": [
+        {
+          "symbol": "P1",
+          "description": "standard",
+          "hall": "P 1",
+          "centering": "P",
+          "order_z": 1,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "2": {
+      "number": 2,
+      "standard_symbol": "P -1",
+      "crystal_system": "triclinic",
+      "point_group": "-1",
+      "laue_class": "-1",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/2.json",
+      "settings": [
+        {
+          "symbol": "P-1",
+          "description": "standard",
+          "hall": "-P 1",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "3": {
+      "number": 3,
+      "standard_symbol": "P 1 2 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/3.json",
+      "settings": [
+        {
+          "symbol": "P112",
+          "description": "c",
+          "hall": "P 2",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P121",
+          "description": "b",
+          "hall": "P 2y",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P211",
+          "description": "a",
+          "hall": "P 2x",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "4": {
+      "number": 4,
+      "standard_symbol": "P 1 21 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/4.json",
+      "settings": [
+        {
+          "symbol": "P1121",
+          "description": "c",
+          "hall": "P 2c",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P1211",
+          "description": "b",
+          "hall": "P 2yb",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P2111",
+          "description": "a",
+          "hall": "P 2xa",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "5": {
+      "number": 5,
+      "standard_symbol": "C 1 2 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/5.json",
+      "settings": [
+        {
+          "symbol": "A112",
+          "description": "c1",
+          "hall": "A 2",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "A121",
+          "description": "b2",
+          "hall": "A 2y",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "B112",
+          "description": "c2",
+          "hall": "B 2",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "B211",
+          "description": "a1",
+          "hall": "B 2x",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "C121",
+          "description": "b1",
+          "hall": "C 2y",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "C211",
+          "description": "a2",
+          "hall": "C 2x",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "I112",
+          "description": "c3",
+          "hall": "I 2",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "I121",
+          "description": "b3",
+          "hall": "I 2y",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "I211",
+          "description": "a3",
+          "hall": "I 2x",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "6": {
+      "number": 6,
+      "standard_symbol": "P 1 m 1",
+      "crystal_system": "monoclinic",
+      "point_group": "m",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/6.json",
+      "settings": [
+        {
+          "symbol": "P11m",
+          "description": "c",
+          "hall": "P -2",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "P1m1",
+          "description": "b",
+          "hall": "P -2y",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pm11",
+          "description": "a",
+          "hall": "P -2x",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "7": {
+      "number": 7,
+      "standard_symbol": "P 1 c 1",
+      "crystal_system": "monoclinic",
+      "point_group": "m",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/7.json",
+      "settings": [
+        {
+          "symbol": "P11a",
+          "description": "c1",
+          "hall": "P -2a",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P11b",
+          "description": "c3",
+          "hall": "P -2b",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P11n",
+          "description": "c2",
+          "hall": "P -2ab",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P1a1",
+          "description": "b3",
+          "hall": "P -2ya",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P1c1",
+          "description": "b1",
+          "hall": "P -2yc",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P1n1",
+          "description": "b2",
+          "hall": "P -2yac",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pb11",
+          "description": "a1",
+          "hall": "P -2xb",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pc11",
+          "description": "a3",
+          "hall": "P -2xc",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pn11",
+          "description": "a2",
+          "hall": "P -2xbc",
+          "centering": "P",
+          "order_z": 2,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "8": {
+      "number": 8,
+      "standard_symbol": "C 1 m 1",
+      "crystal_system": "monoclinic",
+      "point_group": "m",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/8.json",
+      "settings": [
+        {
+          "symbol": "A11m",
+          "description": "c1",
+          "hall": "A -2",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "A1m1",
+          "description": "b2",
+          "hall": "A -2y",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "B11m",
+          "description": "c2",
+          "hall": "B -2",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Bm11",
+          "description": "a1",
+          "hall": "B -2x",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "C1m1",
+          "description": "b1",
+          "hall": "C -2y",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Cm11",
+          "description": "a2",
+          "hall": "C -2x",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "I11m",
+          "description": "c3",
+          "hall": "I -2",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "I1m1",
+          "description": "b3",
+          "hall": "I -2y",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Im11",
+          "description": "a3",
+          "hall": "I -2x",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "9": {
+      "number": 9,
+      "standard_symbol": "C 1 c 1",
+      "crystal_system": "monoclinic",
+      "point_group": "m",
+      "laue_class": "2/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/9.json",
+      "settings": [
+        {
+          "symbol": "A11a",
+          "description": "c1",
+          "hall": "A -2a",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "A11n",
+          "description": "-c2",
+          "hall": "A -2ab",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "A1a1",
+          "description": "-b1",
+          "hall": "A -2ya",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "A1n1",
+          "description": "b2",
+          "hall": "A -2yab",
+          "centering": "A",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "B11b",
+          "description": "-c1",
+          "hall": "B -2b",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "B11n",
+          "description": "c2",
+          "hall": "B -2ab",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Bb11",
+          "description": "a1",
+          "hall": "B -2xb",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Bn11",
+          "description": "-a2",
+          "hall": "B -2xab",
+          "centering": "B",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "C1c1",
+          "description": "b1",
+          "hall": "C -2yc",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "C1n1",
+          "description": "-b2",
+          "hall": "C -2yac",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Cc11",
+          "description": "-a1",
+          "hall": "C -2xc",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Cn11",
+          "description": "a2",
+          "hall": "C -2xac",
+          "centering": "C",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "I11a",
+          "description": "-c3",
+          "hall": "I -2a",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "I11b",
+          "description": "c3",
+          "hall": "I -2b",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "I1a1",
+          "description": "b3",
+          "hall": "I -2ya",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "I1c1",
+          "description": "-b3",
+          "hall": "I -2yc",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Ib11",
+          "description": "-a3",
+          "hall": "I -2xb",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Ic11",
+          "description": "a3",
+          "hall": "I -2xc",
+          "centering": "I",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "10": {
+      "number": 10,
+      "standard_symbol": "P 1 2/m 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/10.json",
+      "settings": [
+        {
+          "symbol": "P112/m",
+          "description": "c",
+          "hall": "-P 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "P12/m1",
+          "description": "b",
+          "hall": "-P 2y",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "P2/m11",
+          "description": "a",
+          "hall": "-P 2x",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "11": {
+      "number": 11,
+      "standard_symbol": "P 1 21/m 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/11.json",
+      "settings": [
+        {
+          "symbol": "P1121/m",
+          "description": "c",
+          "hall": "-P 2c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "P121/m1",
+          "description": "b",
+          "hall": "-P 2yb",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "P21/m11",
+          "description": "a",
+          "hall": "-P 2xa",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "12": {
+      "number": 12,
+      "standard_symbol": "C 1 2/m 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/12.json",
+      "settings": [
+        {
+          "symbol": "A112/m",
+          "description": "c1",
+          "hall": "-A 2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "A12/m1",
+          "description": "b2",
+          "hall": "-A 2y",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "B112/m",
+          "description": "c2",
+          "hall": "-B 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "B2/m11",
+          "description": "a1",
+          "hall": "-B 2x",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "C12/m1",
+          "description": "b1",
+          "hall": "-C 2y",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "C2/m11",
+          "description": "a2",
+          "hall": "-C 2x",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "I112/m",
+          "description": "c3",
+          "hall": "-I 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "I12/m1",
+          "description": "b3",
+          "hall": "-I 2y",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "I2/m11",
+          "description": "a3",
+          "hall": "-I 2x",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "13": {
+      "number": 13,
+      "standard_symbol": "P 1 2/c 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/13.json",
+      "settings": [
+        {
+          "symbol": "P112/a",
+          "description": "c1",
+          "hall": "-P 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P112/b",
+          "description": "c3",
+          "hall": "-P 2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P112/n",
+          "description": "c2",
+          "hall": "-P 2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P12/a1",
+          "description": "b3",
+          "hall": "-P 2ya",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P12/c1",
+          "description": "b1",
+          "hall": "-P 2yc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P12/n1",
+          "description": "b2",
+          "hall": "-P 2yac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P2/b11",
+          "description": "a1",
+          "hall": "-P 2xb",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P2/c11",
+          "description": "a3",
+          "hall": "-P 2xc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P2/n11",
+          "description": "a2",
+          "hall": "-P 2xbc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "14": {
+      "number": 14,
+      "standard_symbol": "P 1 21/c 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/14.json",
+      "settings": [
+        {
+          "symbol": "P1121/a",
+          "description": "c1",
+          "hall": "-P 2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P1121/b",
+          "description": "c3",
+          "hall": "-P 2bc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P1121/n",
+          "description": "c2",
+          "hall": "-P 2n",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P121/a1",
+          "description": "b3",
+          "hall": "-P 2yab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P121/c1",
+          "description": "b1",
+          "hall": "-P 2ybc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P121/n1",
+          "description": "b2",
+          "hall": "-P 2yn",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P21/b11",
+          "description": "a1",
+          "hall": "-P 2xab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P21/c11",
+          "description": "a3",
+          "hall": "-P 2xac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P21/n11",
+          "description": "a2",
+          "hall": "-P 2xn",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "15": {
+      "number": 15,
+      "standard_symbol": "C 1 2/c 1",
+      "crystal_system": "monoclinic",
+      "point_group": "2/m",
+      "laue_class": "2/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/15.json",
+      "settings": [
+        {
+          "symbol": "A112/a",
+          "description": "c1",
+          "hall": "-A 2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "A112/n",
+          "description": "-c2",
+          "hall": "-A 2ab",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "A12/a1",
+          "description": "-b1",
+          "hall": "-A 2ya",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "A12/n1",
+          "description": "b2",
+          "hall": "-A 2yab",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "B112/b",
+          "description": "-c1",
+          "hall": "-B 2b",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "B112/n",
+          "description": "c2",
+          "hall": "-B 2ab",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "B2/b11",
+          "description": "a1",
+          "hall": "-B 2xb",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "B2/n11",
+          "description": "-a2",
+          "hall": "-B 2xab",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "C12/c1",
+          "description": "b1",
+          "hall": "-C 2yc",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "C12/n1",
+          "description": "-b2",
+          "hall": "-C 2yac",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "C2/c11",
+          "description": "-a1",
+          "hall": "-C 2xc",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "C2/n11",
+          "description": "a2",
+          "hall": "-C 2xac",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I112/a",
+          "description": "-c3",
+          "hall": "-I 2a",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I112/b",
+          "description": "c3",
+          "hall": "-I 2b",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I12/a1",
+          "description": "b3",
+          "hall": "-I 2ya",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I12/c1",
+          "description": "-b3",
+          "hall": "-I 2yc",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I2/b11",
+          "description": "-a3",
+          "hall": "-I 2xb",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I2/c11",
+          "description": "a3",
+          "hall": "-I 2xc",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "16": {
+      "number": 16,
+      "standard_symbol": "P 2 2 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/16.json",
+      "settings": [
+        {
+          "symbol": "P222",
+          "description": "standard",
+          "hall": "P 2 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 21
+        }
+      ]
+    },
+    "17": {
+      "number": 17,
+      "standard_symbol": "P 2 2 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/17.json",
+      "settings": [
+        {
+          "symbol": "P2122",
+          "description": "cab",
+          "hall": "P 2a 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P2212",
+          "description": "bca",
+          "hall": "P 2 2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "P2221",
+          "description": "standard",
+          "hall": "P 2c 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "18": {
+      "number": 18,
+      "standard_symbol": "P 21 21 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/18.json",
+      "settings": [
+        {
+          "symbol": "P21212",
+          "description": "standard",
+          "hall": "P 2 2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "P21221",
+          "description": "bca",
+          "hall": "P 2ac 2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "P22121",
+          "description": "cab",
+          "hall": "P 2bc 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "19": {
+      "number": 19,
+      "standard_symbol": "P 21 21 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/19.json",
+      "settings": [
+        {
+          "symbol": "P212121",
+          "description": "standard",
+          "hall": "P 2ac 2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "20": {
+      "number": 20,
+      "standard_symbol": "C 2 2 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/20.json",
+      "settings": [
+        {
+          "symbol": "A2122",
+          "description": "cab",
+          "hall": "A 2a 2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "B2212",
+          "description": "bca",
+          "hall": "B 2 2b",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "C2221",
+          "description": "standard",
+          "hall": "C 2c 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "21": {
+      "number": 21,
+      "standard_symbol": "C 2 2 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/21.json",
+      "settings": [
+        {
+          "symbol": "A222",
+          "description": "cab",
+          "hall": "A 2 2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "B222",
+          "description": "bca",
+          "hall": "B 2 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "C222",
+          "description": "standard",
+          "hall": "C 2 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "22": {
+      "number": 22,
+      "standard_symbol": "F 2 2 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/22.json",
+      "settings": [
+        {
+          "symbol": "F222",
+          "description": "standard",
+          "hall": "F 2 2",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "23": {
+      "number": 23,
+      "standard_symbol": "I 2 2 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/23.json",
+      "settings": [
+        {
+          "symbol": "I222",
+          "description": "standard",
+          "hall": "I 2 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "24": {
+      "number": 24,
+      "standard_symbol": "I 21 21 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "222",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/24.json",
+      "settings": [
+        {
+          "symbol": "I212121",
+          "description": "standard",
+          "hall": "I 2b 2c",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "25": {
+      "number": 25,
+      "standard_symbol": "P m m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/25.json",
+      "settings": [
+        {
+          "symbol": "P2mm",
+          "description": "cab",
+          "hall": "P -2 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pm2m",
+          "description": "bca",
+          "hall": "P -2 -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pmm2",
+          "description": "standard",
+          "hall": "P 2 -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "26": {
+      "number": 26,
+      "standard_symbol": "P m c 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/26.json",
+      "settings": [
+        {
+          "symbol": "P21am",
+          "description": "-cba",
+          "hall": "P -2 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "P21ma",
+          "description": "cab",
+          "hall": "P -2a 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pb21m",
+          "description": "bca",
+          "hall": "P -2 -2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pcm21",
+          "description": "ba-c",
+          "hall": "P 2c -2c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pm21b",
+          "description": "a-cb",
+          "hall": "P -2b -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pmc21",
+          "description": "standard",
+          "hall": "P 2c -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "27": {
+      "number": 27,
+      "standard_symbol": "P c c 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/27.json",
+      "settings": [
+        {
+          "symbol": "P2aa",
+          "description": "cab",
+          "hall": "P -2a 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pb2b",
+          "description": "bca",
+          "hall": "P -2b -2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pcc2",
+          "description": "standard",
+          "hall": "P 2 -2c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "28": {
+      "number": 28,
+      "standard_symbol": "P m a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/28.json",
+      "settings": [
+        {
+          "symbol": "P2cm",
+          "description": "-cba",
+          "hall": "P -2c 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "P2mb",
+          "description": "cab",
+          "hall": "P -2b 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pbm2",
+          "description": "ba-c",
+          "hall": "P 2 -2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pc2m",
+          "description": "bca",
+          "hall": "P -2c -2c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pm2a",
+          "description": "a-cb",
+          "hall": "P -2a -2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pma2",
+          "description": "standard",
+          "hall": "P 2 -2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "29": {
+      "number": 29,
+      "standard_symbol": "P c a 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/29.json",
+      "settings": [
+        {
+          "symbol": "P21ab",
+          "description": "cab",
+          "hall": "P -2b 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P21ca",
+          "description": "-cba",
+          "hall": "P -2ac 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pb21a",
+          "description": "a-cb",
+          "hall": "P -2a -2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pbc21",
+          "description": "ba-c",
+          "hall": "P 2c -2b",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pc21b",
+          "description": "bca",
+          "hall": "P -2bc -2c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pca21",
+          "description": "standard",
+          "hall": "P 2c -2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "30": {
+      "number": 30,
+      "standard_symbol": "P n c 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/30.json",
+      "settings": [
+        {
+          "symbol": "P2an",
+          "description": "-cba",
+          "hall": "P -2ab 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "P2na",
+          "description": "cab",
+          "hall": "P -2ac 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pb2n",
+          "description": "bca",
+          "hall": "P -2ab -2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pcn2",
+          "description": "ba-c",
+          "hall": "P 2 -2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pn2b",
+          "description": "a-cb",
+          "hall": "P -2bc -2bc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pnc2",
+          "description": "standard",
+          "hall": "P 2 -2bc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "31": {
+      "number": 31,
+      "standard_symbol": "P m n 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/31.json",
+      "settings": [
+        {
+          "symbol": "P21mn",
+          "description": "cab",
+          "hall": "P -2ab 2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "P21nm",
+          "description": "-cba",
+          "hall": "P -2 2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Pm21n",
+          "description": "a-cb",
+          "hall": "P -2ab -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Pmn21",
+          "description": "standard",
+          "hall": "P 2ac -2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Pn21m",
+          "description": "bca",
+          "hall": "P -2 -2bc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Pnm21",
+          "description": "ba-c",
+          "hall": "P 2bc -2bc",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "32": {
+      "number": 32,
+      "standard_symbol": "P b a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/32.json",
+      "settings": [
+        {
+          "symbol": "P2cb",
+          "description": "cab",
+          "hall": "P -2bc 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pba2",
+          "description": "standard",
+          "hall": "P 2 -2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pc2a",
+          "description": "bca",
+          "hall": "P -2ac -2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "33": {
+      "number": 33,
+      "standard_symbol": "P n a 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/33.json",
+      "settings": [
+        {
+          "symbol": "P21cn",
+          "description": "-cba",
+          "hall": "P -2n 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "P21nb",
+          "description": "cab",
+          "hall": "P -2bc 2a",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pbn21",
+          "description": "ba-c",
+          "hall": "P 2c -2ab",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pc21n",
+          "description": "bca",
+          "hall": "P -2n -2ac",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pn21a",
+          "description": "a-cb",
+          "hall": "P -2ac -2n",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        },
+        {
+          "symbol": "Pna21",
+          "description": "standard",
+          "hall": "P 2c -2n",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "34": {
+      "number": 34,
+      "standard_symbol": "P n n 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/34.json",
+      "settings": [
+        {
+          "symbol": "P2nn",
+          "description": "cab",
+          "hall": "P -2n 2",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pn2n",
+          "description": "bca",
+          "hall": "P -2n -2n",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pnn2",
+          "description": "standard",
+          "hall": "P 2 -2n",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "35": {
+      "number": 35,
+      "standard_symbol": "C m m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/35.json",
+      "settings": [
+        {
+          "symbol": "A2mm",
+          "description": "cab",
+          "hall": "A -2 2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Bm2m",
+          "description": "bca",
+          "hall": "B -2 -2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Cmm2",
+          "description": "standard",
+          "hall": "C 2 -2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "36": {
+      "number": 36,
+      "standard_symbol": "C m c 21",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/36.json",
+      "settings": [
+        {
+          "symbol": "A21am",
+          "description": "-cba",
+          "hall": "A -2 2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "A21ma",
+          "description": "cab",
+          "hall": "A -2a 2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Bb21m",
+          "description": "bca",
+          "hall": "B -2 -2b",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Bm21b",
+          "description": "a-cb",
+          "hall": "B -2b -2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Ccm21",
+          "description": "ba-c",
+          "hall": "C 2c -2c",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Cmc21",
+          "description": "standard",
+          "hall": "C 2c -2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "37": {
+      "number": 37,
+      "standard_symbol": "C c c 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/37.json",
+      "settings": [
+        {
+          "symbol": "A2aa",
+          "description": "cab",
+          "hall": "A -2a 2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Bb2b",
+          "description": "bca",
+          "hall": "B -2b -2b",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Ccc2",
+          "description": "standard",
+          "hall": "C 2 -2c",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "38": {
+      "number": 38,
+      "standard_symbol": "A m m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/38.json",
+      "settings": [
+        {
+          "symbol": "Am2m",
+          "description": "a-cb",
+          "hall": "A -2 -2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Amm2",
+          "description": "standard",
+          "hall": "A 2 -2",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "B2mm",
+          "description": "cab",
+          "hall": "B -2 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Bmm2",
+          "description": "ba-c",
+          "hall": "B 2 -2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "C2mm",
+          "description": "-cba",
+          "hall": "C -2 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Cm2m",
+          "description": "bca",
+          "hall": "C -2 -2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "39": {
+      "number": 39,
+      "standard_symbol": "A b m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/39.json",
+      "settings": [
+        {
+          "symbol": "Abm2",
+          "description": "standard",
+          "hall": "A 2 -2b",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Ac2m",
+          "description": "a-cb",
+          "hall": "A -2b -2b",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "B2cm",
+          "description": "cab",
+          "hall": "B -2a 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Bma2",
+          "description": "ba-c",
+          "hall": "B 2 -2a",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "C2mb",
+          "description": "-cba",
+          "hall": "C -2a 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Cm2a",
+          "description": "bca",
+          "hall": "C -2a -2a",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "40": {
+      "number": 40,
+      "standard_symbol": "A m a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/40.json",
+      "settings": [
+        {
+          "symbol": "Am2a",
+          "description": "a-cb",
+          "hall": "A -2a -2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Ama2",
+          "description": "standard",
+          "hall": "A 2 -2a",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "B2mb",
+          "description": "cab",
+          "hall": "B -2b 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Bbm2",
+          "description": "ba-c",
+          "hall": "B 2 -2b",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "C2cm",
+          "description": "-cba",
+          "hall": "C -2c 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Cc2m",
+          "description": "bca",
+          "hall": "C -2c -2c",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "41": {
+      "number": 41,
+      "standard_symbol": "A b a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/41.json",
+      "settings": [
+        {
+          "symbol": "Aba2",
+          "description": "standard",
+          "hall": "A 2 -2ab",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Ac2a",
+          "description": "a-cb",
+          "hall": "A -2ab -2ab",
+          "centering": "A",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "B2cb",
+          "description": "cab",
+          "hall": "B -2ab 2",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Bba2",
+          "description": "ba-c",
+          "hall": "B 2 -2ab",
+          "centering": "B",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "C2cb",
+          "description": "-cba",
+          "hall": "C -2ac 2",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Cc2a",
+          "description": "bca",
+          "hall": "C -2ac -2ac",
+          "centering": "C",
+          "order_z": 8,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "42": {
+      "number": 42,
+      "standard_symbol": "F m m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/42.json",
+      "settings": [
+        {
+          "symbol": "F2mm",
+          "description": "cab",
+          "hall": "F -2 2",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Fm2m",
+          "description": "bca",
+          "hall": "F -2 -2",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Fmm2",
+          "description": "standard",
+          "hall": "F 2 -2",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "43": {
+      "number": 43,
+      "standard_symbol": "F d d 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/43.json",
+      "settings": [
+        {
+          "symbol": "F2dd",
+          "description": "cab",
+          "hall": "F -2d 2",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Fd2d",
+          "description": "bca",
+          "hall": "F -2d -2d",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "Fdd2",
+          "description": "standard",
+          "hall": "F 2 -2d",
+          "centering": "F",
+          "order_z": 16,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "44": {
+      "number": 44,
+      "standard_symbol": "I m m 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/44.json",
+      "settings": [
+        {
+          "symbol": "I2mm",
+          "description": "cab",
+          "hall": "I -2 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Im2m",
+          "description": "bca",
+          "hall": "I -2 -2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Imm2",
+          "description": "standard",
+          "hall": "I 2 -2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "45": {
+      "number": 45,
+      "standard_symbol": "I b a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/45.json",
+      "settings": [
+        {
+          "symbol": "I2cb",
+          "description": "cab",
+          "hall": "I -2a 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Iba2",
+          "description": "standard",
+          "hall": "I 2 -2c",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Ic2a",
+          "description": "bca",
+          "hall": "I -2b -2b",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "46": {
+      "number": 46,
+      "standard_symbol": "I m a 2",
+      "crystal_system": "orthorhombic",
+      "point_group": "mm2",
+      "laue_class": "mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/46.json",
+      "settings": [
+        {
+          "symbol": "I2cm",
+          "description": "-cba",
+          "hall": "I -2c 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "I2mb",
+          "description": "cab",
+          "hall": "I -2b 2",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Ibm2",
+          "description": "ba-c",
+          "hall": "I 2 -2b",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Ic2m",
+          "description": "bca",
+          "hall": "I -2c -2c",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Im2a",
+          "description": "a-cb",
+          "hall": "I -2a -2a",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Ima2",
+          "description": "standard",
+          "hall": "I 2 -2a",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "47": {
+      "number": 47,
+      "standard_symbol": "P m m m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/47.json",
+      "settings": [
+        {
+          "symbol": "Pmmm",
+          "description": "standard",
+          "hall": "-P 2 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 27
+        }
+      ]
+    },
+    "48": {
+      "number": 48,
+      "standard_symbol": "P n n n :1",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/48.json",
+      "settings": [
+        {
+          "symbol": "Pnnn",
+          "description": "standard",
+          "hall": "P 2 2 -1n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pnnn",
+          "description": "standard",
+          "hall": "-P 2ab 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "49": {
+      "number": 49,
+      "standard_symbol": "P c c m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/49.json",
+      "settings": [
+        {
+          "symbol": "Pbmb",
+          "description": "bca",
+          "hall": "-P 2b 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 18
+        },
+        {
+          "symbol": "Pccm",
+          "description": "standard",
+          "hall": "-P 2 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 18
+        },
+        {
+          "symbol": "Pmaa",
+          "description": "cab",
+          "hall": "-P 2a 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 18
+        }
+      ]
+    },
+    "50": {
+      "number": 50,
+      "standard_symbol": "P b a n :1",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/50.json",
+      "settings": [
+        {
+          "symbol": "Pban",
+          "description": "standard",
+          "hall": "P 2 2 -1ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pban",
+          "description": "standard",
+          "hall": "-P 2ab 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pcna",
+          "description": "bca",
+          "hall": "P 2 2 -1ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pcna",
+          "description": "bca",
+          "hall": "-P 2a 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pncb",
+          "description": "cab",
+          "hall": "P 2 2 -1bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Pncb",
+          "description": "cab",
+          "hall": "-P 2b 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "51": {
+      "number": 51,
+      "standard_symbol": "P m m a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/51.json",
+      "settings": [
+        {
+          "symbol": "Pbmm",
+          "description": "cab",
+          "hall": "-P 2 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pcmm",
+          "description": "-cba",
+          "hall": "-P 2c 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pmam",
+          "description": "a-cb",
+          "hall": "-P 2 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pmcm",
+          "description": "bca",
+          "hall": "-P 2c 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pmma",
+          "description": "standard",
+          "hall": "-P 2a 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pmmb",
+          "description": "ba-c",
+          "hall": "-P 2b 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "52": {
+      "number": 52,
+      "standard_symbol": "P n n a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/52.json",
+      "settings": [
+        {
+          "symbol": "Pbnn",
+          "description": "cab",
+          "hall": "-P 2n 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pcnn",
+          "description": "-cba",
+          "hall": "-P 2ab 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pnan",
+          "description": "a-cb",
+          "hall": "-P 2n 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pncn",
+          "description": "bca",
+          "hall": "-P 2ab 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pnna",
+          "description": "standard",
+          "hall": "-P 2a 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pnnb",
+          "description": "ba-c",
+          "hall": "-P 2b 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "53": {
+      "number": 53,
+      "standard_symbol": "P m n a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/53.json",
+      "settings": [
+        {
+          "symbol": "Pbmn",
+          "description": "cab",
+          "hall": "-P 2ab 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pcnm",
+          "description": "-cba",
+          "hall": "-P 2 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pman",
+          "description": "a-cb",
+          "hall": "-P 2ab 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pmna",
+          "description": "standard",
+          "hall": "-P 2ac 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pncm",
+          "description": "bca",
+          "hall": "-P 2 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pnmb",
+          "description": "ba-c",
+          "hall": "-P 2bc 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "54": {
+      "number": 54,
+      "standard_symbol": "P c c a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/54.json",
+      "settings": [
+        {
+          "symbol": "Pbaa",
+          "description": "cab",
+          "hall": "-P 2a 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Pbab",
+          "description": "a-cb",
+          "hall": "-P 2b 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Pbcb",
+          "description": "bca",
+          "hall": "-P 2bc 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Pcaa",
+          "description": "-cba",
+          "hall": "-P 2ac 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Pcca",
+          "description": "standard",
+          "hall": "-P 2a 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Pccb",
+          "description": "ba-c",
+          "hall": "-P 2b 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "55": {
+      "number": 55,
+      "standard_symbol": "P b a m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/55.json",
+      "settings": [
+        {
+          "symbol": "Pbam",
+          "description": "standard",
+          "hall": "-P 2 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pcma",
+          "description": "bca",
+          "hall": "-P 2ac 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pmcb",
+          "description": "cab",
+          "hall": "-P 2bc 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "56": {
+      "number": 56,
+      "standard_symbol": "P c c n",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/56.json",
+      "settings": [
+        {
+          "symbol": "Pbnb",
+          "description": "bca",
+          "hall": "-P 2bc 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pccn",
+          "description": "standard",
+          "hall": "-P 2ab 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pnaa",
+          "description": "cab",
+          "hall": "-P 2ac 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "57": {
+      "number": 57,
+      "standard_symbol": "P b c m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/57.json",
+      "settings": [
+        {
+          "symbol": "Pbcm",
+          "description": "standard",
+          "hall": "-P 2c 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pbma",
+          "description": "bca",
+          "hall": "-P 2a 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pcam",
+          "description": "ba-c",
+          "hall": "-P 2c 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pcmb",
+          "description": "a-cb",
+          "hall": "-P 2bc 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pmab",
+          "description": "-cba",
+          "hall": "-P 2b 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        },
+        {
+          "symbol": "Pmca",
+          "description": "cab",
+          "hall": "-P 2ac 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "58": {
+      "number": 58,
+      "standard_symbol": "P n n m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/58.json",
+      "settings": [
+        {
+          "symbol": "Pmnn",
+          "description": "cab",
+          "hall": "-P 2n 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Pnmn",
+          "description": "bca",
+          "hall": "-P 2n 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Pnnm",
+          "description": "standard",
+          "hall": "-P 2 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "59": {
+      "number": 59,
+      "standard_symbol": "P m m n :1",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/59.json",
+      "settings": [
+        {
+          "symbol": "Pmmn",
+          "description": "standard",
+          "hall": "P 2 2ab -1ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Pmmn",
+          "description": "standard",
+          "hall": "-P 2ab 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Pmnm",
+          "description": "bca",
+          "hall": "P 2ac 2ac -1ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Pmnm",
+          "description": "bca",
+          "hall": "-P 2c 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Pnmm",
+          "description": "cab",
+          "hall": "P 2bc 2 -1bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Pnmm",
+          "description": "cab",
+          "hall": "-P 2c 2bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "60": {
+      "number": 60,
+      "standard_symbol": "P b c n",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/60.json",
+      "settings": [
+        {
+          "symbol": "Pbcn",
+          "description": "standard",
+          "hall": "-P 2n 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pbna",
+          "description": "bca",
+          "hall": "-P 2ac 2b",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pcan",
+          "description": "ba-c",
+          "hall": "-P 2n 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pcnb",
+          "description": "a-cb",
+          "hall": "-P 2b 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pnab",
+          "description": "-cba",
+          "hall": "-P 2bc 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pnca",
+          "description": "cab",
+          "hall": "-P 2a 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "61": {
+      "number": 61,
+      "standard_symbol": "P b c a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/61.json",
+      "settings": [
+        {
+          "symbol": "Pbca",
+          "description": "standard",
+          "hall": "-P 2ac 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "Pcab",
+          "description": "ba-c",
+          "hall": "-P 2bc 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "62": {
+      "number": 62,
+      "standard_symbol": "P n m a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/62.json",
+      "settings": [
+        {
+          "symbol": "Pbnm",
+          "description": "cab",
+          "hall": "-P 2c 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pcmn",
+          "description": "-cba",
+          "hall": "-P 2n 2ac",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pmcn",
+          "description": "bca",
+          "hall": "-P 2n 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pmnb",
+          "description": "ba-c",
+          "hall": "-P 2bc 2a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pnam",
+          "description": "a-cb",
+          "hall": "-P 2c 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        },
+        {
+          "symbol": "Pnma",
+          "description": "standard",
+          "hall": "-P 2ac 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "63": {
+      "number": 63,
+      "standard_symbol": "C m c m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/63.json",
+      "settings": [
+        {
+          "symbol": "Amam",
+          "description": "-cba",
+          "hall": "-A 2 2a",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Amma",
+          "description": "cab",
+          "hall": "-A 2a 2a",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Bbmm",
+          "description": "bca",
+          "hall": "-B 2 2b",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Bmmb",
+          "description": "a-cb",
+          "hall": "-B 2b 2",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Ccmm",
+          "description": "ba-c",
+          "hall": "-C 2c 2c",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Cmcm",
+          "description": "standard",
+          "hall": "-C 2c 2",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "64": {
+      "number": 64,
+      "standard_symbol": "C m c a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/64.json",
+      "settings": [
+        {
+          "symbol": "Abma",
+          "description": "cab",
+          "hall": "-A 2ab 2ab",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Acam",
+          "description": "-cba",
+          "hall": "-A 2 2ab",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Bbcm",
+          "description": "bca",
+          "hall": "-B 2 2ab",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Bmab",
+          "description": "a-cb",
+          "hall": "-B 2ab 2",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Ccmb",
+          "description": "ba-c",
+          "hall": "-C 2ac 2ac",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Cmca",
+          "description": "standard",
+          "hall": "-C 2ac 2",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "65": {
+      "number": 65,
+      "standard_symbol": "C m m m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/65.json",
+      "settings": [
+        {
+          "symbol": "Ammm",
+          "description": "cab",
+          "hall": "-A 2 2",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 18
+        },
+        {
+          "symbol": "Bmmm",
+          "description": "bca",
+          "hall": "-B 2 2",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 18
+        },
+        {
+          "symbol": "Cmmm",
+          "description": "standard",
+          "hall": "-C 2 2",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 18
+        }
+      ]
+    },
+    "66": {
+      "number": 66,
+      "standard_symbol": "C c c m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/66.json",
+      "settings": [
+        {
+          "symbol": "Amaa",
+          "description": "cab",
+          "hall": "-A 2a 2",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Bbmb",
+          "description": "bca",
+          "hall": "-B 2b 2b",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 13
+        },
+        {
+          "symbol": "Cccm",
+          "description": "standard",
+          "hall": "-C 2 2c",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "67": {
+      "number": 67,
+      "standard_symbol": "C m m a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/67.json",
+      "settings": [
+        {
+          "symbol": "Abmm",
+          "description": "cab",
+          "hall": "-A 2b 2b",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "Acmm",
+          "description": "-cba",
+          "hall": "-A 2 2b",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "Bmam",
+          "description": "a-cb",
+          "hall": "-B 2a 2",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "Bmcm",
+          "description": "bca",
+          "hall": "-B 2 2a",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "Cmma",
+          "description": "standard",
+          "hall": "-C 2a 2",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 15
+        },
+        {
+          "symbol": "Cmmb",
+          "description": "ba-c",
+          "hall": "-C 2a 2a",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "68": {
+      "number": 68,
+      "standard_symbol": "C c c a :1",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/68.json",
+      "settings": [
+        {
+          "symbol": "Abaa",
+          "description": "cab",
+          "hall": "A 2 2 -1ab",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Abaa",
+          "description": "cab",
+          "hall": "-A 2a 2b",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Acaa",
+          "description": "-cba",
+          "hall": "-A 2ab 2b",
+          "centering": "A",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Bbab",
+          "description": "a-cb",
+          "hall": "-B 2b 2ab",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Bbcb",
+          "description": "bca",
+          "hall": "B 2 2 -1ab",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Bbcb",
+          "description": "bca",
+          "hall": "-B 2ab 2b",
+          "centering": "B",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Ccca",
+          "description": "standard",
+          "hall": "C 2 2 -1ac",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Ccca",
+          "description": "standard",
+          "hall": "-C 2a 2ac",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Cccb",
+          "description": "ba-c",
+          "hall": "-C 2a 2c",
+          "centering": "C",
+          "order_z": 16,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "69": {
+      "number": 69,
+      "standard_symbol": "F m m m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/69.json",
+      "settings": [
+        {
+          "symbol": "Fmmm",
+          "description": "standard",
+          "hall": "-F 2 2",
+          "centering": "F",
+          "order_z": 32,
+          "n_wyckoff": 16
+        }
+      ]
+    },
+    "70": {
+      "number": 70,
+      "standard_symbol": "F d d d :1",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/70.json",
+      "settings": [
+        {
+          "symbol": "Fddd",
+          "description": "standard",
+          "hall": "F 2 2 -1d",
+          "centering": "F",
+          "order_z": 32,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Fddd",
+          "description": "standard",
+          "hall": "-F 2uv 2vw",
+          "centering": "F",
+          "order_z": 32,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "71": {
+      "number": 71,
+      "standard_symbol": "I m m m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/71.json",
+      "settings": [
+        {
+          "symbol": "Immm",
+          "description": "standard",
+          "hall": "-I 2 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "72": {
+      "number": 72,
+      "standard_symbol": "I b a m",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/72.json",
+      "settings": [
+        {
+          "symbol": "Ibam",
+          "description": "standard",
+          "hall": "-I 2 2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 11
+        },
+        {
+          "symbol": "Icma",
+          "description": "bca",
+          "hall": "-I 2b 2b",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 11
+        },
+        {
+          "symbol": "Imcb",
+          "description": "cab",
+          "hall": "-I 2a 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "73": {
+      "number": 73,
+      "standard_symbol": "I b c a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/73.json",
+      "settings": [
+        {
+          "symbol": "Ibca",
+          "description": "standard",
+          "hall": "-I 2b 2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "Icab",
+          "description": "ba-c",
+          "hall": "-I 2a 2b",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "74": {
+      "number": 74,
+      "standard_symbol": "I m m a",
+      "crystal_system": "orthorhombic",
+      "point_group": "mmm",
+      "laue_class": "mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/74.json",
+      "settings": [
+        {
+          "symbol": "Ibmm",
+          "description": "cab",
+          "hall": "-I 2c 2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "Icmm",
+          "description": "-cba",
+          "hall": "-I 2 2b",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "Imam",
+          "description": "a-cb",
+          "hall": "-I 2c 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "Imcm",
+          "description": "bca",
+          "hall": "-I 2 2a",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "Imma",
+          "description": "standard",
+          "hall": "-I 2b 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "Immb",
+          "description": "ba-c",
+          "hall": "-I 2a 2a",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "75": {
+      "number": 75,
+      "standard_symbol": "P 4",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/75.json",
+      "settings": [
+        {
+          "symbol": "P4",
+          "description": "standard",
+          "hall": "P 4",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "76": {
+      "number": 76,
+      "standard_symbol": "P 41",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/76.json",
+      "settings": [
+        {
+          "symbol": "P41",
+          "description": "standard",
+          "hall": "P 4w",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "77": {
+      "number": 77,
+      "standard_symbol": "P 42",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/77.json",
+      "settings": [
+        {
+          "symbol": "P42",
+          "description": "standard",
+          "hall": "P 4c",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "78": {
+      "number": 78,
+      "standard_symbol": "P 43",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/78.json",
+      "settings": [
+        {
+          "symbol": "P43",
+          "description": "standard",
+          "hall": "P 4cw",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "79": {
+      "number": 79,
+      "standard_symbol": "I 4",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/79.json",
+      "settings": [
+        {
+          "symbol": "I4",
+          "description": "standard",
+          "hall": "I 4",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "80": {
+      "number": 80,
+      "standard_symbol": "I 41",
+      "crystal_system": "tetragonal",
+      "point_group": "4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/80.json",
+      "settings": [
+        {
+          "symbol": "I41",
+          "description": "standard",
+          "hall": "I 4bw",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "81": {
+      "number": 81,
+      "standard_symbol": "P -4",
+      "crystal_system": "tetragonal",
+      "point_group": "-4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/81.json",
+      "settings": [
+        {
+          "symbol": "P-4",
+          "description": "standard",
+          "hall": "P -4",
+          "centering": "P",
+          "order_z": 4,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "82": {
+      "number": 82,
+      "standard_symbol": "I -4",
+      "crystal_system": "tetragonal",
+      "point_group": "-4",
+      "laue_class": "4/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/82.json",
+      "settings": [
+        {
+          "symbol": "I-4",
+          "description": "standard",
+          "hall": "I -4",
+          "centering": "I",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "83": {
+      "number": 83,
+      "standard_symbol": "P 4/m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/83.json",
+      "settings": [
+        {
+          "symbol": "P4/m",
+          "description": "standard",
+          "hall": "-P 4",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "84": {
+      "number": 84,
+      "standard_symbol": "P 42/m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/84.json",
+      "settings": [
+        {
+          "symbol": "P42/m",
+          "description": "standard",
+          "hall": "-P 4c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "85": {
+      "number": 85,
+      "standard_symbol": "P 4/n :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/85.json",
+      "settings": [
+        {
+          "symbol": "P4/n",
+          "description": "standard",
+          "hall": "P 4ab -1ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P4/n",
+          "description": "standard",
+          "hall": "-P 4a",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "86": {
+      "number": 86,
+      "standard_symbol": "P 42/n :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/86.json",
+      "settings": [
+        {
+          "symbol": "P42/n",
+          "description": "standard",
+          "hall": "P 4n -1n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P42/n",
+          "description": "standard",
+          "hall": "-P 4bc",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "87": {
+      "number": 87,
+      "standard_symbol": "I 4/m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/87.json",
+      "settings": [
+        {
+          "symbol": "I4/m",
+          "description": "standard",
+          "hall": "-I 4",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "88": {
+      "number": 88,
+      "standard_symbol": "I 41/a :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/m",
+      "laue_class": "4/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/88.json",
+      "settings": [
+        {
+          "symbol": "I41/a",
+          "description": "standard",
+          "hall": "I 4bw -1bw",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "I41/a",
+          "description": "standard",
+          "hall": "-I 4ad",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "89": {
+      "number": 89,
+      "standard_symbol": "P 4 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/89.json",
+      "settings": [
+        {
+          "symbol": "P422",
+          "description": "standard",
+          "hall": "P 4 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 16
+        }
+      ]
+    },
+    "90": {
+      "number": 90,
+      "standard_symbol": "P 4 21 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/90.json",
+      "settings": [
+        {
+          "symbol": "P4212",
+          "description": "standard",
+          "hall": "P 4ab 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "91": {
+      "number": 91,
+      "standard_symbol": "P 41 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/91.json",
+      "settings": [
+        {
+          "symbol": "P4122",
+          "description": "standard",
+          "hall": "P 4w 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "92": {
+      "number": 92,
+      "standard_symbol": "P 41 21 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/92.json",
+      "settings": [
+        {
+          "symbol": "P41212",
+          "description": "standard",
+          "hall": "P 4abw 2nw",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "93": {
+      "number": 93,
+      "standard_symbol": "P 42 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/93.json",
+      "settings": [
+        {
+          "symbol": "P4222",
+          "description": "standard",
+          "hall": "P 4c 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 16
+        }
+      ]
+    },
+    "94": {
+      "number": 94,
+      "standard_symbol": "P 42 21 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/94.json",
+      "settings": [
+        {
+          "symbol": "P42212",
+          "description": "standard",
+          "hall": "P 4n 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "95": {
+      "number": 95,
+      "standard_symbol": "P 43 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/95.json",
+      "settings": [
+        {
+          "symbol": "P4322",
+          "description": "standard",
+          "hall": "P 4cw 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "96": {
+      "number": 96,
+      "standard_symbol": "P 43 21 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/96.json",
+      "settings": [
+        {
+          "symbol": "P43212",
+          "description": "standard",
+          "hall": "P 4nw 2abw",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "97": {
+      "number": 97,
+      "standard_symbol": "I 4 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/97.json",
+      "settings": [
+        {
+          "symbol": "I422",
+          "description": "standard",
+          "hall": "I 4 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "98": {
+      "number": 98,
+      "standard_symbol": "I 41 2 2",
+      "crystal_system": "tetragonal",
+      "point_group": "422",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/98.json",
+      "settings": [
+        {
+          "symbol": "I4122",
+          "description": "standard",
+          "hall": "I 4bw 2bw",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "99": {
+      "number": 99,
+      "standard_symbol": "P 4 m m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/99.json",
+      "settings": [
+        {
+          "symbol": "P4mm",
+          "description": "standard",
+          "hall": "P 4 -2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "100": {
+      "number": 100,
+      "standard_symbol": "P 4 b m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/100.json",
+      "settings": [
+        {
+          "symbol": "P4bm",
+          "description": "standard",
+          "hall": "P 4 -2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "101": {
+      "number": 101,
+      "standard_symbol": "P 42 c m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/101.json",
+      "settings": [
+        {
+          "symbol": "P42cm",
+          "description": "standard",
+          "hall": "P 4c -2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "102": {
+      "number": 102,
+      "standard_symbol": "P 42 n m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/102.json",
+      "settings": [
+        {
+          "symbol": "P42nm",
+          "description": "standard",
+          "hall": "P 4n -2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "103": {
+      "number": 103,
+      "standard_symbol": "P 4 c c",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/103.json",
+      "settings": [
+        {
+          "symbol": "P4cc",
+          "description": "standard",
+          "hall": "P 4 -2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "104": {
+      "number": 104,
+      "standard_symbol": "P 4 n c",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/104.json",
+      "settings": [
+        {
+          "symbol": "P4nc",
+          "description": "standard",
+          "hall": "P 4 -2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "105": {
+      "number": 105,
+      "standard_symbol": "P 42 m c",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/105.json",
+      "settings": [
+        {
+          "symbol": "P42mc",
+          "description": "standard",
+          "hall": "P 4c -2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "106": {
+      "number": 106,
+      "standard_symbol": "P 42 b c",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/106.json",
+      "settings": [
+        {
+          "symbol": "P42bc",
+          "description": "standard",
+          "hall": "P 4c -2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "107": {
+      "number": 107,
+      "standard_symbol": "I 4 m m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/107.json",
+      "settings": [
+        {
+          "symbol": "I4mm",
+          "description": "standard",
+          "hall": "I 4 -2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "108": {
+      "number": 108,
+      "standard_symbol": "I 4 c m",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/108.json",
+      "settings": [
+        {
+          "symbol": "I4cm",
+          "description": "standard",
+          "hall": "I 4 -2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "109": {
+      "number": 109,
+      "standard_symbol": "I 41 m d",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/109.json",
+      "settings": [
+        {
+          "symbol": "I41md",
+          "description": "standard",
+          "hall": "I 4bw -2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "110": {
+      "number": 110,
+      "standard_symbol": "I 41 c d",
+      "crystal_system": "tetragonal",
+      "point_group": "4mm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/110.json",
+      "settings": [
+        {
+          "symbol": "I41cd",
+          "description": "standard",
+          "hall": "I 4bw -2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "111": {
+      "number": 111,
+      "standard_symbol": "P -4 2 m",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/111.json",
+      "settings": [
+        {
+          "symbol": "P-42m",
+          "description": "standard",
+          "hall": "P -4 2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "112": {
+      "number": 112,
+      "standard_symbol": "P -4 2 c",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/112.json",
+      "settings": [
+        {
+          "symbol": "P-42c",
+          "description": "standard",
+          "hall": "P -4 2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "113": {
+      "number": 113,
+      "standard_symbol": "P -4 21 m",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/113.json",
+      "settings": [
+        {
+          "symbol": "P-421m",
+          "description": "standard",
+          "hall": "P -4 2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "114": {
+      "number": 114,
+      "standard_symbol": "P -4 21 c",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/114.json",
+      "settings": [
+        {
+          "symbol": "P-421c",
+          "description": "standard",
+          "hall": "P -4 2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "115": {
+      "number": 115,
+      "standard_symbol": "P -4 m 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/115.json",
+      "settings": [
+        {
+          "symbol": "P-4m2",
+          "description": "standard",
+          "hall": "P -4 -2",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "116": {
+      "number": 116,
+      "standard_symbol": "P -4 c 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/116.json",
+      "settings": [
+        {
+          "symbol": "P-4c2",
+          "description": "standard",
+          "hall": "P -4 -2c",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "117": {
+      "number": 117,
+      "standard_symbol": "P -4 b 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/117.json",
+      "settings": [
+        {
+          "symbol": "P-4b2",
+          "description": "standard",
+          "hall": "P -4 -2ab",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "118": {
+      "number": 118,
+      "standard_symbol": "P -4 n 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/118.json",
+      "settings": [
+        {
+          "symbol": "P-4n2",
+          "description": "standard",
+          "hall": "P -4 -2n",
+          "centering": "P",
+          "order_z": 8,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "119": {
+      "number": 119,
+      "standard_symbol": "I -4 m 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/119.json",
+      "settings": [
+        {
+          "symbol": "I-4m2",
+          "description": "standard",
+          "hall": "I -4 -2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "120": {
+      "number": 120,
+      "standard_symbol": "I -4 c 2",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/120.json",
+      "settings": [
+        {
+          "symbol": "I-4c2",
+          "description": "standard",
+          "hall": "I -4 -2c",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "121": {
+      "number": 121,
+      "standard_symbol": "I -4 2 m",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/121.json",
+      "settings": [
+        {
+          "symbol": "I-42m",
+          "description": "standard",
+          "hall": "I -4 2",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "122": {
+      "number": 122,
+      "standard_symbol": "I -4 2 d",
+      "crystal_system": "tetragonal",
+      "point_group": "-42m",
+      "laue_class": "4/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/122.json",
+      "settings": [
+        {
+          "symbol": "I-42d",
+          "description": "standard",
+          "hall": "I -4 2bw",
+          "centering": "I",
+          "order_z": 16,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "123": {
+      "number": 123,
+      "standard_symbol": "P 4/m m m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/123.json",
+      "settings": [
+        {
+          "symbol": "P4/mmm",
+          "description": "standard",
+          "hall": "-P 4 2",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 21
+        }
+      ]
+    },
+    "124": {
+      "number": 124,
+      "standard_symbol": "P 4/m c c",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/124.json",
+      "settings": [
+        {
+          "symbol": "P4/mcc",
+          "description": "standard",
+          "hall": "-P 4 2c",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "125": {
+      "number": 125,
+      "standard_symbol": "P 4/n b m :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/125.json",
+      "settings": [
+        {
+          "symbol": "P4/nbm",
+          "description": "standard",
+          "hall": "P 4 2 -1ab",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 14
+        },
+        {
+          "symbol": "P4/nbm",
+          "description": "standard",
+          "hall": "-P 4a 2b",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "126": {
+      "number": 126,
+      "standard_symbol": "P 4/n n c :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/126.json",
+      "settings": [
+        {
+          "symbol": "P4/nnc",
+          "description": "standard",
+          "hall": "P 4 2 -1n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        },
+        {
+          "symbol": "P4/nnc",
+          "description": "standard",
+          "hall": "-P 4a 2bc",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "127": {
+      "number": 127,
+      "standard_symbol": "P 4/m b m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/127.json",
+      "settings": [
+        {
+          "symbol": "P4/mbm",
+          "description": "standard",
+          "hall": "-P 4 2ab",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "128": {
+      "number": 128,
+      "standard_symbol": "P 4/m n c",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/128.json",
+      "settings": [
+        {
+          "symbol": "P4/mnc",
+          "description": "standard",
+          "hall": "-P 4 2n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "129": {
+      "number": 129,
+      "standard_symbol": "P 4/n m m :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/129.json",
+      "settings": [
+        {
+          "symbol": "P4/nmm",
+          "description": "standard",
+          "hall": "P 4ab 2ab -1ab",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        },
+        {
+          "symbol": "P4/nmm",
+          "description": "standard",
+          "hall": "-P 4a 2a",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "130": {
+      "number": 130,
+      "standard_symbol": "P 4/n c c :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/130.json",
+      "settings": [
+        {
+          "symbol": "P4/ncc",
+          "description": "standard",
+          "hall": "P 4ab 2n -1ab",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "P4/ncc",
+          "description": "standard",
+          "hall": "-P 4a 2ac",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "131": {
+      "number": 131,
+      "standard_symbol": "P 42/m m c",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/131.json",
+      "settings": [
+        {
+          "symbol": "P42/mmc",
+          "description": "standard",
+          "hall": "-P 4c 2",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 18
+        }
+      ]
+    },
+    "132": {
+      "number": 132,
+      "standard_symbol": "P 42/m c m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/132.json",
+      "settings": [
+        {
+          "symbol": "P42/mcm",
+          "description": "standard",
+          "hall": "-P 4c 2c",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 16
+        }
+      ]
+    },
+    "133": {
+      "number": 133,
+      "standard_symbol": "P 42/n b c :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/133.json",
+      "settings": [
+        {
+          "symbol": "P42/nbc",
+          "description": "standard",
+          "hall": "P 4n 2c -1n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        },
+        {
+          "symbol": "P42/nbc",
+          "description": "standard",
+          "hall": "-P 4ac 2b",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "134": {
+      "number": 134,
+      "standard_symbol": "P 42/n n m :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/134.json",
+      "settings": [
+        {
+          "symbol": "P42/nnm",
+          "description": "standard",
+          "hall": "P 4n 2 -1n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 14
+        },
+        {
+          "symbol": "P42/nnm",
+          "description": "standard",
+          "hall": "-P 4ac 2bc",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "135": {
+      "number": 135,
+      "standard_symbol": "P 42/m b c",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/135.json",
+      "settings": [
+        {
+          "symbol": "P42/mbc",
+          "description": "standard",
+          "hall": "-P 4c 2ab",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "136": {
+      "number": 136,
+      "standard_symbol": "P 42/m n m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/136.json",
+      "settings": [
+        {
+          "symbol": "P42/mnm",
+          "description": "standard",
+          "hall": "-P 4n 2n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "137": {
+      "number": 137,
+      "standard_symbol": "P 42/n m c :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/137.json",
+      "settings": [
+        {
+          "symbol": "P42/nmc",
+          "description": "standard",
+          "hall": "P 4n 2n -1n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "P42/nmc",
+          "description": "standard",
+          "hall": "-P 4ac 2a",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "138": {
+      "number": 138,
+      "standard_symbol": "P 42/n c m :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/138.json",
+      "settings": [
+        {
+          "symbol": "P42/ncm",
+          "description": "standard",
+          "hall": "P 4n 2ab -1n",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 10
+        },
+        {
+          "symbol": "P42/ncm",
+          "description": "standard",
+          "hall": "-P 4ac 2ac",
+          "centering": "P",
+          "order_z": 16,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "139": {
+      "number": 139,
+      "standard_symbol": "I 4/m m m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/139.json",
+      "settings": [
+        {
+          "symbol": "I4/mmm",
+          "description": "standard",
+          "hall": "-I 4 2",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "140": {
+      "number": 140,
+      "standard_symbol": "I 4/m c m",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/140.json",
+      "settings": [
+        {
+          "symbol": "I4/mcm",
+          "description": "standard",
+          "hall": "-I 4 2c",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "141": {
+      "number": 141,
+      "standard_symbol": "I 41/a m d :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/141.json",
+      "settings": [
+        {
+          "symbol": "I41/amd",
+          "description": "standard",
+          "hall": "I 4bw 2bw -1bw",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "I41/amd",
+          "description": "standard",
+          "hall": "-I 4bd 2",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "142": {
+      "number": 142,
+      "standard_symbol": "I 41/a c d :1",
+      "crystal_system": "tetragonal",
+      "point_group": "4/mmm",
+      "laue_class": "4/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/142.json",
+      "settings": [
+        {
+          "symbol": "I41/acd",
+          "description": "standard",
+          "hall": "I 4bw 2aw -1bw",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "I41/acd",
+          "description": "standard",
+          "hall": "-I 4bd 2c",
+          "centering": "I",
+          "order_z": 32,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "143": {
+      "number": 143,
+      "standard_symbol": "P 3",
+      "crystal_system": "trigonal",
+      "point_group": "3",
+      "laue_class": "-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/143.json",
+      "settings": [
+        {
+          "symbol": "P3",
+          "description": "standard",
+          "hall": "P 3",
+          "centering": "P",
+          "order_z": 3,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "144": {
+      "number": 144,
+      "standard_symbol": "P 31",
+      "crystal_system": "trigonal",
+      "point_group": "3",
+      "laue_class": "-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/144.json",
+      "settings": [
+        {
+          "symbol": "P31",
+          "description": "standard",
+          "hall": "P 31",
+          "centering": "P",
+          "order_z": 3,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "145": {
+      "number": 145,
+      "standard_symbol": "P 32",
+      "crystal_system": "trigonal",
+      "point_group": "3",
+      "laue_class": "-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/145.json",
+      "settings": [
+        {
+          "symbol": "P32",
+          "description": "standard",
+          "hall": "P 32",
+          "centering": "P",
+          "order_z": 3,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "146": {
+      "number": 146,
+      "standard_symbol": "R 3 :H",
+      "crystal_system": "trigonal",
+      "point_group": "3",
+      "laue_class": "-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/146.json",
+      "settings": [
+        {
+          "symbol": "R3",
+          "description": "standard",
+          "hall": "R 3",
+          "centering": "R",
+          "order_z": 9,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "R3",
+          "description": "standard",
+          "hall": "P 3*",
+          "centering": "P",
+          "order_z": 3,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "147": {
+      "number": 147,
+      "standard_symbol": "P -3",
+      "crystal_system": "trigonal",
+      "point_group": "-3",
+      "laue_class": "-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/147.json",
+      "settings": [
+        {
+          "symbol": "P-3",
+          "description": "standard",
+          "hall": "-P 3",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "148": {
+      "number": 148,
+      "standard_symbol": "R -3 :H",
+      "crystal_system": "trigonal",
+      "point_group": "-3",
+      "laue_class": "-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/148.json",
+      "settings": [
+        {
+          "symbol": "R-3",
+          "description": "standard",
+          "hall": "-R 3",
+          "centering": "R",
+          "order_z": 18,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "R-3",
+          "description": "standard",
+          "hall": "-P 3*",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "149": {
+      "number": 149,
+      "standard_symbol": "P 3 1 2",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/149.json",
+      "settings": [
+        {
+          "symbol": "P312",
+          "description": "standard",
+          "hall": "P 3 2",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "150": {
+      "number": 150,
+      "standard_symbol": "P 3 2 1",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/150.json",
+      "settings": [
+        {
+          "symbol": "P321",
+          "description": "standard",
+          "hall": "P 3 2\"",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "151": {
+      "number": 151,
+      "standard_symbol": "P 31 1 2",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/151.json",
+      "settings": [
+        {
+          "symbol": "P3112",
+          "description": "standard",
+          "hall": "P 31 2 (0 0 4)",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "152": {
+      "number": 152,
+      "standard_symbol": "P 31 2 1",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/152.json",
+      "settings": [
+        {
+          "symbol": "P3121",
+          "description": "standard",
+          "hall": "P 31 2\"",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "153": {
+      "number": 153,
+      "standard_symbol": "P 32 1 2",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/153.json",
+      "settings": [
+        {
+          "symbol": "P3212",
+          "description": "standard",
+          "hall": "P 32 2 (0 0 2)",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "154": {
+      "number": 154,
+      "standard_symbol": "P 32 2 1",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/154.json",
+      "settings": [
+        {
+          "symbol": "P3221",
+          "description": "standard",
+          "hall": "P 32 2\"",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "155": {
+      "number": 155,
+      "standard_symbol": "R 3 2 :H",
+      "crystal_system": "trigonal",
+      "point_group": "32",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/155.json",
+      "settings": [
+        {
+          "symbol": "R32",
+          "description": "standard",
+          "hall": "R 3 2\"",
+          "centering": "R",
+          "order_z": 18,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "R32",
+          "description": "standard",
+          "hall": "P 3* 2",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "156": {
+      "number": 156,
+      "standard_symbol": "P 3 m 1",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/156.json",
+      "settings": [
+        {
+          "symbol": "P3m1",
+          "description": "standard",
+          "hall": "P 3 -2\"",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "157": {
+      "number": 157,
+      "standard_symbol": "P 3 1 m",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/157.json",
+      "settings": [
+        {
+          "symbol": "P31m",
+          "description": "standard",
+          "hall": "P 3 -2",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "158": {
+      "number": 158,
+      "standard_symbol": "P 3 c 1",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/158.json",
+      "settings": [
+        {
+          "symbol": "P3c1",
+          "description": "standard",
+          "hall": "P 3 -2\"c",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "159": {
+      "number": 159,
+      "standard_symbol": "P 3 1 c",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/159.json",
+      "settings": [
+        {
+          "symbol": "P31c",
+          "description": "standard",
+          "hall": "P 3 -2c",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "160": {
+      "number": 160,
+      "standard_symbol": "R 3 m :H",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/160.json",
+      "settings": [
+        {
+          "symbol": "R3m",
+          "description": "standard",
+          "hall": "R 3 -2\"",
+          "centering": "R",
+          "order_z": 18,
+          "n_wyckoff": 3
+        },
+        {
+          "symbol": "R3m",
+          "description": "standard",
+          "hall": "P 3* -2",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "161": {
+      "number": 161,
+      "standard_symbol": "R 3 c :H",
+      "crystal_system": "trigonal",
+      "point_group": "3m",
+      "laue_class": "-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/161.json",
+      "settings": [
+        {
+          "symbol": "R3c",
+          "description": "standard",
+          "hall": "R 3 -2\"c",
+          "centering": "R",
+          "order_z": 18,
+          "n_wyckoff": 2
+        },
+        {
+          "symbol": "R3c",
+          "description": "standard",
+          "hall": "P 3* -2n",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "162": {
+      "number": 162,
+      "standard_symbol": "P -3 1 m",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/162.json",
+      "settings": [
+        {
+          "symbol": "P-31m",
+          "description": "standard",
+          "hall": "-P 3 2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "163": {
+      "number": 163,
+      "standard_symbol": "P -3 1 c",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/163.json",
+      "settings": [
+        {
+          "symbol": "P-31c",
+          "description": "standard",
+          "hall": "-P 3 2c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "164": {
+      "number": 164,
+      "standard_symbol": "P -3 m 1",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/164.json",
+      "settings": [
+        {
+          "symbol": "P-3m1",
+          "description": "standard",
+          "hall": "-P 3 2\"",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "165": {
+      "number": 165,
+      "standard_symbol": "P -3 c 1",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/165.json",
+      "settings": [
+        {
+          "symbol": "P-3c1",
+          "description": "standard",
+          "hall": "-P 3 2\"c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "166": {
+      "number": 166,
+      "standard_symbol": "R -3 m :H",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/166.json",
+      "settings": [
+        {
+          "symbol": "R-3m",
+          "description": "standard",
+          "hall": "-R 3 2\"",
+          "centering": "R",
+          "order_z": 36,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "R-3m",
+          "description": "standard",
+          "hall": "-P 3* 2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "167": {
+      "number": 167,
+      "standard_symbol": "R -3 c :H",
+      "crystal_system": "trigonal",
+      "point_group": "-3m",
+      "laue_class": "-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/167.json",
+      "settings": [
+        {
+          "symbol": "R-3c",
+          "description": "standard",
+          "hall": "-R 3 2\"c",
+          "centering": "R",
+          "order_z": 36,
+          "n_wyckoff": 6
+        },
+        {
+          "symbol": "R-3c",
+          "description": "standard",
+          "hall": "-P 3* 2n",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "168": {
+      "number": 168,
+      "standard_symbol": "P 6",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/168.json",
+      "settings": [
+        {
+          "symbol": "P6",
+          "description": "standard",
+          "hall": "P 6",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "169": {
+      "number": 169,
+      "standard_symbol": "P 61",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/169.json",
+      "settings": [
+        {
+          "symbol": "P61",
+          "description": "standard",
+          "hall": "P 61",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "170": {
+      "number": 170,
+      "standard_symbol": "P 65",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/170.json",
+      "settings": [
+        {
+          "symbol": "P65",
+          "description": "standard",
+          "hall": "P 65",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 1
+        }
+      ]
+    },
+    "171": {
+      "number": 171,
+      "standard_symbol": "P 62",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/171.json",
+      "settings": [
+        {
+          "symbol": "P62",
+          "description": "standard",
+          "hall": "P 62",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "172": {
+      "number": 172,
+      "standard_symbol": "P 64",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/172.json",
+      "settings": [
+        {
+          "symbol": "P64",
+          "description": "standard",
+          "hall": "P 64",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "173": {
+      "number": 173,
+      "standard_symbol": "P 63",
+      "crystal_system": "hexagonal",
+      "point_group": "6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/173.json",
+      "settings": [
+        {
+          "symbol": "P63",
+          "description": "standard",
+          "hall": "P 6c",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "174": {
+      "number": 174,
+      "standard_symbol": "P -6",
+      "crystal_system": "hexagonal",
+      "point_group": "-6",
+      "laue_class": "6/m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/174.json",
+      "settings": [
+        {
+          "symbol": "P-6",
+          "description": "standard",
+          "hall": "P -6",
+          "centering": "P",
+          "order_z": 6,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "175": {
+      "number": 175,
+      "standard_symbol": "P 6/m",
+      "crystal_system": "hexagonal",
+      "point_group": "6/m",
+      "laue_class": "6/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/175.json",
+      "settings": [
+        {
+          "symbol": "P6/m",
+          "description": "standard",
+          "hall": "-P 6",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "176": {
+      "number": 176,
+      "standard_symbol": "P 63/m",
+      "crystal_system": "hexagonal",
+      "point_group": "6/m",
+      "laue_class": "6/m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/176.json",
+      "settings": [
+        {
+          "symbol": "P63/m",
+          "description": "standard",
+          "hall": "-P 6c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "177": {
+      "number": 177,
+      "standard_symbol": "P 6 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/177.json",
+      "settings": [
+        {
+          "symbol": "P622",
+          "description": "standard",
+          "hall": "P 6 2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "178": {
+      "number": 178,
+      "standard_symbol": "P 61 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/178.json",
+      "settings": [
+        {
+          "symbol": "P6122",
+          "description": "standard",
+          "hall": "P 61 2 (0 0 5)",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "179": {
+      "number": 179,
+      "standard_symbol": "P 65 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/179.json",
+      "settings": [
+        {
+          "symbol": "P6522",
+          "description": "standard",
+          "hall": "P 65 2 (0 0 1)",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "180": {
+      "number": 180,
+      "standard_symbol": "P 62 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/180.json",
+      "settings": [
+        {
+          "symbol": "P6222",
+          "description": "standard",
+          "hall": "P 62 2 (0 0 4)",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "181": {
+      "number": 181,
+      "standard_symbol": "P 64 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/181.json",
+      "settings": [
+        {
+          "symbol": "P6422",
+          "description": "standard",
+          "hall": "P 64 2 (0 0 2)",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "182": {
+      "number": 182,
+      "standard_symbol": "P 63 2 2",
+      "crystal_system": "hexagonal",
+      "point_group": "622",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/182.json",
+      "settings": [
+        {
+          "symbol": "P6322",
+          "description": "standard",
+          "hall": "P 6c 2c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "183": {
+      "number": 183,
+      "standard_symbol": "P 6 m m",
+      "crystal_system": "hexagonal",
+      "point_group": "6mm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/183.json",
+      "settings": [
+        {
+          "symbol": "P6mm",
+          "description": "standard",
+          "hall": "P 6 -2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "184": {
+      "number": 184,
+      "standard_symbol": "P 6 c c",
+      "crystal_system": "hexagonal",
+      "point_group": "6mm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/184.json",
+      "settings": [
+        {
+          "symbol": "P6cc",
+          "description": "standard",
+          "hall": "P 6 -2c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "185": {
+      "number": 185,
+      "standard_symbol": "P 63 c m",
+      "crystal_system": "hexagonal",
+      "point_group": "6mm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/185.json",
+      "settings": [
+        {
+          "symbol": "P63cm",
+          "description": "standard",
+          "hall": "P 6c -2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "186": {
+      "number": 186,
+      "standard_symbol": "P 63 m c",
+      "crystal_system": "hexagonal",
+      "point_group": "6mm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/186.json",
+      "settings": [
+        {
+          "symbol": "P63mc",
+          "description": "standard",
+          "hall": "P 6c -2c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "187": {
+      "number": 187,
+      "standard_symbol": "P -6 m 2",
+      "crystal_system": "hexagonal",
+      "point_group": "-62m",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/187.json",
+      "settings": [
+        {
+          "symbol": "P-6m2",
+          "description": "standard",
+          "hall": "P -6 2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 15
+        }
+      ]
+    },
+    "188": {
+      "number": 188,
+      "standard_symbol": "P -6 c 2",
+      "crystal_system": "hexagonal",
+      "point_group": "-62m",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/188.json",
+      "settings": [
+        {
+          "symbol": "P-6c2",
+          "description": "standard",
+          "hall": "P -6c 2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "189": {
+      "number": 189,
+      "standard_symbol": "P -6 2 m",
+      "crystal_system": "hexagonal",
+      "point_group": "-62m",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/189.json",
+      "settings": [
+        {
+          "symbol": "P-62m",
+          "description": "standard",
+          "hall": "P -6 -2",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "190": {
+      "number": 190,
+      "standard_symbol": "P -6 2 c",
+      "crystal_system": "hexagonal",
+      "point_group": "-62m",
+      "laue_class": "6/mmm",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/190.json",
+      "settings": [
+        {
+          "symbol": "P-62c",
+          "description": "standard",
+          "hall": "P -6c -2c",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "191": {
+      "number": 191,
+      "standard_symbol": "P 6/m m m",
+      "crystal_system": "hexagonal",
+      "point_group": "6/mmm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/191.json",
+      "settings": [
+        {
+          "symbol": "P6/mmm",
+          "description": "standard",
+          "hall": "-P 6 2",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 18
+        }
+      ]
+    },
+    "192": {
+      "number": 192,
+      "standard_symbol": "P 6/m c c",
+      "crystal_system": "hexagonal",
+      "point_group": "6/mmm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/192.json",
+      "settings": [
+        {
+          "symbol": "P6/mcc",
+          "description": "standard",
+          "hall": "-P 6 2c",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "193": {
+      "number": 193,
+      "standard_symbol": "P 63/m c m",
+      "crystal_system": "hexagonal",
+      "point_group": "6/mmm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/193.json",
+      "settings": [
+        {
+          "symbol": "P63/mcm",
+          "description": "standard",
+          "hall": "-P 6c 2",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "194": {
+      "number": 194,
+      "standard_symbol": "P 63/m m c",
+      "crystal_system": "hexagonal",
+      "point_group": "6/mmm",
+      "laue_class": "6/mmm",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/194.json",
+      "settings": [
+        {
+          "symbol": "P63/mmc",
+          "description": "standard",
+          "hall": "-P 6c 2c",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "195": {
+      "number": 195,
+      "standard_symbol": "P 2 3",
+      "crystal_system": "cubic",
+      "point_group": "23",
+      "laue_class": "m-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/195.json",
+      "settings": [
+        {
+          "symbol": "P23",
+          "description": "standard",
+          "hall": "P 2 2 3",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "196": {
+      "number": 196,
+      "standard_symbol": "F 2 3",
+      "crystal_system": "cubic",
+      "point_group": "23",
+      "laue_class": "m-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/196.json",
+      "settings": [
+        {
+          "symbol": "F23",
+          "description": "standard",
+          "hall": "F 2 2 3",
+          "centering": "F",
+          "order_z": 48,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "197": {
+      "number": 197,
+      "standard_symbol": "I 2 3",
+      "crystal_system": "cubic",
+      "point_group": "23",
+      "laue_class": "m-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/197.json",
+      "settings": [
+        {
+          "symbol": "I23",
+          "description": "standard",
+          "hall": "I 2 2 3",
+          "centering": "I",
+          "order_z": 24,
+          "n_wyckoff": 6
+        }
+      ]
+    },
+    "198": {
+      "number": 198,
+      "standard_symbol": "P 21 3",
+      "crystal_system": "cubic",
+      "point_group": "23",
+      "laue_class": "m-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/198.json",
+      "settings": [
+        {
+          "symbol": "P213",
+          "description": "standard",
+          "hall": "P 2ac 2ab 3",
+          "centering": "P",
+          "order_z": 12,
+          "n_wyckoff": 2
+        }
+      ]
+    },
+    "199": {
+      "number": 199,
+      "standard_symbol": "I 21 3",
+      "crystal_system": "cubic",
+      "point_group": "23",
+      "laue_class": "m-3",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/199.json",
+      "settings": [
+        {
+          "symbol": "I213",
+          "description": "standard",
+          "hall": "I 2b 2c 3",
+          "centering": "I",
+          "order_z": 24,
+          "n_wyckoff": 3
+        }
+      ]
+    },
+    "200": {
+      "number": 200,
+      "standard_symbol": "P m -3",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/200.json",
+      "settings": [
+        {
+          "symbol": "Pm-3",
+          "description": "standard",
+          "hall": "-P 2 2 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "201": {
+      "number": 201,
+      "standard_symbol": "P n -3 :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/201.json",
+      "settings": [
+        {
+          "symbol": "Pn-3",
+          "description": "standard",
+          "hall": "P 2 2 3 -1n",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Pn-3",
+          "description": "standard",
+          "hall": "-P 2ab 2bc 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "202": {
+      "number": 202,
+      "standard_symbol": "F m -3",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/202.json",
+      "settings": [
+        {
+          "symbol": "Fm-3",
+          "description": "standard",
+          "hall": "-F 2 2 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "203": {
+      "number": 203,
+      "standard_symbol": "F d -3 :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/203.json",
+      "settings": [
+        {
+          "symbol": "Fd-3",
+          "description": "standard",
+          "hall": "F 2 2 3 -1d",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 7
+        },
+        {
+          "symbol": "Fd-3",
+          "description": "standard",
+          "hall": "-F 2uv 2vw 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 7
+        }
+      ]
+    },
+    "204": {
+      "number": 204,
+      "standard_symbol": "I m -3",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/204.json",
+      "settings": [
+        {
+          "symbol": "Im-3",
+          "description": "standard",
+          "hall": "-I 2 2 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "205": {
+      "number": 205,
+      "standard_symbol": "P a -3",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/205.json",
+      "settings": [
+        {
+          "symbol": "Pa-3",
+          "description": "standard",
+          "hall": "-P 2ac 2ab 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 4
+        }
+      ]
+    },
+    "206": {
+      "number": 206,
+      "standard_symbol": "I a -3",
+      "crystal_system": "cubic",
+      "point_group": "m-3",
+      "laue_class": "m-3",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/206.json",
+      "settings": [
+        {
+          "symbol": "Ia-3",
+          "description": "standard",
+          "hall": "-I 2b 2c 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "207": {
+      "number": 207,
+      "standard_symbol": "P 4 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/207.json",
+      "settings": [
+        {
+          "symbol": "P432",
+          "description": "standard",
+          "hall": "P 4 2 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 11
+        }
+      ]
+    },
+    "208": {
+      "number": 208,
+      "standard_symbol": "P 42 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/208.json",
+      "settings": [
+        {
+          "symbol": "P4232",
+          "description": "standard",
+          "hall": "P 4n 2 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 13
+        }
+      ]
+    },
+    "209": {
+      "number": 209,
+      "standard_symbol": "F 4 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/209.json",
+      "settings": [
+        {
+          "symbol": "F432",
+          "description": "standard",
+          "hall": "F 4 2 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "210": {
+      "number": 210,
+      "standard_symbol": "F 41 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/210.json",
+      "settings": [
+        {
+          "symbol": "F4132",
+          "description": "standard",
+          "hall": "F 4d 2 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "211": {
+      "number": 211,
+      "standard_symbol": "I 4 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/211.json",
+      "settings": [
+        {
+          "symbol": "I432",
+          "description": "standard",
+          "hall": "I 4 2 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "212": {
+      "number": 212,
+      "standard_symbol": "P 43 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/212.json",
+      "settings": [
+        {
+          "symbol": "P4332",
+          "description": "standard",
+          "hall": "P 4acd 2ab 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "213": {
+      "number": 213,
+      "standard_symbol": "P 41 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/213.json",
+      "settings": [
+        {
+          "symbol": "P4132",
+          "description": "standard",
+          "hall": "P 4bd 2ab 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "214": {
+      "number": 214,
+      "standard_symbol": "I 41 3 2",
+      "crystal_system": "cubic",
+      "point_group": "432",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": true,
+      "file": "sg/214.json",
+      "settings": [
+        {
+          "symbol": "I4132",
+          "description": "standard",
+          "hall": "I 4bd 2c 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "215": {
+      "number": 215,
+      "standard_symbol": "P -4 3 m",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/215.json",
+      "settings": [
+        {
+          "symbol": "P-43m",
+          "description": "standard",
+          "hall": "P -4 2 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "216": {
+      "number": 216,
+      "standard_symbol": "F -4 3 m",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/216.json",
+      "settings": [
+        {
+          "symbol": "F-43m",
+          "description": "standard",
+          "hall": "F -4 2 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "217": {
+      "number": 217,
+      "standard_symbol": "I -4 3 m",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/217.json",
+      "settings": [
+        {
+          "symbol": "I-43m",
+          "description": "standard",
+          "hall": "I -4 2 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "218": {
+      "number": 218,
+      "standard_symbol": "P -4 3 n",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/218.json",
+      "settings": [
+        {
+          "symbol": "P-43n",
+          "description": "standard",
+          "hall": "P -4n 2 3",
+          "centering": "P",
+          "order_z": 24,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "219": {
+      "number": 219,
+      "standard_symbol": "F -4 3 c",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/219.json",
+      "settings": [
+        {
+          "symbol": "F-43c",
+          "description": "standard",
+          "hall": "F -4a 2 3",
+          "centering": "F",
+          "order_z": 96,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "220": {
+      "number": 220,
+      "standard_symbol": "I -4 3 d",
+      "crystal_system": "cubic",
+      "point_group": "-43m",
+      "laue_class": "m-3m",
+      "centrosymmetric": false,
+      "chiral": false,
+      "file": "sg/220.json",
+      "settings": [
+        {
+          "symbol": "I-43d",
+          "description": "standard",
+          "hall": "I -4bd 2c 3",
+          "centering": "I",
+          "order_z": 48,
+          "n_wyckoff": 5
+        }
+      ]
+    },
+    "221": {
+      "number": 221,
+      "standard_symbol": "P m -3 m",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/221.json",
+      "settings": [
+        {
+          "symbol": "Pm-3m",
+          "description": "standard",
+          "hall": "-P 4 2 3",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 14
+        }
+      ]
+    },
+    "222": {
+      "number": 222,
+      "standard_symbol": "P n -3 n :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/222.json",
+      "settings": [
+        {
+          "symbol": "Pn-3n",
+          "description": "standard",
+          "hall": "P 4 2 3 -1n",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Pn-3n",
+          "description": "standard",
+          "hall": "-P 4a 2bc 3",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "223": {
+      "number": 223,
+      "standard_symbol": "P m -3 n",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/223.json",
+      "settings": [
+        {
+          "symbol": "Pm-3n",
+          "description": "standard",
+          "hall": "-P 4n 2 3",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "224": {
+      "number": 224,
+      "standard_symbol": "P n -3 m :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/224.json",
+      "settings": [
+        {
+          "symbol": "Pn-3m",
+          "description": "standard",
+          "hall": "P 4n 2 3 -1n",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 12
+        },
+        {
+          "symbol": "Pn-3m",
+          "description": "standard",
+          "hall": "-P 4bc 2bc 3",
+          "centering": "P",
+          "order_z": 48,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "225": {
+      "number": 225,
+      "standard_symbol": "F m -3 m",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/225.json",
+      "settings": [
+        {
+          "symbol": "Fm-3m",
+          "description": "standard",
+          "hall": "-F 4 2 3",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "226": {
+      "number": 226,
+      "standard_symbol": "F m -3 c",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/226.json",
+      "settings": [
+        {
+          "symbol": "Fm-3c",
+          "description": "standard",
+          "hall": "-F 4a 2 3",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 10
+        }
+      ]
+    },
+    "227": {
+      "number": 227,
+      "standard_symbol": "F d -3 m :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/227.json",
+      "settings": [
+        {
+          "symbol": "Fd-3m",
+          "description": "standard",
+          "hall": "F 4d 2 3 -1d",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 9
+        },
+        {
+          "symbol": "Fd-3m",
+          "description": "standard",
+          "hall": "-F 4vw 2vw 3",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 9
+        }
+      ]
+    },
+    "228": {
+      "number": 228,
+      "standard_symbol": "F d -3 c :1",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/228.json",
+      "settings": [
+        {
+          "symbol": "Fd-3c",
+          "description": "standard",
+          "hall": "F 4d 2 3 -1ad",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 8
+        },
+        {
+          "symbol": "Fd-3c",
+          "description": "standard",
+          "hall": "-F 4ud 2vw 3",
+          "centering": "F",
+          "order_z": 192,
+          "n_wyckoff": 8
+        }
+      ]
+    },
+    "229": {
+      "number": 229,
+      "standard_symbol": "I m -3 m",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/229.json",
+      "settings": [
+        {
+          "symbol": "Im-3m",
+          "description": "standard",
+          "hall": "-I 4 2 3",
+          "centering": "I",
+          "order_z": 96,
+          "n_wyckoff": 12
+        }
+      ]
+    },
+    "230": {
+      "number": 230,
+      "standard_symbol": "I a -3 d",
+      "crystal_system": "cubic",
+      "point_group": "m-3m",
+      "laue_class": "m-3m",
+      "centrosymmetric": true,
+      "chiral": false,
+      "file": "sg/230.json",
+      "settings": [
+        {
+          "symbol": "Ia-3d",
+          "description": "standard",
+          "hall": "-I 4bd 2c 3",
+          "centering": "I",
+          "order_z": 96,
+          "n_wyckoff": 8
+        }
+      ]
+    }
+  }
+}

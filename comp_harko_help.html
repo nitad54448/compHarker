@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comp-Harker Help</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        (function initTheme() {
+            try {
+                const saved = localStorage.getItem('sharko-theme');
+                const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+                document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+            } catch (e) {}
+        })();
+        
+        MathJax = {
+          tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+          svg: { fontCache: 'global' }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    
+    <style>
+        body {
+            margin: 0; background-color: var(--bg, #ffffff);
+            color: var(--fg, #1f2937); line-height: 1.7; 
+            height: 100vh; overflow: hidden;
+        }
+        .help-wrapper {
+            display: flex !important; flex-direction: row !important; 
+            height: 100vh; width: 100vw; overflow: hidden; box-sizing: border-box;
+        }
+        #left-panel {
+            width: 320px; flex-shrink: 0; background-color: var(--bg-elevated, #f3f4f6);
+            color: var(--fg-3, #9ca3af); padding: 2rem; overflow-y: auto;
+            border-right: 1px solid var(--rule, #e5e7eb);
+            height: 100%; box-sizing: border-box;
+        }
+        #left-panel .logo {
+            font-size: 1.5rem; font-weight: 700; color: var(--fg, #111827);
+            margin-bottom: 2rem;
+        }
+        #left-panel .logo span { color: var(--accent, #3b82f6); }
+        #toc { list-style: none; padding: 0; margin: 0; }
+        #toc li { margin-bottom: 0.25rem; }
+        #toc li a {
+            display: block; color: var(--fg-3, #9ca3af); text-decoration: none;
+            padding: 0.5rem 0.75rem; border-radius: var(--r-3, 0.375rem); font-weight: 500;
+            font-size: 0.85rem; transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+        #toc li a:hover { background-color: var(--bg, #ffffff); color: var(--fg, #111827); }
+        #toc li a.active {
+            background-color: var(--rule, #e5e7eb); color: var(--fg, #111827);
+            border-left-color: var(--accent, #3b82f6); font-weight: 600;
+        }
+        #toc li ul { padding-left: 1rem; margin-top: 0.25rem; display: none; }
+        #toc li.expanded > ul { display: block; }
+        #toc li a.toc-parent { cursor: pointer; }
+        #toc li a.toc-parent::after {
+            content: ' ▸'; float: right; transition: transform 0.2s;
+        }
+        #toc li.expanded > a.toc-parent::after { transform: rotate(90deg); }
+        #main-content { 
+            flex-grow: 1; overflow-y: auto; padding: 3rem 4rem; 
+            height: 100%; box-sizing: border-box;
+        }
+        section { 
+            margin-bottom: 4rem; padding-top: 2rem; border-top: 1px solid var(--rule, #e5e7eb);
+        }
+        section:first-child { padding-top: 0; border-top: none; }
+        h1, h2, h3, h4 {
+            color: var(--fg, #111827); font-weight: 700; line-height: 1.3;
+            margin-top: 1.5em; margin-bottom: 0.75em;
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.8rem; border-bottom: 1px solid var(--rule, #e5e7eb); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.15rem; color: var(--fg-2, #4b5563); }
+        p, li { margin-bottom: 0.75rem; }
+        ul, ol { padding-left: 1.5rem; }
+        a { color: var(--accent, #3b82f6); text-decoration: none; font-weight: 500; }
+        a:hover { text-decoration: underline; }
+        code {
+            font-family: 'Source Code Pro', monospace; background-color: var(--bg-elevated, #f3f4f6);
+            color: var(--fg, #111827); padding: 0.15em 0.4em;
+            border-radius: 0.25rem; font-size: 0.9em; border: 1px solid var(--rule, #e5e7eb);
+        }
+        pre {
+            background-color: var(--bg-elevated, #f3f4f6); border-radius: 0.5rem; padding: 1rem;
+            overflow-x: auto; font-size: 0.8rem; line-height: 1.5; border: 1px solid var(--rule, #e5e7eb);
+        }
+        pre code { padding: 0; background: none; border: none; }
+        
+        blockquote {
+            margin-left: 0; padding: 1.25rem 1.5rem; border-left: 4px solid var(--accent, #3b82f6);
+            background-color: var(--bg-elevated, #f3f4f6); color: var(--fg, #1f2937);
+            border-radius: 0 var(--r-3, 8px) var(--r-3, 8px) 0; 
+        }
+        blockquote strong { color: var(--accent, #3b82f6); }
+        table {
+            width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.85rem;
+        }
+        th, td { padding: 0.6rem 0.9rem; border: 1px solid var(--rule, #d1d5db); text-align: left; }
+        th { background-color: var(--bg-elevated, #f3f4f6); font-weight: 600; }
+        td.code { font-family: monospace; font-size: 0.9em; }
+        .param-table th:first-child { width: 30%; }
+        .param-table td:first-child { font-weight: 500; }
+        
+        .callout {
+            padding: 1rem 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+        .callout-info { background: var(--bg-elevated); border-color: var(--accent); }
+        .callout-warning { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+        .callout-danger { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+        .callout-success { background: #dcfce7; border-color: #22c55e; color: #166534; }
+        
+        .footer {
+            text-align: center; margin-top: 4rem; padding-top: 2rem;
+            border-top: 1px solid var(--rule, #e5e7eb); font-size: 0.85rem; color: var(--fg-3, #9ca3af);
+        }
+        
+        .algorithm-box {
+            background: var(--bg-elevated); border: 1px solid var(--rule);
+            border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;
+            font-family: monospace; font-size: 0.8rem; line-height: 1.6;
+            overflow-x: auto;
+        }
+        .math-display { text-align: center; margin: 1.5rem 0; overflow-x: auto; }
+
+        /* Dark Theme Fixes & Overrides */
+        [data-theme="dark"] body {
+            background-color: #0b0f19;
+            color: #e5e7eb;
+        }
+        [data-theme="dark"] #left-panel {
+            background-color: #111827;
+            border-right-color: #1f2937;
+        }
+        [data-theme="dark"] #left-panel .logo {
+            color: #f9fafb;
+        }
+        [data-theme="dark"] #toc li a:hover {
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+        [data-theme="dark"] #toc li a.active {
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+        [data-theme="dark"] .callout-info {
+            background-color: #111827 !important;
+            color: #e5e7eb !important;
+            border-color: #3b82f6;
+        }
+        [data-theme="dark"] code, [data-theme="dark"] pre, [data-theme="dark"] th {
+            background-color: #111827;
+            color: #e5e7eb;
+            border-color: #374151;
+        }
+        [data-theme="dark"] td {
+            border-color: #374151;
+        }
+        [data-theme="dark"] blockquote {
+            background-color: #111827;
+            color: #e5e7eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="help-wrapper">
+        <aside id="left-panel">
+            <div class="logo">comp-Harker <span>Docs</span></div>
+            <nav>
+                <ul id="toc">
+                    <li><a href="#introduction" class="active">1. Theory & Background</a></li>
+                    <li class="toc-parent"><a href="#architecture" class="toc-parent">2. Program Architecture</a>
+                        <ul>
+                            <li><a href="#arch-overview">2.1 Overview</a></li>
+                            <li><a href="#arch-worker">2.2 Web Worker Pipeline</a></li>
+                            <li><a href="#arch-gpu">2.3 WebGPU Structure Search</a></li>
+                            <li><a href="#arch-symmetry">2.4 Symmetry & Operator Resolution</a></li>
+                        </ul>
+                    </li>
+                    <li class="toc-parent"><a href="#data-input" class="toc-parent">3. Data Input & Intensity Correction</a>
+                        <ul>
+                            <li><a href="#data-file-structure">3.1 Data File Parsing</a></li>
+                            <li><a href="#data-intensity">3.2 Intensity Classification & Correction</a></li>
+                        </ul>
+                    </li>
+                    <li class="toc-parent"><a href="#map-calculation" class="toc-parent">4. Patterson Map Synthesis</a>
+                        <ul>
+                            <li><a href="#map-fft">4.1 FFT Synthesis Engine</a></li>
+                            <li><a href="#map-lorch">4.2 Lorch Series Termination Filter</a></li>
+                            <li><a href="#map-parameters">4.3 Grid Resolution & Anti-Aliasing</a></li>
+                            <li><a href="#map-smearing">4.4 Model Gaussian Smearing</a></li>
+                            <li><a href="#map-scaling">4.5 Least-Squares Map Scaling</a></li>
+                        </ul>
+                    </li>
+                    <li class="toc-parent"><a href="#peak-analysis" class="toc-parent">5. Peak Finding & Harker Analysis</a>
+                        <ul>
+                            <li><a href="#peak-finding">5.1 3D Local Maxima Search</a></li>
+                            <li><a href="#harker-sections">5.2 Harker Section Deconvolution</a></li>
+                            <li><a href="#site-combination">5.3 Multi-Section Site Combination</a></li>
+                            <li><a href="#smf-superposition">5.4 Symmetry Minimum Function (SMF) & Buerger Superposition</a></li>
+                        </ul>
+                    </li>
+                    <li class="toc-parent"><a href="#swarm-optimization" class="toc-parent">6. WebGPU Structure Search</a>
+                        <ul>
+                            <li><a href="#swarm-theory">6.1 Replica-Exchange Monte Carlo</a></li>
+                            <li><a href="#swarm-quench">6.1b The Final Quench</a></li>
+                            <li><a href="#swarm-fitness">6.2 Vector Fitness (superseded)</a></li>
+                            <li><a href="#swarm-params">6.3 Restarts &amp; GPU Hardware Limits</a></li>
+                            <li><a href="#swarm-contact">6.4 Minimum Contact Distance</a></li>
+                            <li><a href="#swarm-tuning">6.5 Sampler Constants (not exposed)</a></li>
+                        </ul>
+                    </li>
+                    <li class="toc-parent"><a href="#wyckoff" class="toc-parent">7. Composition-Driven Solution</a>
+                        <ul>
+                            <li><a href="#wy-why">7.1 Searching Wyckoff Space</a></li>
+                            <li><a href="#wy-database">7.2 The Space-Group Database</a></li>
+                            <li><a href="#wy-enumerate">7.3 Assignment Enumeration &amp; Ranking</a></li>
+                            <li><a href="#wy-cc">7.4 The Map-Correlation Fitness</a></li>
+                            <li><a href="#wy-obs">7.5 Observations, Wavelength &amp; Wilson B</a></li>
+                            <li><a href="#wy-scatter">7.6 Scattering Factors</a></li>
+                            <li><a href="#wy-gpu">7.7 Multi-Assignment GPU Search</a></li>
+                            <li><a href="#wy-constraints">7.8 Contacts &amp; Distance Windows</a></li>
+                            <li><a href="#wy-quality">7.9 Judging a Candidate</a></li>
+                            <li><a href="#wy-rank">7.11 Ranking Candidates: R and Hamilton's Test</a></li>
+                            <li><a href="#wy-files">7.10 Files &amp; Versions</a></li>
+                        </ul>
+                    </li>
+<li class="toc-parent"><a href="#visualization" class="toc-parent">8. UI &amp; Controls Guided Tour</a>
+    <ul>
+        <li><a href="#ui-layout">8.1 Workspace Layout Overview</a></li>
+        <li><a href="#ui-left-panel">8.2 Left Controls Panel</a></li>
+        <li><a href="#ui-right-panel">8.3 Right Results Panel</a></li>
+        <li><a href="#ui-exports">8.4 Exporting CIF, GRD, CSV &amp; Reports</a></li>
+    </ul>
+</li>
+                    <li class="toc-parent"><a href="#workflow" class="toc-parent">9. Step-by-Step Workflows</a>
+                        <ul>
+                            <li><a href="#wf-harker">9.1 Deterministic Harker &amp; SMF Analysis</a></li>
+                            <li><a href="#wf-swarm">9.2 Composition-Driven Global Search</a></li>
+                            <li><a href="#wf-hybrid">9.3 Combined Hybrid Resolution Workflow</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#troubleshooting">10. Troubleshooting &amp; FAQ</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main id="main-content">
+            <section id="introduction">
+                <h1>comp-Harker: Technical Reference</h1>
+                <p class="callout-info">
+                    <strong>Program Name:</strong> comp-Harker &mdash; composition-driven Harker/Patterson structure solution. Earlier versions were called Harko and sHarko; the name changed with the composition-driven route, which is what the program is now built around. <br>
+                    <strong>Core Architecture:</strong> Asynchronous FFT Patterson Engine + Symmetry Minimum Function (SMF) / Buerger Superposition + WebGPU replica-exchange Monte Carlo <br> 
+                    <strong>Symmetry Database:</strong> 230 space groups in 527 settings, with Wyckoff
+                    projectors and coset operators, generated by <span class="code">cctbx_Harko_v1.py</span>
+                    into <span class="code">sg/</span>; scattering factors in
+                    <span class="code">scatters/</span><br>
+                    <strong>Structure solution:</strong> composition-driven &mdash; Wyckoff assignment search
+                    ranked by Patterson map correlation (<a href="#wyckoff">section 7</a>)<br>
+                     <strong>Version:</strong> Initial Harko version 12 Oct 2025; composition-driven solution
+                     added August 2026, when the program was renamed comp-Harker.<br>
+                </p>
+
+                <h2>1. Theoretical Background & The Phase Problem</h2>
+                <p>
+                    In X-ray crystallographic analyses, experimentally measured diffraction intensities $I(h,k,l)$ are directly proportional to the squared structure factor magnitudes $|F(\mathbf{h})|^2$. However, phase information $\phi(\mathbf{h})$ is inherently lost during measurement. comp-Harker bypasses the direct phase requirement by synthesizing the 3D Patterson function, which represents the real-space autocorrelation of crystal electron density:
+                </p>
+                <div class="math-display">
+                    $$ P(\mathbf{u}) = \frac{1}{V} \sum_{\mathbf{h}} |F_{\mathbf{h}}|^2 e^{2\pi i \mathbf{h}\cdot\mathbf{u}} = \frac{1}{V} \sum_{\mathbf{h}} |F_{\mathbf{h}}|^2 \cos(2\pi \mathbf{h}\cdot\mathbf{u}) $$
+                </div>
+                <p>where $\mathbf{u} = (u,v,w)$ are fractional Patterson coordinates and $V$ represents the real-space unit cell volume.</p>
+
+                <h3>Physical Properties of the Patterson Map</h3>
+                <ul>
+                    <li><strong>Interatomic Vector Representation:</strong> Patterson map peaks do not directly correspond to atomic locations $\mathbf{x}_i$. Instead, each peak located at $\mathbf{u}$ represents an interatomic displacement vector $\mathbf{u}_{ij} = \mathbf{x}_i - \mathbf{x}_j$ between atoms $i$ and $j$.</li>
+                    <li><strong>Weighting Factor:</strong> Peak heights scale proportionally with the product of the atomic numbers of the interacting pair ($Z_i Z_j$). As a consequence, heavy atoms generate dominant peaks that stand out clearly against lighter organic matrices.</li>
+                    <li><strong>Origin Peak:</strong> The point at $(0,0,0)$ corresponds to all self-vectors ($\mathbf{x}_i - \mathbf{x}_i = \mathbf{0}$) with total integrated power $\sum Z_k^2$. comp-Harker automatically masks a spherical volume around the origin to prevent scalar distortion in peak finding and colour map rendering.</li>
+                    <li><strong>Centrosymmetry:</strong> Regardless of whether the space group is non-centrosymmetric, the Patterson function is strictly centrosymmetric ($P(\mathbf{u}) = P(-\mathbf{u})$).</li>
+                </ul>
+
+                <h3>Harker Sections</h3>
+                <p>
+                    Symmetry elements within space groups generate interatomic vectors constrained to specialized planes or lines termed <strong>Harker sections</strong>. For a general space group operation $\mathbf{S}\mathbf{x} = \mathbf{R}\mathbf{x} + \mathbf{t}$, symmetry-equivalent atoms generate Harker vectors defined by:
+                </p>
+                <div class="math-display">
+                    $$ \mathbf{u}_H = \mathbf{x} - (\mathbf{R}\mathbf{x} + \mathbf{t}) = (\mathbf{I} - \mathbf{R})\mathbf{x} - \mathbf{t} $$
+                </div>
+                <p>
+                    By evaluating peak maxima on these constrained planes, comp-Harker extracts discrete fractional atomic coordinates directly from one-dimensional and two-dimensional searches.
+                </p>
+            </section>
+
+            <section id="architecture">
+                <h2 id="arch-overview">2. Program Architecture</h2>
+                <p>
+                    comp-Harker isolates computational workloads across thread boundaries to guarantee smooth UI interaction at high animation frame rates.
+                </p>
+                
+                <h3>Multi-Threaded System Map</h3>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Execution Layer</th>
+                            <th>Primary Responsibility</th>
+                            <th>Source Components</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Main Thread (UI)</strong></td>
+                            <td>File parsing, UI state management, Three.js 3D structure rendering, 2D slice visualizer, PDF report generation.</td>
+                            <td><code>Harko.html</code>, <code>patterson3d.js</code>, <code>style.css</code>, <code>sg_engine.js</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web Worker Engine</strong></td>
+                            <td>Asynchronous 3D Radix-2 FFT synthesis, Lorch filtering, peak finding, SMF & Buerger minimum superposition map generation, site consolidation.</td>
+                            <td><code>sharko_worker.js</code>, <code>symmetry_utils.js</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WebGPU Compute Shader</strong></td>
+                            <td>Hardware-accelerated structure search: the fitness evaluator for every trial structure, GPU symmetry expansion, minimum contact evaluations. The sampler itself is host-side.</td>
+                            <td><code>swarm_compute.wgsl</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 id="arch-worker">2.2 Web Worker Pipeline</h3>
+                <p>When data files are uploaded or parameters change, comp-Harker triggers a background worker thread via a single <code>CALCULATE</code> execution message:</p>
+                <pre class="algorithm-box">
+STAGE 1: ASYNCHRONOUS FFT PATTERSON SYNTHESIS
+  ├─ Expand unique reflections across full Friedel sphere using space group symmetry operators
+  ├─ Apply Lorch modification envelope: I *= (1-s) + s * sinc(π * d* * d_min)
+  ├─ Grid determination: N = next_power_of_two( max(requested_grid, 2*h_max + 1) )
+  ├─ Populate complex grid array with intensity values I(h,k,l)
+  ├─ Execute 3D Radix-2 Cooley-Tukey Inverse FFT
+  ├─ Map normalization: P(u,v,w) = Real(FFT) / Volume
+  └─ Extract metadata: d_min resolution limit, calculated peak width σ = max(0.26 * d_min, 0.7 * dx)
+
+STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
+  ├─ Generate origin mask: exclude all grid points within 1.1 Å radius of (0,0,0)
+  ├─ Calculate map statistics (mean, sigma) over non-origin voxels
+  ├─ Compute Symmetry Minimum Function (SMF) across all non-identity space group operators
+  ├─ Fallback (if P1): Compute Buerger Minimum Superposition Map M(u) = min(P(u), P(u - u_top))
+  └─ Extract peaks from SMF/Supermap (unmasked) as consolidated absolute candidate sites
+                </pre>
+
+                <h3 id="arch-gpu">2.3 WebGPU Structure Search</h3>
+                <p>
+                    The third piece of the pipeline, and the only one that runs on the GPU rather than the main
+                    thread or the worker, is the search for atomic coordinates once the map
+                    and its peaks exist. Rather than duplicate that material here, this subsection is a pointer:
+                    the full treatment &ndash; the update equations, the fitness function, and importantly the two
+                    separate hardware limits that govern how large a search you can run &ndash; lives in section 6,
+                    with the hardware-limits half specifically in 6.3. The short version, for the architectural
+                    picture: the main thread builds the WGSL compute shader from <code>swarm_compute.wgsl</code>,
+                    sizing a couple of its constants to your actual GPU before compiling it, then dispatches one
+                    workgroup per particle every generation and reads back only the best-found fitness and
+                    position, keeping the heavy per-particle arithmetic entirely off the JavaScript thread.
+                </p>
+                <p class="callout-info">
+                    Since the composition-driven route was added, each particle also carries a
+                    <em>Wyckoff assignment</em>, and one dispatch searches every assignment at once as
+                    independent sub-populations, each with its own ladder. See <a href="#wy-gpu">7.7</a>.
+                </p>
+
+<h3 id="arch-symmetry">2.4 Symmetry &amp; Operator Resolution</h3>
+                <p>
+                    Every stage of the pipeline &ndash; reflection expansion, Harker section geometry, the SMF, and
+                    the search's own symmetry expansion of trial atoms &ndash; needs the same thing first: the actual
+                    list of symmetry operators for whichever space group was selected. That sounds like a simple
+                    lookup, but a single space-group <em>number</em> can correspond to more than one standard
+                    <em>setting</em> in the database (different origin choices or axis conventions produce
+                    different operator lists for what is nominally "the same" space group), so comp-Harker has to
+                    decide which setting you actually mean. It does this by trying to match the symbol your data
+                    file supplies against the settings on record for that number; if there is only one setting on
+                    file it uses that regardless, and if there are several and none matches the file's symbol, it
+                    falls back to the first on record and says so explicitly &ndash; because picking the wrong
+                    setting here does not cause an obvious failure downstream, it just quietly makes every Harker
+                    section, every SMF-derived site, and every search-generated symmetry copy wrong in a way that
+                    looks like a normal failed structure solution rather than a mismatched space group. If a
+                    structure refuses to solve and you're not certain the setting is right, this resolution step,
+                    not the search, is the first thing worth checking.
+                </p>
+            </section>
+
+            <section id="data-input">
+                <h2 id="data-file-structure">3. Data Input & Intensity Correction</h2>
+                <h3>3.1 File Formats</h3>
+                <p>
+                    comp-Harker reads ASCII data exports generated by powder diffraction profile refinement tools (such as Powder 5). It also supports generic peak lists, such as the standard SHELX HKLF 4 format (e.g., lines containing <code>h, k, l, intensity, sigma</code>), but this functionality was not fully tested. If metadata like the Space Group or Cell parameters are found in the header, comp-Harker will auto-populate the UI. Otherwise, they can be set manually.
+                </p>
+                <h3 id="data-intensity">3.2 Intensity Classification Hierarchy</h3>
+
+<p>
+    Synthesis of a physically accurate Patterson map requires pure structure factor magnitudes squared, $|F(\mathbf{h})|^2$. However, raw measured powder diffraction peak intensities ($I_{\text{obs}}$ or $I_{hkl}$) carry geometric and instrumental distortions:
+</p>
+<ul>
+    <li>
+        <strong>Lorentz–Polarization Factor ($Lp$):</strong> Instrument geometry and beam polarization artificially inflate measured intensities at low and high scattering angles.
+    </li>
+    <li>
+        <strong>Multiplicity ($m$):</strong> Overlapping symmetry-equivalent reflections in powder diffraction scale the integrated peak area proportionally to the orbit multiplicity.
+    </li>
+</ul>
+<p>
+    If $Lp$ and $m$ are not removed, low-angle reflections artificially dominate the Patterson synthesis, distorting vector peak heights and masking true interatomic vectors.
+</p>
+
+<p>
+    Because profile refinement software exports vary, comp-Harker inspects the uploaded file columns and automatically applies the highest available priority tier:
+</p>
+
+<table class="param-table">
+    <thead>
+        <tr>
+            <th>Priority Tier</th>
+            <th>Detected Columns</th>
+            <th>Intensity Calculation ($|F|^2$)</th>
+            <th>Processing Route & Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Tier 1 (Highest)</strong></td>
+            <td class="code">|Fo|</td>
+            <td>$|F|^2 = |F_o|^2$</td>
+            <td>
+                Direct $|F_o|$ values supplied by the file. The refinement software has already removed $m$ and $Lp$ at high floating-point precision using refined $2\theta$ positions. No further corrections are applied.
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Tier 2</strong></td>
+            <td class="code">I_hkl, m, Lp</td>
+            <td>$|F|^2 = \frac{I_{hkl}}{m \cdot Lp}$</td>
+            <td>
+                Explicit $m$ and $Lp$ columns present in the table header are used directly to isolate $|F|^2$ per reflection.
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Tier 3</strong></td>
+            <td class="code">I_hkl, 2th</td>
+            <td>$|F|^2 = \frac{I_{hkl}}{Lp(2\theta)}$</td>
+            <td>
+                $Lp(2\theta)$ is calculated by comp-Harker using the beam polarisation constant $K$ read from the file header. Multiplicity $m$ is handled during symmetry orbit expansion.
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Tier 4 (Fallback)</strong></td>
+            <td class="code">I_hkl only</td>
+            <td>$|F|^2 = I_{hkl}$</td>
+            <td>
+                Neither $|F_o|$ nor $2\theta$/$Lp$ data are available. Uncorrected raw peak areas are used. Low-angle reflections will dominate the map, and a warning is displayed.
+            </td>
+        </tr>
+    </tbody>
+</table>
+            </section>
+
+            <section id="map-calculation">
+                <h2>4. Patterson Map Synthesis</h2>
+                
+                <h3 id="map-fft">4.1 FFT Synthesis Engine</h3>
+                <p>
+                    comp-Harker uses a 3D Radix-2 Fast Fourier Transform to calculate maps ($O(N^3 \log N)$), accelerating calculations by over 300 times compared to direct summations.
+                </p>
+
+                <h3 id="map-lorch">4.2 Lorch Series Termination Filter</h3>
+                <p>
+                    Truncation of the reciprocal space data at resolution limit $d_{\min}$ introduces Fourier series termination ripples (ghost oscillations around heavy atom vectors). comp-Harker incorporates a tunable Lorch modification strength slider ($s \in [0, 1]$) applied per-reflection during accumulation:
+                </p>
+                <div class="math-display">
+                    $$ I(\mathbf{h})_{\text{modified}} = I(\mathbf{h}) \cdot \left[ (1 - s) + s \cdot \text{sinc}(\pi \cdot d^* \cdot d_{\min}) \right] $$
+                </div>
+                <p>where $d^* = \frac{1}{d(\mathbf{h})}$ is the reciprocal interplanar distance in $\text{\AA}^{-1}$, $d_{\min}$ is the dataset's minimum $d$-spacing, and $\text{sinc}(x) = \frac{\sin(x)}{x}$ (with $\text{sinc}(0) = 1$).</p>
+                <ul>
+                    <li><strong>$s = 0.00$ (Off):</strong> Preserves original measured intensities without filtering. Peak heights remain maximal, though termination ripples may persist.</li>
+                    <li><strong>$0 < s < 1.00$ (Tunable Blend):</strong> Blends raw intensities with the Lorch envelope, allowing users to dial in just enough ripple suppression without causing excessive peak flattening.</li>
+                    <li><strong>$s = 1.00$ (Full Lorch):</strong> Applies complete Lorch modification, effectively taming truncation ripples at the cost of slight peak broadening.</li>
+                </ul>
+
+                <h3 id="map-parameters">4.3 Grid Resolution & Anti-Aliasing</h3>
+                <p>
+                    The FFT grid automatically expands to a power of two satisfying $N \ge 2 h_{\max} + 1$ to prevent high-index reflections from aliasing onto low-order data.
+                </p>
+
+                <h3 id="map-smearing">4.4 Model Gaussian Smearing</h3>
+                <p>
+                    Model Patterson maps generated from trial atomic coordinates are convoluted with a Gaussian broadening kernel matching the resolution limit $d_{\min}$ and Debye-Waller temperature factor $B$.
+                </p>
+
+                <h3 id="map-scaling">4.5 Least-Squares Map Scaling</h3>
+                <p>
+                    Trial calculated maps are scaled to observed data using least-squares scale fitting over non-origin voxels.
+                </p>
+            </section>
+
+            <section id="peak-analysis">
+                <h2>5. Peak Finding & Harker Analysis</h2>
+                
+                <h3 id="peak-finding">5.1 3D Local Maxima Search</h3>
+                <p>
+                    comp-Harker identifies peak vectors by scanning non-masked voxels using a 26-neighbor 3D local maximum search with periodic boundary wrapping.
+                </p>
+
+                <h3 id="harker-sections">5.2 Harker Section Deconvolution</h3>
+                <p>
+                    Peaks located on Harker sections are mapped to candidate fractional atomic coordinates $(x,y,z)$ using space-group-specific analytical expressions.
+                </p>
+
+                <h3 id="site-combination">5.3 Multi-Section Site Combination</h3>
+                <p>
+                    Each Harker section is solved independently, so the same real atom typically produces a
+                    slightly different-looking candidate position from every section it appears in &ndash; one
+                    partial solution per section, each only as good as the peak that section happened to find. The
+                    worker still solves every section this way, and every one of those partial, per-section
+                    positions is kept and shown to you (the "Harker Solutions" column in the Peaks tab, described
+                    below), because a partial solution that agrees with the final structure is a useful sanity
+                    check even when it wasn't itself used to build that structure.
+                </p>
+                <p>
+                    What those per-section solutions do <em>not</em> currently do is get cross-referenced against
+                    each other to build the "Consolidated Sites" list. There is a tolerance-based combination
+                    routine in the worker that does exactly that &ndash; averaging together whichever per-section
+                    positions land within a chosen distance of one another &ndash; and the code path for it (a
+                    <code>COMBINE_ONLY</code> worker message, and the underlying <code>combineSites()</code>
+                    function) is still there, but the slider that used to drive it is hidden in the current
+                    interface and nothing in the UI calls it any more. Instead, every entry in Consolidated Sites
+                    today comes directly from peak-finding on the SMF or Buerger superposition map described next
+                    (5.4) &ndash; a single, more reliable source, rather than an agreement vote across several
+                    partial, section-by-section solutions. If you are comparing the Harker Solutions column against
+                    the Consolidated Sites column and wondering why a position in the first doesn't obviously map
+                    onto one in the second, this is why: the second column isn't built from the first.
+                </p>
+
+                <h3 id="smf-superposition">5.4 Symmetry Minimum Function (SMF) & Buerger Superposition</h3>
+                <div class="callout callout-info">
+                    <strong>Where the SMF map shows up now.</strong> It no longer has a pane on the Maps tab &mdash;
+                    reading it as a 2D slice added little to the consolidated site list it produces, and removing it
+                    let the three remaining panes grow. Everything below still runs on every Calculate Map: the map
+                    feeds the Consolidated column on the Peaks tab whenever <em>Consolidate sites via Harker</em> is
+                    off, seeds the search's heavy atom, and is written out by <strong>Density (.grd)</strong> for
+                    inspection in VESTA.
+                </div>
+                <p>
+                    Extracting atomic positions directly from a raw Patterson map is complicated by overlapping vectors and floating relative origins. comp-Harker implements a dual-mode map reduction architecture: <strong>Symmetry Minimum Function (SMF)</strong> for absolute crystallographic positioning, and <strong>Buerger Minimum Superposition</strong> as a single-shift fallback.
+                </p>
+
+                <h4>A. Symmetry Minimum Function (SMF)</h4>
+                <p>
+                    The SMF queries the Patterson map at vector displacements predicted by <em>all</em> non-identity symmetry operators $\mathbf{S}_i = (\mathbf{R}_i, \mathbf{t}_i)$ of the space group simultaneously. For any trial atomic position $\mathbf{x} = (x,y,z)$, the expected interatomic Harker vector generated by operator $i$ is $\mathbf{u}_i = \mathbf{x} - (\mathbf{R}_i \mathbf{x} + \mathbf{t}_i)$. The SMF value at $\mathbf{x}$ is the minimum Patterson intensity across all active symmetry operations:
+                </p>
+                <div class="math-display">
+                    $$ \text{SMF}(\mathbf{x}) = \min_{i = 1 \dots N_{\text{ops}}} P\Big( \mathbf{x} - (\mathbf{R}_i \mathbf{x} + \mathbf{t}_i) \Big) $$
+                </div>
+                <p>
+                    Because all symmetry operators are bound directly to the unit cell's origin, <strong>the SMF produces peaks directly in the absolute crystallographic frame</strong> (e.g., placing heavy atoms accurately on special positions such as $y=0.75$ in space group <em>Pnma</em>). Taking the multi-way minimum acts as a powerful logical "AND" filter, obliterating background noise and random vector overlaps while preserving genuine atomic sites.
+                </p>
+
+                <h4>B. Buerger Minimum Superposition Function</h4>
+                <p>
+                    In space group $P1$ or when symmetry operators are unavailable, comp-Harker falls back to the classical Buerger Minimum Function. The worker selects the strongest non-origin vector peak $\mathbf{u}_{\text{top}}$ clearing the origin exclusion radius ($d_{\min}$ or $1.1\text{ \AA}$) and shifts a copy of the Patterson map:
+                </p>
+                <div class="math-display">
+                    $$ M(\mathbf{u}) = \min\left( P(\mathbf{u}), \; P(\mathbf{u} - \mathbf{u}_{\text{top}}) \right) $$
+                </div>
+                <p>
+                    <em>Note:</em> Buerger superposition fixes the origin relative to the shifted atom (placing that atom at $(0,0,0)$), whereas SMF resolves positions within the true space group frame.
+                </p>
+
+                <h4>C. Unmasked Consolidated Peak Detection</h4>
+                <p>
+                    Unlike the raw Patterson map (where the $(0,0,0)$ origin peak is masked to prevent scalar distortion), peak finding on the resulting SMF or Superposition map is performed <strong>without an origin mask</strong>. Because SMF/Superposition shifts valid atomic sites directly onto grid positions (which may include $(0,0,0)$ or special positions on mirror planes), unmasked peak detection ensures valid structural candidates are never accidentally deleted.
+                </p>
+            </section>
+
+            <section id="swarm-optimization">
+                <h2>6. WebGPU Structure Search</h2>
+
+                <h3 id="swarm-theory">6.1 Replica-Exchange Monte Carlo</h3>
+                <p>
+                    comp-Harker searches for atomic coordinates with a population of independent
+                    <strong>Markov chains</strong> on the GPU. Each chain holds one trial structure. Every step it
+                    proposes a Gaussian move on the free coordinates, projects the result back onto its Wyckoff
+                    subspace, and accepts by the Metropolis rule &mdash; always if the fit improved, and with
+                    probability $\exp(\Delta f / T)$ if it did not:
+                </p>
+                <div class="math-display">
+                    $$ P(\text{accept}) \;=\; \min\!\left[\,1,\; \exp\!\left(\frac{f_{\text{new}} - f_{\text{cur}}}{T}\right)\right] $$
+                </div>
+                <p>
+                    Accepting a worse structure some of the time is the whole point: it is how a chain climbs out
+                    of a hole it has fallen into. $T$ decides how readily. The proposal width of each chain is
+                    adapted individually toward a $30\%$ acceptance rate, so a twelve-parameter assignment and a
+                    six-parameter one each settle at whatever step size their own subspace can take &mdash;
+                    a single global step size handicaps the flexible assignments, which are the ones that matter.
+                </p>
+
+                <h4>The temperature ladder</h4>
+                <p>
+                    Temperatures are <strong>fixed, not cooled</strong>. The chains of each assignment are grouped
+                    into ladders of eight, holding a geometric sequence from $T = 5\times10^{-4}$ to $0.05$ in
+                    correlation units. Every ten steps, adjacent rungs attempt to exchange their structures:
+                </p>
+                <div class="math-display">
+                    $$ P(\text{swap}) \;=\; \min\!\left[\,1,\; \exp\!\big( (\beta_{\text{cold}} - \beta_{\text{hot}})(f_{\text{hot}} - f_{\text{cold}}) \big)\right], \qquad \beta = 1/T $$
+                </div>
+                <p>
+                    A hot replica that finds something better hands the structure down the ladder; the cold
+                    replica's worse structure goes up to be knocked about further. The configurations trade places
+                    and the temperatures stay with the rungs, so the population always holds the same spread of
+                    behaviour: hot chains roaming for the whole run, cold chains refining. Exchanges are only ever
+                    attempted between chains of the <em>same assignment</em> &mdash; two assignments are different
+                    problems in different subspaces and their coordinates are not interchangeable.
+                </p>
+
+                <div class="callout callout-info">
+                    <strong>This replaced particle swarm optimisation, and the reason is worth recording.</strong>
+                    PSO's social term pulls every particle of an assignment toward that assignment's best, so the
+                    population collapses onto whichever basin was found first. On real PbSO$_4$ data that showed as
+                    a run-to-run coin flip between structures containing a Pb&ndash;O contact of
+                    $1.01\,\text{\AA}$ &mdash; not a worse answer, not an answer at all &mdash; while the correct
+                    structure, when constraints were supplied, scored best on <em>both</em> the correlation and the
+                    $R$ factor. The objective had never been the problem; the sampling had. Independent chains
+                    cannot collapse, because nothing shares a direction.
+                </div>
+
+                <h3 id="swarm-quench">6.1b The Final Quench</h3>
+                <p>
+                    What an assignment stores at the end of a run is the best structure ever <em>proposed</em> for
+                    it &ndash; and a proposal is judged by one chain, at the temperature of the moment, under a
+                    partial reflection set. Nothing has gone back and refined that particular structure. So after
+                    the restarts, every assignment's best becomes the starting point for a <strong>greedy
+                    descent</strong>: $T = 0$, improvements only, the step shrinking geometrically to well below the
+                    precision the coordinates are printed at, at full resolution and full penalty weight.
+                </p>
+                <p>
+                    <strong>Path length, not breadth.</strong> A greedy descent walks down a valley one move at a
+                    time, so many short chains and one long chain are not the same purchase. Measured on real
+                    PbSO$_4$ data, starting from a structure at $R = 11.9\%$: $23\times150$ steps reached
+                    $10.5\%$, $23\times600$ reached $10.0\%$, and a <em>single</em> chain of $10{,}000$ steps
+                    reached $9.9\%$ on a third of the evaluations. Chains only try different directions from the
+                    same point; they cannot walk further for you.
+                </p>
+                <p>
+                    Every assignment is quenched, not only those that survived pruning. The candidate table ranks
+                    on $R$, and refining some structures and not others would put "did it survive the prune" into
+                    that ranking &mdash; the same bias against high-dimensional assignments that the particle
+                    weighting and the late prune point exist to remove.
+                </p>
+
+                    <h3 id="swarm-fitness">6.2 Vector Fitness &amp; Sigma Normalization</h3>
+<div class="callout-info">
+    <strong>Superseded.</strong> The vector fitness below is no longer what the search maximises. It is
+    retained here because it explains the quantity the older sigma-scaled readouts reported, and because
+    it remains a good description of why a Patterson vector sum makes a smooth funnel. The current fitness
+    is the correlation between the observed and calculated Patterson maps &mdash; dimensionless, bounded
+    by 1, so the $\sigma$ conversion does not apply and the chart is labelled in CC. See
+    <a href="#wy-cc">7.4</a> for what replaced it and why.
+</div>
+<p>
+    comp-Harker evaluates trial structural candidate configurations by measuring how strongly the observed Patterson map supports the predicted interatomic vectors.
+</p>
+
+<h4>A. Raw Vector Fitness Calculation</h4>
+<p>
+    For $N$ independent atoms expanded across all space group symmetry operations, the raw fitness $\text{Fitness}_{\text{raw}}$ computes the pair-weight-normalized mean Patterson intensity at all predicted vector positions $\mathbf{u}_{ij} = \mathbf{x}_i - \mathbf{x}_j$, minus steric collision penalties:
+</p>
+<div class="math-display">
+    $$ \text{Fitness}_{\text{raw}} = \frac{1}{\sum_{i < j} 2 Z_i Z_j} \left( \sum_{i < j} 2 Z_i Z_j \cdot P(\mathbf{u}_{ij}) \;-\; \text{Penalty}_{\text{bump}} \right) $$
+</div>
+<p>
+    where $P(\mathbf{u}_{ij})$ is trilinearly interpolated from the observed map. Normalizing by the constant sum of all pair weights ensures the search is not artificially biased toward structures sitting on special positions.
+</p>
+
+<h4>B. Sigma ($\sigma$) Scale Conversion</h4>
+<p>
+    Raw map values depend entirely on the scale of the source file intensities. To provide a standard metric, comp-Harker converts the raw fitness into standard deviation units ($\sigma$):
+</p>
+<div class="math-display">
+    $$ \text{Fitness}_{\sigma} = \frac{\text{Fitness}_{\text{raw}}}{\sigma_{\text{map}}} $$
+</div>
+<p>
+    where $\sigma_{\text{map}}$ is the standard deviation of non-origin voxels in the observed map. Quoting the fitness in $\sigma$ places the convergence score on the exact same physical scale used by the 2D color bars, peak table height values, and PDF reports.
+</p>
+
+                <h3 id="swarm-params">6.3 Restarts &amp; GPU Hardware Limits</h3>
+                <p>
+                    A chain that has cooled is finished &mdash; at the bottom rung it only accepts improvements, so
+                    it stays in whatever basin it is in. A <strong>restart</strong> throws every chain back to a
+                    fresh random position and re-runs the ladder, keeping every structure already found. Restarts
+                    and Iterations spend the same budget differently: restarts buy more independent attempts,
+                    iterations buy a longer look at each one. Underneath that,
+                    comp-Harker has to fit two very different things inside the fixed budget every GPU gives a compute
+                    shader, and it now measures your actual hardware for both rather than assuming a number that
+                    might be too small for a good GPU or too large for a modest one.
+                </p>
+                <h4>A. How many particles can run at once</h4>
+                <p>
+                    Every chain (one trial structure) needs its own slice of three large storage buffers holding
+                    the fractional coordinates of every atom in the asymmetric unit. comp-Harker reads the browser's
+                    <code>maxStorageBufferBindingSize</code> and <code>maxComputeWorkgroupsPerDimension</code> limits
+                    the moment WebGPU becomes available, works out how many particles' worth of buffer space that
+                    leaves after reserving room for the map textures, and sets the <strong>Chains</strong>
+                    slider's maximum accordingly &ndash; rounded down to a multiple of 64, never below 64, never above
+                    8192. Because the buffers scale with the number of atoms in your asymmetric unit, adding another
+                    atom to the unit shrinks the particle ceiling; you can see the current number, and the raw
+                    binding-size and workgroup limits it was computed from, by clicking the <strong>?</strong>
+                    beside the <strong>Chains</strong> slider in section 4 of the left panel.
+                </p>
+                <h4>B. How many symmetry-expanded atoms one particle can hold</h4>
+                <p>
+                    Separately from the particle count, evaluating a <em>single</em> particle's fitness means
+                    generating every symmetry-equivalent copy of every asymmetric-unit atom &ndash; all of them, for
+                    every operator in the space group &ndash; and holding all of those positions in the compute
+                    shader's per-workgroup memory at once so every pair of them can be compared. That per-workgroup
+                    memory is a small, fixed pool (WebGPU guarantees at least 16&nbsp;KB per workgroup, and most
+                    desktop GPUs offer more), so there is a hard ceiling on
+                    <code>(atoms in the asymmetric unit) &times; (symmetry operators in the space group)</code>
+                    that any one particle can carry.
+                </p>
+                <p>
+                    This used to be a single number wired into the shader by hand. It now measures the connected
+                    GPU's <code>maxComputeWorkgroupStorageSize</code> at startup, works out the largest atom&times;operator
+                    total that fits with headroom to spare, rounds that down to a whole multiple of the space
+                    group's operator count (so an atom's symmetry orbit is never split &ndash; carrying five of an
+                    atom's six symmetry images and dropping the sixth would silently bias that atom's contribution
+                    to the fitness), and compiles that number directly into the shader before the run starts. The
+                    floor is 384 combinations, which is generous for most structures &ndash; eight independent atoms
+                    in a 48-operator space group, or two atoms in one of the 192-operator cubic groups &ndash; and
+                    capable GPUs comfortably clear a thousand or more.
+                </p>
+                <p>
+                    If your asymmetric unit and space group between them ask for more symmetry-expanded positions
+                    than even this device-sized limit allows, comp-Harker does not silently drop the excess atoms and
+                    quietly hand back a fitness computed on an incomplete structure. It refuses to start the run at
+                    all and reports the exact numbers involved &ndash; how many atoms, how many operators, the total
+                    that implies, and the GPU's actual limit &ndash; so the fix (remove an atom, or accept that this
+                    particular structure needs a beefier GPU) is obvious rather than something you'd have to
+                    reverse-engineer from a suspiciously bad-looking result.
+                </p>
+
+                <h3 id="swarm-contact">6.4 Minimum Contact Distance</h3>
+                <p>
+                    The <strong>Minimum contact distance</strong> control is a hard floor under every interatomic
+                    contact in the cell, symmetry mates and cell-boundary neighbours included. It runs from $0$ to
+                    $3\,\text{\AA}$ and starts at $1.00\,\text{\AA}$. The same number is enforced by the GPU
+                    kernel during the search and by the filter that drops candidates before ranking, so the table
+                    cannot show a structure the search was not charging for.
+                </p>
+                <p>
+                    <strong>Why a floor is needed at all.</strong> The correlation does not know that atoms are
+                    solid. A model with lead and oxygen $0.32\,\text{\AA}$ apart correlated at $0.9428$ and ranked
+                    fourth in a real run before any floor existed &mdash; not a worse answer than one at
+                    $2.6\,\text{\AA}$, but not an answer at all. The original zero floor was there so that
+                    independent atoms of the same element could merge onto a special position without penalty; the
+                    composition-driven route removed that need, because <span class="code">coset_ops</span>
+                    generates exactly the right number of atoms for each Wyckoff position
+                    (<a href="#wy-database">7.2</a>), so there is nothing to merge.
+                </p>
+                <div class="callout callout-warning">
+                    <strong>&#9888; This changed, and the old behaviour was worth reporting as a bug.</strong>
+                    Between those two designs the control was a <em>ceiling</em> on automatic per-pair floors: the
+                    search enforced $\min(0.65\times\Sigma r_{\text{cov}},\ \text{slider})$, so raising the
+                    slider above a pair's radii value did nothing. Set to $1.10\,\text{\AA}$ on PbSO$_4$ it still
+                    returned candidates with O&ndash;O at $0.94\,\text{\AA}$, because the radii floor for that
+                    pair is $0.86$ and $\min()$ kept it. A control named "minimum contact distance" that cannot
+                    raise a minimum contact distance is misnamed, so the rule is now simply
+                    $\text{floor}(A,B) = \text{slider}$, for every pair.
+                </div>
+                <p>
+                    <strong>Choosing a value.</strong> $1.00\,\text{\AA}$ sits below any real bond &mdash; the
+                    shortest in ordinary inorganics is a little over $1.1\,\text{\AA}$ &mdash; and well above what
+                    a wrong Wyckoff assignment produces, so it discards nonsense without putting a true structure
+                    out of reach. $0$ turns it off. Raise it with care: too high does not merely reject the right
+                    answer, it charges it <em>more</em> than a wrong one, because the clash penalty grows with
+                    overlap depth, and the search will spend itself avoiding the region the answer lives in.
+                </p>
+                <p>
+                    <strong>Pair-specific distances belong in Distance constraints</strong>
+                    (<a href="#wy-constraints">7.8</a>). A stated <code>dmin</code> is a hard floor for that pair
+                    alone &mdash; <span class="code">S O - 1.30/</span> holds S&ndash;O at $1.30\,\text{\AA}$
+                    while everything else keeps the global floor. Constraints are evaluated by the rule machinery,
+                    not folded into the global floor, so the same approach is never charged twice.
+                </p>
+
+                <h3 id="swarm-tuning">6.5 Sampler Constants</h3>
+                <div class="callout callout-warning">
+                    <strong>&#9888; Not exposed in the interface.</strong> The panel offers only the three controls
+                    that change the answer in a way you can reason about &mdash; Chains, Iterations and Restarts.
+                    Everything below is fixed in <span class="code">SW_DEFAULTS</span> in
+                    <span class="code">swarm_wyckoff.js</span>. It is documented because the values govern how the
+                    search moves, not because there is a slider for them.
+                </div>
+                <ul>
+                    <li><strong>Ladder</strong>: $8$ rungs, geometric from $T_{\text{cold}} = 5\times10^{-4}$ to
+                        $T_{\text{hot}} = 0.05$, exchange attempted every $10$ steps. The units are correlation
+                        units, so $0.05$ means a proposal a twentieth worse is taken about a third of the time,
+                        and $5\times10^{-4}$ means only a thousandth of a correlation unit is negotiable.</li>
+                    <li><strong>Step adaptation</strong>: Robbins&ndash;Monro toward a target acceptance of $0.3$,
+                        with gain $0.08$, clamped to $[2\times10^{-4},\, 0.5]$ in fractional coordinates. Each
+                        rung self-tunes: hot rungs settle on large moves, cold rungs on small ones.</li>
+                    <li><strong>Resolution ramp</strong>: quantised into $24$ blocks. This one is not cosmetic. A
+                        Metropolis test compares a proposal against the current state's energy, and both have to
+                        come from the same objective; adding a reflection group every generation silently lowers
+                        everything's correlation, so a state measured one generation ago looks too good and almost
+                        every proposal is refused. Held over a block, with the current state re-measured when the
+                        block changes, the comparison is honest at one extra dispatch per block.</li>
+                    <li><strong>Quench</strong>: $600$ greedy steps, move size $0.02 \to 5\times10^{-5}$.</li>
+                </ul>
+
+                <h4>Reading the acceptance rate</h4>
+                <p>
+                    The <strong>Acceptance</strong> row in the search panel, and the restart lines in the log, report
+                    the fraction of proposals the chains took. Healthy is $20$&ndash;$35\%$ across the ladder, with
+                    <strong>exchange</strong> between rungs at $20$&ndash;$45\%$. Single-digit acceptance early means
+                    the chains are frozen and the budget is being wasted; above $90\%$ means they are random-walking
+                    and nothing will settle. An exchange rate near zero means the rungs are too far apart in
+                    temperature and there are too few of them.
+                </p>
+
+                <h2>7. Composition-Driven Solution (Wyckoff Search)</h2>
+                <p>
+                    <strong>This is how comp-Harker now solves structures.</strong> You state a <em>formula</em>,
+                    and the program decides how many atoms there are, which Wyckoff positions hold them, and
+                    where. <strong>Run Search</strong> requires a formula and will not start without one.
+                </p>
+                <p>
+                    Section 6 still describes the machinery &mdash; the particle dynamics, the hardware
+                    limits, the contact rules and the tuning parameters all apply unchanged. What has been
+                    replaced is <em>what</em> is optimised and <em>what</em> the parameters are: the fitness
+                    is now a map correlation rather than a vector sum in $\sigma$
+                    (<a href="#wy-cc">7.4</a>), and the free parameters are the coordinates a Wyckoff
+                    assignment leaves free rather than three per independent atom. The list of independent
+                    atoms with quantities that older versions asked for is gone: it stated the one thing this
+                    search exists to work out.
+                </p>
+
+                <h3 id="wy-why">7.1 Searching Wyckoff Space</h3>
+                <p>
+                    A general-position search optimises $3N$ free coordinates for $N$ independent atoms.
+                    Symmetry then generates whatever it generates: in $Pnma$ five independent atoms become
+                    forty in the cell, so a model built from one Pb, one S and three O is
+                    $\text{Pb}_8\text{S}_8\text{O}_{24}$, not $\text{PbSO}_4$. Multiplicity is
+                    <em>measured</em> afterwards, by testing whether symmetry images happen to coincide,
+                    rather than imposed.
+                </p>
+                <p>
+                    The composition-driven route inverts this. A trial structure is described by
+                </p>
+                <div class="math-display">
+                    $$ (\text{Wyckoff assignment}) \;\times\; (\text{free parameters of that assignment}) $$
+                </div>
+                <p>
+                    where an <em>assignment</em> chooses, for each element, a multiset of Wyckoff positions
+                    whose multiplicities sum to the required atom count. Two consequences follow:
+                </p>
+                <ul>
+                    <li><strong>Stoichiometry is exact by construction.</strong> Every structure the search
+                        can express has the requested formula. Nothing has to be rescued afterwards.</li>
+                    <li><strong>Dimensionality collapses.</strong> A site on $4c$ in $Pnma$ is
+                        $(x, \tfrac{1}{4}, z)$ and carries two parameters; a site on $4a$ is $(0,0,0)$ and
+                        carries none. $\text{PbSO}_4$ goes from 15 loose coordinates to 11 constrained ones;
+                        $\text{Y}_2\text{O}_3$ in $Ia\bar{3}$ goes from 15 to 4.</li>
+                </ul>
+                <div class="callout-info">
+                    <strong>The projection trick.</strong> Each Wyckoff position carries an
+                    <em>idempotent affine projector</em> $\mathbf{x} \mapsto \mathbf{P}\mathbf{x} + \mathbf{t}$
+                    taken from cctbx. Applying it is what keeps a trial structure on its subspace, and under
+                    the Monte Carlo sampler it is the <em>only</em> thing that does. A particle swarm stayed on
+                    the subspace largely for free, because its update is a linear combination of points already
+                    on it; a Gaussian proposal is not, and lands off the subspace almost surely. So every
+                    proposal is projected before it is evaluated &mdash; not as a correction for drift, but as
+                    part of how a move is made. A move is therefore a step in the ambient cell followed by a
+                    projection, which is a symmetric proposal on the subspace and leaves the Metropolis
+                    acceptance rule valid.
+                </div>
+
+                <h3 id="wy-database">7.2 The Space-Group Database</h3>
+                <p>
+                    The generator <span class="code">cctbx_Harko_v1.py</span> writes a per-space-group
+                    database into <span class="code">sg/</span>. Beyond the symbol, operators and Harker
+                    geometry, each Wyckoff position now carries machine-usable fields:
+                </p>
+                <table class="param-table">
+                    <tr><th>Field</th><th>Meaning</th></tr>
+                    <tr><td><span class="code">P_num, P_den, T_num, T_den</span></td>
+                        <td>The special operator as exact rationals &mdash; the projector above.</td></tr>
+                    <tr><td><span class="code">n_free</span></td>
+                        <td>$\text{rank}(\mathbf{P})$: the true number of continuous parameters. Not
+                            recoverable from the <span class="code">special_op</span> string, which cctbx
+                            may print as <span class="code">1/3x+1/3y+1/3z, ...</span> &mdash; three symbols
+                            for a rank-1 subspace.</td></tr>
+                    <tr><td><span class="code">coset_ops</span></td>
+                        <td>Operator indices giving exactly <span class="code">multiplicity</span> distinct
+                            images. Since a Wyckoff position has one site-symmetry group throughout, these
+                            depend on the position and not on where along it the atom sits.</td></tr>
+                </table>
+                <p>
+                    <span class="code">coset_ops</span> removes the shader's distance-based special-position
+                    collapse entirely: the correct number of atoms is generated by construction, with no
+                    tolerance to tune and no class of bug where multiplicity depends on a threshold. All 527
+                    settings verify exact.
+                </p>
+                <p>
+                    Three fetch routes are tried in order: <span class="code">sg/all.json</span> (one
+                    request), <span class="code">sg/index.json</span> plus the per-group files in parallel,
+                    then the legacy monolithic file. The console reports which won and how many settings
+                    carry projections &mdash; worth checking, because a stale legacy file silently
+                    outranking a fresh <span class="code">sg/</span> shows up only as every Wyckoff position
+                    appearing to lack <span class="code">n_free</span>.
+                </p>
+
+                <h3 id="wy-enumerate">7.3 Assignment Enumeration &amp; Ranking</h3>
+                <p>
+                    Enumeration is an integer-partition problem per element, with one cross-element rule: a
+                    position with no free parameter is a single point in the cell and cannot be shared. In
+                    $Pnma$, $\text{PbSO}_4$ at $Z=4$ yields 35 assignments; $\text{Y}_2\text{O}_3$ in
+                    $Ia\bar{3}$ at $Z=16$ yields 17. Both include the known answer.
+                </p>
+                <p>
+                    $Z$ may be left blank. The estimate spans 11&ndash;22 &Aring;$^3$ per non-hydrogen atom
+                    and flags values dividing the group order &mdash; a range, not a determination. The
+                    familiar 18 &Aring;$^3$ rule is organic-chemistry lore and returns $Z=3$ for
+                    $\text{PbSO}_4$, whose $Z$ is 4.
+                </p>
+                <p>
+                    Assignments are ordered before the search by <em>Harker residual</em>: the distance from
+                    the nearest consolidated Harker site to the subspace an assignment gives the heavy atom.
+                    This is free evidence from work already done. It only separates assignments that place
+                    the heavy atom differently, so when every candidate agrees on it the column reads the
+                    same value throughout &mdash; expected, and stated explicitly in the results header
+                    rather than left as a row of identical zeros. <strong>Only the correlation ranks the
+                    final list.</strong>
+                </p>
+
+                <h3 id="wy-cc">7.4 The Map-Correlation Fitness</h3>
+                <p>
+                    Candidates are ranked by the agreement between the observed and calculated Patterson
+                    maps. That comparison is <em>not</em> made in real space, for a reason worth stating
+                    carefully.
+                </p>
+                <p>
+                    By Parseval's theorem, the correlation of two Patterson maps equals the cosine
+                    similarity of their intensity lists &mdash; verified numerically to six decimal places.
+                    So the calculated map never has to be built. More importantly, a flat intensity
+                    $I(\mathbf{h}) = c$ transforms to a delta at the origin, so <em>subtracting the mean
+                    intensity removes the Patterson origin peak exactly</em> &mdash; which is precisely what
+                    a Pearson correlation does. No real-space mask can achieve that. Measured on a scrambled
+                    structure:
+                </p>
+                <table class="param-table">
+                    <tr><th>Comparison</th><th>Correct structure</th><th>Scrambled structure</th></tr>
+                    <tr><td>CC of the raw maps</td><td>1.000</td><td>0.89 &mdash; useless</td></tr>
+                    <tr><td>CC of the maps, origin masked</td><td>1.000</td><td>0.47 &mdash; mediocre</td></tr>
+                    <tr><td>CC of the intensities (Pearson)</td><td>1.000</td><td>&minus;0.01 &mdash; correct</td></tr>
+                </table>
+                <p>
+                    The observation is the multiplicity-weighted $|F_o|^2$, since Parseval sums over the full
+                    sphere where each unique reflection appears $m$ times. Weighting by $m \cdot Lp$ instead
+                    &mdash; comparing raw peak areas &mdash; gives a <em>higher</em> number for the true
+                    structure (0.99 against 0.96) and <em>worse</em> discrimination (3.2$\sigma$ against
+                    5.9$\sigma$ over 200 random trials), because $Lp$ spans a factor of 47 across a pattern
+                    and a handful of strong low-angle lines come to dominate both.
+                </p>
+                <p>
+                    Reflections a powder pattern cannot resolve are summed into groups and compared as one
+                    observation, since Pawley's division of intensity between overlapped lines is a fitting
+                    artefact rather than a measurement. Groups are ordered by $d^*$, which makes the
+                    <strong>resolution ramp</strong> a single bound on the group index: the search starts on
+                    the low-order quarter of the data, where the $|F|^2$ landscape is smoothest, and reaches
+                    the full set at 60% of the run.
+                </p>
+                <div class="callout-info">
+                    <strong>On the real PbSO<sub>4</sub> data in this repository:</strong> the true anglesite
+                    structure scores CC = 0.966 against a mean of 0.300 for random structures and 0.475 for
+                    the best of thirty &mdash; a separation of 5.9$\sigma$.
+                </div>
+
+                <h3 id="wy-obs">7.5 Observations, Wavelength &amp; Wilson B</h3>
+                <p>
+                    Everything reduces to $|F_o|^2$ and the powder multiplicity $m$ per reflection. How they
+                    are obtained depends on the file, and the routes are not interchangeable &mdash; applying
+                    a correction twice is as wrong as not applying it, and both look plausible.
+                </p>
+                <table class="param-table">
+                    <tr><th>File provides</th><th>Route</th></tr>
+                    <tr><td>$|F_o|$ column</td><td>Used directly; $m$ from the file or the Laue group.</td></tr>
+                    <tr><td>$m$, $Lp$, $I$</td><td>$|F_o|^2 = I / (m \cdot Lp)$.</td></tr>
+                    <tr><td>$2\theta$, $I$</td><td>$Lp$ from $2\theta$, $m$ from the Laue group.</td></tr>
+                    <tr><td>$d$, $I$ (+ wavelength)</td><td>$2\theta$ from $d$ and $\lambda$, then as above.</td></tr>
+                    <tr><td>$d$, $I$, no wavelength</td><td>Refused, naming the UI field.</td></tr>
+                </table>
+                <p>
+                    The reconstruction is exact where it can be checked: against a file stating both columns,
+                    all 282 multiplicities matched and $Lp$ agreed to 0.067% (the residual being the refined
+                    zero shift, which no reconstruction can know). Constant factors &mdash; the
+                    K$\alpha_2$ doublet ratio, the Pawley scale, the sample volume &mdash; cancel entirely,
+                    because a correlation is scale-free. <strong>Wavelength</strong> and
+                    <strong>Polarisation K</strong> are now read from the report header and pushed into the UI.
+                </p>
+                <p>
+                    An overall temperature factor is <em>not</em> optional: on the real data it is worth 0.31
+                    in correlation (0.65 at $B=0$ against 0.97 at the optimum). It is fitted once, before the
+                    search, from a Wilson plot:
+                </p>
+                <div class="math-display">
+                    $$ \ln \frac{\langle |F_o|^2 \rangle}{\sum_j f_j(s)^2} \;=\; \ln K \;-\; 2B\left(\frac{s}{2}\right)^{2} $$
+                </div>
+                <p>
+                    This is structure-independent, so $B$ is fixed thereafter and written into the $B$ slider
+                    so the displayed difference map describes the model the search actually scored. A negative
+                    slope is reported as unphysical rather than passed through: intensity rising with angle
+                    almost always means $Lp$ or a sharpening was applied twice.
+                </p>
+
+                <h3 id="wy-scatter">7.6 Scattering Factors</h3>
+                <p>
+                    <span class="code">cctbx_scatterers_v1.py</span> writes Waasmaier&ndash;Kirfel and
+                    International Tables coefficients, plus neutron scattering lengths, into
+                    <span class="code">scatters/</span> &mdash; 206 entries covering neutral atoms and common
+                    ions. The resolution fall-off belongs on the <em>model</em>:
+                </p>
+                <div class="math-display">
+                    $$ f(s_{tol}) = c + \sum_i a_i \exp\left(-b_i\, s_{tol}^2\right), \qquad s_{tol} = \frac{\sin\theta}{\lambda} = \frac{1}{2d} $$
+                </div>
+                <div class="callout-info">
+                    <strong>Two traps, both guarded.</strong> First, $s_{tol}$ is <em>half</em> of $s = 1/d$;
+                    passing $s$ leaves $f(0)$ untouched, so the error survives a casual check, while making
+                    every atom fall off four times too fast &mdash; $f(\text{O})$ at $d = 1$&nbsp;&Aring;
+                    becomes 1.38 instead of 2.34. Second, cctbx's table lookups <em>fall back to the neutral
+                    atom</em> for an unknown ion rather than failing, so a naive probe of 1128 labels
+                    "succeeds" 1128 times and 922 results are the neutral element wearing an ion's name. Both
+                    sides now assert $f(0) = Z - \text{charge}$ before the table is used.
+                </div>
+                <p>
+                    An earlier version normalised the <em>observed</em> intensities shell by shell to match
+                    point atoms. That is backwards and measurably so: rescaling the data while leaving the
+                    model unscaled put the true structure's correlation at 0.88 instead of 1.000.
+                </p>
+
+                <h3 id="wy-gpu">7.7 Multi-Assignment GPU Search</h3>
+                <p>
+                    Every assignment is searched simultaneously in one dispatch, as independent sub-swarms.
+                    Particles on different assignments must never attract each other &mdash; each keeps its
+                    own global best, and chains of different assignments never exchange.
+                </p>
+                <ul>
+                    <li><strong>Particles are shared by dimensionality, not equally.</strong> An assignment
+                        with no free parameters is solved by its first particle; an eleven-parameter one is
+                        still searching when the run ends and reports a correlation below what it could reach.
+                        An equal split therefore ranks assignments by how hard they were to search rather than
+                        how well they fit. Weighting by parameter count gives the 11-parameter case roughly
+                        40% more particles than the 7-parameter one, and more than double after pruning.</li>
+                    <li><strong>Waves.</strong> A wave holds only as many assignments as leaves room to
+                        weight. Packing in $\text{particles}/\text{minimum}$ of them spends the whole budget
+                        on the floor and the weighting does nothing.</li>
+                    <li><strong>Restarts</strong> re-seed the particles while keeping every assignment's best,
+                        which is how a high-dimensional assignment escapes a bad first draw.</li>
+                    <li><strong>Successive halving</strong> retires the worst half once, at 45% of the run.
+                        A fixed interval fired twelve times in a long run and cut the field to the floor on
+                        evidence gathered before the large assignments had converged.</li>
+                    <li><strong>Heavy-atom seeding</strong> starts half the particles with the heaviest site
+                        on a consolidated Harker peak, projected onto that assignment's subspace first. Half
+                        rather than all: if the Harker site is wrong, seeding everything would make the
+                        assignment unsolvable and hide the error.</li>
+                </ul>
+                <p>
+                    A sanity check runs at generation 0. If every particle scores identically the run stops
+                    and says so &mdash; a kernel that dispatches but writes nothing leaves the fitness buffer
+                    at zero, and the resulting list of valid Wyckoff assignments looks entirely reasonable
+                    while being nothing but the enumeration order.
+                </p>
+
+                <h3 id="wy-constraints">7.8 Contacts &amp; Distance Windows</h3>
+                <p>
+                    <strong>Minimum contact distance</strong> is one control used twice: the search is pushed
+                    away from anything shorter, and candidates containing a shorter contact are dropped before
+                    ranking. It is a hard floor on every element pair, $0$&ndash;$3\,\text{\AA}$, default
+                    $1.00$ (<a href="#swarm-contact">6.4</a>). The clash penalty scales with how deep the
+                    overlap runs &mdash; a flat charge meant $0.3\,\text{\AA}$ cost exactly what
+                    $2.1\,\text{\AA}$ did, leaving the chains no gradient telling them which way out.
+                </p>
+                <p>
+                    <strong>Distance windows</strong> are entered one per line, <span class="code">S O 1.35
+                    1.65</span>. The lower bound is a true per-pair constraint, checked on every pair. The
+                    upper bound cannot be &mdash; most Pb&ndash;O pairs in a cell are legitimately far apart
+                    &mdash; so it is read as a <em>nearest-neighbour</em> condition: every S must have some O
+                    within $1.65\,\text{\AA}$. That is the honest reading of the statement, and it is what
+                    builds a tetrahedron.
+                </p>
+                <div class="callout-info">
+                    <strong>Windows are enforced, not weighed.</strong> A model with a $1.8\,\text{\AA}$
+                    O&ndash;O contact is not a slightly worse answer; it is not an answer. Candidates breaking
+                    a window are removed from the list rather than marked down, and the count is reported. If
+                    <em>every</em> candidate is rejected the list is shown unfiltered with a warning, because
+                    an empty table says less than a bad one. The penalty weights inside the search are
+                    frankly arbitrary and therefore take no part in the ranking.
+                </div>
+
+                <h3 id="wy-quality">7.9 Judging a Candidate</h3>
+                <p>
+                    Top candidates typically separate by about $0.01$ in correlation, which decides nothing.
+                    The <strong>Structure quality</strong> panel below the coordinate table separates them by
+                    a great deal more, and two of its three measures assume nothing at all.
+                </p>
+                <ul>
+                    <li><strong>Coordination number</strong> counts the first shell only &mdash; everything
+                        within $1.35\times$ the shortest contact. A flat radius counts the four oxygens of a
+                        sulfate <em>and</em> whatever lies beyond, reporting a coordination of nine at a mean
+                        of $2.7\,\text{\AA}$, which describes nothing.</li>
+                    <li><strong>Bond-length spread</strong> is the scatter of those first-shell distances.
+                        A real sulfate's four S&ndash;O bonds agree to $0.014\,\text{\AA}$; the same structure
+                        with sulfur displaced gives $0.618\,\text{\AA}$. A factor of forty, where the
+                        correlation moved by one part in a hundred. No parameters, no tables &mdash; only the
+                        fact that coordination polyhedra are regular.</li>
+                    <li><strong>Bond-valence sum</strong> $\sum_j \exp\!\left((R_0 - d_j)/0.37\right)$,
+                        reported against whichever oxidation state fits best, since a site whose sum lands
+                        near its own formal charge is evidence in itself. This is the one measure needing
+                        tabulated $R_0$; values are quoted from Brese &amp; O'Keeffe (1991) for common
+                        cation&ndash;oxygen pairs, and unlisted pairs report nothing rather than guessing.</li>
+                    <li><strong>R factor</strong> on $|F|$ after least-squares scaling, shown in the panel
+                        header. It weights differently from the correlation &mdash; a weak reflection
+                        predicted strongly counts as heavily as the reverse &mdash; so models a hundredth
+                        apart in CC are often several percent apart in $R$.</li>
+                </ul>
+                <div class="callout-info">
+                    <strong>Why you need more than one.</strong> A candidate correlating at 0.9647 in a real
+                    run had three oxygens around its sulfur all at $2.16\,\text{\AA}$: a spread of
+                    $0.004\,\text{\AA}$, perfectly regular, and not a sulfate. Its bond-valence sum was 0.89
+                    where 6 is expected. Spread catches misplaced atoms; bond valence catches atoms that are
+                    not bonded at all. The <em>verdict</em> column states the reading in words.
+                </div>
+                <p>
+                    Clicking any row in the <strong>Candidate structures</strong> table loads that structure
+                    into the 3D view, the coordinate table, the density readout and the calculated and
+                    difference maps. Clicking a row in the coordinate table lists that site's neighbours.
+                    Both tables are read-only: the coordinates are a search result and everything else on the
+                    page is derived from them.
+                </p>
+
+                <h3 id="wy-rank">7.11 Ranking Candidates: $R$ and Hamilton's Test</h3>
+                <p>
+                    The search maximises the Patterson map correlation, which is the right thing to <em>maximise</em>
+                    and the wrong thing to <em>compare assignments with</em>. That map is dominated by the
+                    heavy-atom vectors, so two models agreeing on the lead and differing on the oxygens score within
+                    a thousandth of each other. On real PbSO$_4$ data the correct assignment once came fourth at
+                    $0.9804$, behind two wrong models at $0.9872$.
+                </p>
+                <p>
+                    The candidate table therefore ranks on <strong>$R$ against $|F|$</strong>, where every reflection
+                    counts rather than every grid point &mdash; which is where the light atoms are. The residual is
+                    formed on the powder <em>lines</em>, not the reflections: an overlapped group contributed one
+                    measured intensity constraining several $|F|$, so the group sums are compared. On this data
+                    $282$ reflections are $182$ lines.
+                </p>
+                <h4>The significance column</h4>
+                <p>
+                    A model with more free coordinates fits at least as well as one with fewer, so a lower $R$
+                    across assignments of different dimension is not by itself evidence of anything.
+                    <strong>Hamilton's $R$-ratio test</strong> asks the question that matters: is this fit enough
+                    better to justify the freedom that bought it. Under the hypothesis that the smaller model is
+                    correct,
+                </p>
+                <div class="math-display">
+                    $$ \frac{wR_{\text{small}}}{wR_{\text{large}}} \;\sim\; \left[\, 1 + \frac{b}{\nu}\,F(b, \nu) \right]^{1/2} $$
+                </div>
+                <p>
+                    with $b$ the number of parameters given up and $\nu = n - m$ the degrees of freedom of the
+                    larger model. $n$ is the number of <em>lines</em>, and $m$ counts the free coordinates plus two,
+                    for the scale factor and the fitted overall $B$. The column reports $p$, the probability of a
+                    difference this large if the smaller model were the true one:
+                </p>
+                <ul>
+                    <li><strong>$p &lt; 0.05$</strong> &mdash; the top row is genuinely better.</li>
+                    <li><strong>n.s.</strong> &mdash; these two are <em>not distinguishable</em> by this data. Two
+                        rows with identical correlations are usually this, and saying so is the point: the table
+                        stops implying a precision it does not have.</li>
+                    <li><strong>equal dim</strong> &mdash; same parameter count, so the models are not nested and
+                        the test does not apply.</li>
+                    <li><strong>dominated</strong> &mdash; fits worse while spending more parameters. No test
+                        needed.</li>
+                </ul>
+                <div class="callout callout-warning">
+                    <strong>&#9888; Read $p$ as indicative.</strong> Hamilton's distribution theory is exact only
+                    when the weights are the inverse covariance of the observations. The weights here are unity,
+                    which is the honest default when the file carries no sigmas, but it is an assumption.
+                </div>
+
+                <h3 id="wy-files">7.10 Files &amp; Versions</h3>
+                <table class="param-table">
+                    <tr><th>File</th><th>Role</th></tr>
+                    <tr><td><span class="code">wyckoff_assign.js</span></td><td>Enumeration, projection, particle allocation, formula parsing.</td></tr>
+                    <tr><td><span class="code">observations.js</span></td><td>Intensity routes, multiplicity reconstruction, Wilson $B$.</td></tr>
+                    <tr><td><span class="code">scatterers.js</span></td><td>Loads <span class="code">scatters/</span>; asserts $f(0) = Z$.</td></tr>
+                    <tr><td><span class="code">contacts.js</span></td><td>Contacts, coordination, bond valence, $R$ factor.</td></tr>
+                    <tr><td><span class="code">swarm_wyckoff.js</span></td><td>Orchestration: packing, buffers, the Metropolis / replica-exchange loop, the quench, waves, pruning.</td></tr>
+                    <tr><td><span class="code">swarm_cc.wgsl</span></td><td>The correlation kernel.</td></tr>
+                </table>
+                <p>
+                    Each module declares a version string that <span class="code">Harko.html</span> checks at
+                    load and before every run. A mismatch is reported by name, because a cached module throws
+                    at line numbers that no longer exist and the obvious reading is that the fix never landed.
+                    Script tags carry the version as a query string. <strong>Save the modules and
+                    <span class="code">Harko.html</span> together.</strong>
+                </p>
+            </section>
+
+            <section id="visualization">
+    <h2 id="ui-layout">8. UI &amp; Controls Guided Tour</h2>
+    <p>
+        Welcome to <strong>comp-Harker</strong>! The UI is designed to keep controls organized on the left while leaving the bulk of your screen open for interactive 2D maps, 3D atomic structures, and peak analysis tables on the right.
+    </p>
+
+    <div class="callout callout-info">
+        <strong>💡 Pro-Tip: Resizing Your Workspace</strong><br>
+        You can drag the vertical divider handle between the left control panel and the right results area to adjust their widths. Every map, chart, and 3D structure automatically resizes on the fly to fit your screen.
+    </div>
+
+    <!-- 7.1 TOP RIGHT QUICK CONTROLS -->
+    <h3>Top-Right Quick Controls</h3>
+    <p>Floating cleanly in the upper right corner, you'll find three subtle, lightweight icons:</p>
+    <ul>
+        <li><strong>Info Button (ⓘ):</strong> Hover your mouse over this icon to see a small tooltip naming the program and the date it was built, without taking up any permanent space on the page.</li>
+        <li><strong>Theme Toggle (☀️ / 🌙):</strong> Instantly switches between Light Mode and Dark Mode. Your preference is saved locally, and all 3D cell frames and 2D map canvases dynamically adapt their color palettes.</li>
+        <li><strong>Help Button (?):</strong> Opens this documentation page in a fresh browser tab.</li>
+    </ul>
+
+    <!-- 7.2 LEFT CONTROLS PANEL -->
+    <h3 id="ui-left-panel">8.2 Left Controls Panel</h3>
+    <p>
+        The left panel handles data loading, structural setup, map calculation parameters, the search solver's
+        settings and the run log. It used to be split into two tabs, but a tab hides everything except the one
+        you're on, and several of these settings are ones you want to glance at together &ndash; the peak width
+        $\sigma$ slider next to the temperature factor $B$ slider, say, since both broaden the calculated map and
+        you're usually adjusting them in response to the same difference-map residual. So instead the panel is
+        five <strong>collapsible sections</strong>, stacked top to bottom: <strong>1. Data Input</strong>,
+        <strong>2. Structure</strong>, <strong>3. Patterson Map Synthesis</strong>, <strong>4. Structure
+        Search</strong> and <strong>5. Log</strong> (the first four open by default, the log closed). Click a
+        section's title bar to fold it away once it is set the way you want; folding is purely to reclaim vertical
+        space and each section remembers its own state.
+    </p>
+
+    <div class="callout callout-info">
+        <strong>One way to ask a control anything: click its question mark.</strong>
+        The <strong>?</strong> beside a caption opens that control's help box; click it again, or click anywhere
+        else, to dismiss it. Nothing in the panel opens on hover. Where a control has state worth reporting &ndash;
+        the grid actually used, which intensity route the file took, how many sites combined, the shortest contact
+        found &ndash; that line sits at the <em>foot of the same box</em>, under a hairline rule, so the
+        explanation and the current reading are read together. Those readings used to be permanent lines under
+        their controls, which left some controls two lines taller than others and broke the panel's rhythm; the
+        panel is now one uniform column of caption-and-control pairs.
+    </div>
+
+    <h4>1. Data Input</h4>
+    <ul>
+        <li><strong>Select Data File:</strong> loads a powder export or generic peak list
+            (<code>.txt</code>, <code>.hkl</code>, <code>.dat</code>).</li>
+        <li><strong>Wavelength (&#8491;):</strong> used to convert between $2\theta$ and $d$ when the file needs
+            that conversion. Defaults to Cu-K$\alpha$, $1.54056$&nbsp;&#8491;.</li>
+        <li><strong>Intensity Correction &rarr; Divide out Lorentz&ndash;polarisation:</strong> checked by default,
+            and it only does anything when the file leaves comp-Harker no better option. A file supplying $|F_o|$
+            directly (Tier&nbsp;1) or an explicit $Lp$ column (Tier&nbsp;2) takes priority and the toggle has
+            nothing left to correct; it matters for Tier&nbsp;3 files that give $2\theta$ but not $Lp$. The route
+            actually taken is reported at the foot of the toggle's help box. See 3.2 for the full priority order.</li>
+    </ul>
+
+    <h4>2. Structure</h4>
+    <ul>
+        <li><strong>Select Space Group &raquo;:</strong> opens a searchable modal listing all 230 groups; search by
+            number or symbol (<code>14</code>, <code>P 21/c</code>). The chosen group is named in the line
+            underneath.</li>
+        <li><strong>Unit cell parameters ($a, b, c, \alpha, \beta, \gamma$):</strong> filled from the file header
+            where it carries them, editable otherwise.</li>
+        <li><strong>Target Composition &rarr; Formula and $Z$:</strong> a formula such as
+            <span class="code">PbSO4</span>, with $Z$ optional. This is what makes the composition-driven route
+            available: the formula gives both the elements and how many of each, so the search solves for which
+            Wyckoff positions carry that composition rather than for a fixed list of independent atoms. Leave $Z$
+            blank and the cell volume suggests a range, reported at the foot of the Target Composition help box.</li>
+        <li><strong>Max sites / element</strong> and <strong>Max reuse / position:</strong> caps on the
+            enumeration &mdash; how many distinct Wyckoff positions one element may occupy, and how many
+            independent atoms may share one position at different coordinates. Blank means automatic, which is
+            whatever the composition arithmetically requires; raise them by hand only to allow assignments with
+            more sites than the minimum.</li>
+        <li><strong>Distance constraints:</strong> one restraint per line,
+            <span class="code">A B N dmin/dmax</span> &mdash; for example <span class="code">S O 4 1.4/1.9</span>
+            for four oxygens around every sulfur between $1.4$ and $1.9\,\text{\AA}$. <code>dmin</code> is a hard
+            floor, not merely the lower edge of a counting window, and a coordination number is directed. See
+            <a href="#wy-constraints">7.8</a>.</li>
+    </ul>
+
+    <h4>3. Patterson Map Synthesis</h4>
+    <ul>
+        <li><strong>High resolution grid:</strong> off is a $64^3$ grid, on is $128^3$ &ndash; eight times the
+            voxels, memory and time. The FFT needs a power of two, so these are the only two settings exposed; if
+            the data reach an index high enough that $128^3$ would alias one reflection onto another, comp-Harker
+            steps the grid up on its own; the grid actually used is reported in the toggle's help box.</li>
+        <li><strong>Consolidate sites via Harker:</strong> chooses which of the two routes from map to atom list is
+            shown and which feeds the search's heavy-atom seeding. Off is the superposition / SMF route, which works
+            from the map itself and needs no symmetry bookkeeping but inherits the map's artefacts; on is the
+            Harker combination, which is sharper when the sections are clean and returns nothing when either
+            tolerance is too tight. Both are always computed, so switching is instant.</li>
+        <li><strong>Harker section tolerance (&#8491;):</strong> how close a peak must lie to a Harker plane to be
+            read as coming from it. Too tight and real peaks are discarded; too loose and peaks that merely pass
+            near a plane are solved as if they lay on it. $0$ is automatic: the larger of the peak width $\sigma$
+            and one and a half grid steps; its help box reports how many peaks were assigned and how many
+            near-missed.</li>
+        <li><strong>Harker combination tolerance (&#8491;):</strong> how closely two sections must agree on a shared
+            coordinate before their partial positions are merged into one atom. <em>This slider starts
+            disabled and stays disabled until at least two sections have yielded partial sites</em> &mdash; there
+            is nothing to combine before that, and in a group whose sections give fewer than two it stays disabled
+            for the whole session. It re-combines immediately when moved; no map recalculation is needed.</li>
+        <li><strong>Lorch filter strength ($s \in [0,1]$):</strong> $s=0$ is off; higher values damp series
+            termination ripples at the cost of broader peaks. See 4.2.</li>
+        <li><strong>Peak width $\sigma$ (&#8491;):</strong> Gaussian broadening applied only to the
+            <em>calculated</em> map so it can be compared fairly with the resolution-limited observed one. Seeded
+            to $0.26\,d_{\min}$ whenever a map is calculated.</li>
+        <li><strong>Overall temperature factor $B$ (&#8491;$^2$):</strong> a second, independent broadening of the
+            calculated map, combined in quadrature with the peak width. Set it here or turn on <strong>Fit B</strong>
+            on the Search Results tab. Like $\sigma$, it affects only the calculated and difference maps, never the
+            observed map and never the search fitness.</li>
+        <li><strong>Peak Search Filters &mdash; Max Peaks</strong> and <strong>Min $\sigma$ Threshold:</strong>
+            keep at most this many peaks, ignore anything weaker than this many standard deviations above the map
+            mean. Defaults $50$ and $3.0\sigma$.</li>
+        <li><strong>Calculate Map:</strong> runs the FFT synthesis, the Lorch filter, the peak search, the Harker
+            section analysis and the SMF / Buerger superposition in one background pass.</li>
+    </ul>
+    <div class="callout callout-warning">
+        <strong>&#9888; None of the settings above recalculate anything by themselves.</strong> Changing the grid
+        toggle, the Lorch slider or the peak filters records the new value and marks the map on screen as out of
+        date &ndash; the status line names what changed and the Calculate Map button takes an amber ring. This is
+        deliberate: recalculating on every slider tick meant an accidental drag could kick off a full $128^3$
+        transform. The two Harker tolerances are the exception in the other direction: they act on peaks already
+        in memory, so they re-derive the site lists as you move them.
+    </div>
+
+    <h4>4. Structure Search</h4>
+    <p>
+        Four sliders, one group, no sub-headings &mdash; they are all parameters of the same search and were
+        previously split under captions that implied otherwise.
+    </p>
+    <ul>
+        <li><strong>Minimum contact distance (&#8491;):</strong> a hard floor under every interatomic contact,
+            symmetry included &mdash; no two atoms may come closer than this, whatever it costs the correlation.
+            Range $0$&ndash;$3$, default $1.00\,\text{\AA}$: below any real bond, and well above what a wrong
+            Wyckoff assignment produces. $0$ turns it off. It applies to every element pair alike; to hold one
+            pair further apart than the rest, state a <code>dmin</code> in Distance constraints. Raise it with
+            care &mdash; too high does not merely reject the right answer, it charges it more than a wrong one,
+            because the clash penalty grows with overlap depth. See 6.4.</li>
+        <li><strong>Chains:</strong> independent trial structures, each its own Markov chain
+            (<a href="#swarm-theory">6.1</a>). The ceiling is measured from your hardware; click the
+            <strong>?</strong> to see the limits your GPU reported.<br>
+            <strong>More chains is not the same as more search.</strong> A particle swarm shared a best position,
+            so adding particles added eyes on one basin. These do not talk, so doubling the chains doubles the
+            number of places looked at while each one still looks just as shallowly. Measured on a rugged
+            eleven-parameter test surface at a fixed budget, $2048$ chains of $100$ steps found the answer $6$
+            times in $10$ while $256$ chains of $800$ steps found it every time.<br>
+            <strong>But do spend enough chains to collapse the waves.</strong> See the callout below &mdash;
+            it is worth a factor of four in wall time on a typical run.</li>
+        <li><strong>Iterations:</strong> steps taken by each chain. This is the control that matters most: a
+            chain of $100$ steps has barely moved in a structure with ten free coordinates, and no number of
+            chains fixes that. If the fitness chart is still climbing when the run ends, or the acceptance rate
+            is still high, this is the number to raise. Default $400$, up to $4000$.</li>
+        <li><strong>Restarts:</strong> independent searches from fresh random positions, keeping every structure
+            already found (<a href="#swarm-params">6.3</a>).</li>
+        <li><strong>Run Search / Stop:</strong> a formula is required. While the search runs, the progress bar,
+            the step counter, the best fitness, the <strong>acceptance rate</strong> and an elapsed / rate line
+            update in place below the buttons, and a line under those names the GPU doing the work.</li>
+    </ul>
+
+    <div class="callout callout-warning">
+        <strong>&#9888; Waves are not a control &mdash; they are a symptom of too few chains.</strong>
+        An assignment needs a floor of chains to behave as a search rather than a lottery, and the allocator
+        packs only $\lfloor \text{chains} / 48 \rfloor$ assignments into one wave, leaving headroom to weight
+        the rest by free-parameter count. With $512$ chains that is $10$ assignments per wave, so a structure
+        offering $35$ assignments runs in <strong>4 waves</strong> &mdash; and each wave re-runs the entire
+        restart and iteration budget. Since a run is dominated by the per-generation round trip to the GPU rather
+        than by GPU work, that is close to four times the wall clock for the same number of evaluations. On real
+        PbSO$_4$ data, $512$ chains took $4$&nbsp;m&nbsp;$30$&nbsp;s and $2816$ chains took $34$&nbsp;s for the
+        same search. <strong>Raise Chains until the log says "over 1 wave(s)", then spend the rest of the budget
+        on Iterations.</strong>
+    </div>
+
+    <div class="callout callout-info">
+        <strong>Reading the acceptance rate.</strong> Healthy is $20$&ndash;$35\%$, with exchange between ladder
+        rungs at $20$&ndash;$45\%$. Single digits in the first half of a run means the chains are frozen and the
+        budget is being wasted; above $90\%$ means they are still wandering and nothing will settle. The row turns
+        amber in either case. Both numbers also appear on every restart line in the log.
+    </div>
+
+    <h4>5. Log</h4>
+    <p>
+        The run log: the intensity route taken, the fitted $B$, the number of assignments enumerated, the
+        generation-0 fitness spread and any warnings. <strong>Clear</strong> empties it and <strong>Save</strong>
+        writes it to a text file.
+    </p>
+
+    <div class="callout callout-info">
+        <strong>While anything is calculating.</strong> The map transform and the structure search both lock the rest
+        of the interface for their duration: loading a new file, recalculating the map, starting a second run and
+        every export button are disabled until the current job finishes. Loading new data out from under a running
+        GPU search would corrupt the buffers it is reading from, so the lock makes that impossible rather than
+        merely unlikely. The exception is <strong>Stop</strong>, which stays live throughout for the obvious
+        reason; everything else re-enables the instant the run ends or is stopped.
+    </div>
+
+    <h3 id="ui-right-panel">8.3 Right Results Panel</h3>
+    <p>
+        The right side is three tabs: <strong>Maps</strong>, <strong>Peaks</strong> and <strong>Swarm
+        Results</strong>.
+    </p>
+
+    <h4>1. Maps</h4>
+    <p>
+        A single row of <strong>three equal square panes</strong>, all sliced at the same axis and section:
+    </p>
+    <ul>
+        <li><strong>Observed:</strong> the experimental Patterson synthesis computed from the intensities.</li>
+        <li><strong>Calculated:</strong> the model Patterson of the structure currently selected.</li>
+        <li><strong>Difference (observed &minus; calculated):</strong> missing density and misplaced atoms.</li>
+    </ul>
+    <div class="callout callout-info">
+        <strong>The SMF pane is gone; the SMF map is not.</strong> A fourth pane used to show the symmetry
+        minimum function. It was removed because reading it as a slice added little to what the consolidated
+        site list already says, and dropping it lets the remaining three panes be half again as large. The map
+        itself is still computed on every Calculate Map, still drives the Consolidated Sites column on the Peaks
+        tab, still feeds heavy-atom seeding when <em>Consolidate sites via Harker</em> is off, and is still
+        written out by <strong>Density (.grd)</strong>. See <a href="#smf-superposition">5.4</a>.
+    </div>
+    <p>
+        Each pane carries its own colour bar with its own minimum and maximum, so the three are individually
+        readable rather than forced onto one scale. Below them: <strong>Auto range</strong>, the <strong>Axis</strong>
+        dropdown (&perp;&nbsp;c, &perp;&nbsp;b or &perp;&nbsp;a), the <strong>Section</strong> slider that moves
+        through the cell, and the <strong>Density (.grd)</strong> export. Auto range left unchecked (the default)
+        scales each pane over its whole volume, so any two sections are directly comparable &ndash; a faint slice
+        really does look faint. Checking it rescales to the current slice only, useful when hunting a weak feature,
+        at the cost of making a faint section look as vivid as a strong one.
+    </p>
+
+    <h4>2. Peaks</h4>
+    <p>
+        Three columns, left to right, so what is derived from what stays visible as one pipeline:
+    </p>
+    <ol>
+        <li><strong>Patterson peaks:</strong> raw 3D local maxima $(u,v,w)$, ordered by height in $\sigma$.</li>
+        <li><strong>Harker solutions:</strong> positions $(x,y,z)$ deconvoluted from individual Harker sections
+            &ndash; one candidate per section, each only as reliable as the peak that section contributed.</li>
+        <li><strong>Consolidated:</strong> the final candidate list. Which route produced it depends on the
+            <em>Consolidate sites via Harker</em> toggle in section 3 of the left panel: the superposition / SMF
+            map, or positions agreed across sections within the combination tolerance.</li>
+    </ol>
+    <p>
+        <strong>Peaks (.csv)</strong> at the head of the tab writes all three columns to one file.
+    </p>
+
+    <h4>3. Search Results</h4>
+    <p>Three columns across the top, then everything the selected structure implies underneath.</p>
+    <ul>
+        <li><strong>Fitness evolution:</strong> the run's best correlation against cumulative generation, across
+            every wave and restart.</li>
+        <li><strong>Proposed structure:</strong> a Three.js view of all symmetry-generated atoms in the cell.
+            Drag to rotate, right-drag to pan, scroll to zoom.</li>
+        <li><strong>Atoms in cell:</strong> total atom count, shortest contact and cell mass. The theoretical
+            density is quoted beside the Asymmetric unit heading further down.</li>
+        <li><strong>Fit B:</strong> scans $B$ for the value minimising the residual between calculated and observed
+            maps and writes it back to the $B$ slider. Runs immediately if a structure is on screen, and again at
+            the end of every subsequent run.</li>
+        <li><strong>Candidate structures:</strong> the ranked list. <strong>The ranking is on $R$ against $|F|$,
+            not on the correlation the search maximises</strong> &mdash; see <a href="#wy-rank">7.11</a> for why.
+            Columns: $R$, the significance of the difference from the top row, the correlation, the search penalty,
+            the shortest contact, whether the distance constraints are met, the Wyckoff assignment, the
+            free-parameter count and, where relevant, the Harker residual. Clicking a row loads that structure into
+            everything below it: the site list, the 3D view, the density, and the calculated and difference
+            maps.</li>
+        <li><strong>Asymmetric unit:</strong> the independent sites of the selected structure &mdash; element,
+            <strong>Wyckoff label</strong>, fractional $x, y, z$, and an eye icon that hides a site from the 3D
+            view. The multiplicity had its own column and no longer does: it is the number in the Wyckoff label,
+            so the column said the same thing twice; it survives as the label cell's tooltip. The coordinates are
+            <strong>read-only</strong> &ndash; they are a search result, and the contact list, the calculated map
+            and the density are all derived from them. Clicking a row lists that site's neighbours; a
+            <strong>Structure quality</strong> panel below reports coordination, bond-length spread, bond valence
+            and $R$ (<a href="#wy-quality">7.9</a>).</li>
+    </ul>
+    <div class="callout callout-info">
+        <strong>Candidates appear while the search is still running.</strong> Every time the run improves on its
+        own best, that structure is kept as a row in the Candidate structures table &mdash; correlation, the
+        restart and generation it came from, and its assignment &ndash; with the best eight retained. They are
+        clickable like finished candidates, so an intermediate solution that looked right can be gone back to and
+        compared against the final answer instead of being overwritten and lost. Two things to know: a snapshot
+        you select mid-run will be replaced by the next improvement, since the live display owns the site table
+        while the search is going; and the whole live list is replaced by the properly filtered, chemistry-checked
+        ranking the moment the run finishes.
+    </div>
+    <p>
+        Three actions sit below: <strong>Revert edits</strong>, <strong>Save CIF</strong> and <strong>PDF
+        Report</strong>.
+    </p>
+
+    <!-- 7.4 EXPORTS -->
+    <h3 id="ui-exports">8.4 Exporting CIF, GRD, CSV &amp; Summary Reports</h3>
+    <ul>
+        <li><strong>Save CIF</strong> (Search Results, bottom action row): unit cell, space group and the solved
+            coordinates of the selected candidate, with occupancy $1.0$ and the Wyckoff multiplicity.</li>
+        <li><strong>PDF Report</strong> (same row): crystal parameters, the map slices, the fitness chart, the peak
+            and site tables and a structure snapshot. Like Save CIF it needs an actual swarm result before it will
+            click.</li>
+        <li><strong>Density (.grd)</strong> (Maps, in the controls row under the panes): writes every populated map
+            as a VESTA-readable volume &mdash; observed, calculated, difference <em>and the SMF map</em>, which is
+            still computed even though it no longer has a pane of its own. Panes with no data yet are skipped and
+            named in the status line.</li>
+        <li><strong>Peaks (.csv)</strong> (Peaks, at the head of the tab): the Patterson peaks, the Harker
+            solutions and the consolidated sites in one file.</li>
+    </ul>
+</section>
+
+<section id="workflow">
+    <h2>9. Step-by-Step Workflows</h2>
+    <p>
+        The three walkthroughs below cover the same ground at different levels of granularity: 9.1 and 9.2
+        together are the detailed, one-decision-at-a-time version of what 9.3 compresses into five lines.
+        If this is your first run, follow 9.1 and 9.2; once the workflow is familiar, 9.3 is enough of a reminder.
+    </p>
+
+    <h3 id="wf-harker">9.1 Deterministic Harker &amp; SMF Analysis</h3>
+    <p>Everything in this half of the workflow is deterministic &ndash; no swarm, no GPU, just the FFT and the peak search.</p>
+    <ol>
+        <li>
+            <strong>Load Data:</strong> Click <strong>Select Data File</strong> in the "1. Data Input" section of
+            the left panel to load your <code>.txt</code>, <code>.hkl</code>, or <code>.dat</code> file. comp-Harker
+            will attempt to parse reflections and any available metadata headers.
+        </li>
+        <li>
+            <strong>Define Structure:</strong> In "2. Structure", click <strong>Select Space Group &raquo;</strong>
+            to choose your symmetry, and verify the populated cell parameters ($a, b, c, \alpha, \beta, \gamma$).
+        </li>
+        <li>
+            <strong>Calculate Map:</strong> In "3. Patterson Map Synthesis", set the Lorch strength, grid
+            resolution, and peak-search filters the way you want them, then click <strong>Calculate Map</strong>
+            to generate the Patterson synthesis. If you change any of those settings afterward, remember to press
+            Calculate Map again &ndash; they no longer trigger a recalculation on their own (see 7.2).
+        </li>
+        <li>
+            <strong>Inspect the Maps:</strong> Switch to the <strong>Maps</strong> tab on the right, choose the
+            slicing <strong>Axis</strong> and drag the <strong>Section</strong> slider through the cell. Only the
+            observed pane means anything at this stage &ndash; the calculated and difference panes stay blank
+            until a structure exists to calculate from.
+        </li>
+        <li>
+            <strong>Set the Harker tolerances.</strong> Leave the section tolerance at $0$ (automatic) for the
+            first pass and read its note: if it reports near misses, widen it. The combination tolerance stays
+            disabled until at least two sections have produced partial sites, which is normal and not a fault.
+        </li>
+        <li>
+            <strong>Check the candidate sites:</strong> the <strong>Peaks</strong> tab, Consolidated column. Flip
+            <em>Consolidate sites via Harker</em> in the left panel to see the other route's answer &mdash; both
+            are always computed, so the switch is instant, and agreement between them is worth more than either
+            list alone.
+        </li>
+    </ol>
+
+    <h3 id="wf-swarm">9.2 Composition-Driven Global Search</h3>
+    <p>
+        Picking up from the Consolidated Sites you just inspected, this half hands the search to the GPU.
+        A formula is required: <strong>Run Search</strong> will not start without one.
+    </p>
+    <ol>
+        <li>
+            <strong>State the composition.</strong> In <em>2. Structure</em>, type the formula &mdash;
+            <span class="code">PbSO4</span> &mdash; and leave $Z$ blank unless you know it. The line below
+            suggests a range from the cell volume and flags the values that divide the group order. Check it:
+            a wrong $Z$ fails completely rather than partially.
+        </li>
+        <li>
+            <strong>Add what you know about the chemistry.</strong> A window such as
+            <span class="code">S O 1.35 1.65</span> in the <em>Distance windows</em> box tells the search that
+            sulfates exist. Without one the search has no reason to build a polyanion, and a candidate whose
+            sulfur has no oxygen nearer than $2.16\,\text{\AA}$ can still correlate at $0.96$. Set
+            <em>Minimum contact distance</em> a little under the shortest bond you expect.
+        </li>
+        <li>
+            <strong>Set the search size.</strong> Chains, Iterations and Restarts in
+            <em>4. Structure Search</em>. Raise Chains until the log reports a single wave, then put the rest of
+            the budget into Iterations. Assignments with many free parameters need a longer run to be
+            judged fairly against small ones &mdash; if a plausible assignment ranks low, raise Iterations
+            before concluding anything. Heavy-atom seeding from the consolidated sites of 9.1 is automatic
+            and needs no toggle: half the particles are seeded, the peak first projected onto the
+            assignment's Wyckoff subspace.
+        </li>
+        <li>
+            <strong>Run.</strong> Click <strong>Run Search</strong>. The fitness curve on the Search Results tab
+            plots the run's best correlation; the generation counter, restart and rate update live on the left.
+            The Candidate structures table fills as the run goes: each improvement is kept as a clickable
+            snapshot, so a structure that looked right at generation 300 is still there at the end. Open
+            <em>5. Log</em> afterwards for the intensity route, the fitted $B$, the number of assignments and
+            the generation-0 fitness spread.
+        </li>
+        <li>
+            <strong>Judge, do not just read the ranking.</strong> The top candidates will sit within about
+            $0.01$ of each other, which decides nothing. Click each row in turn and read the
+            <em>Structure quality</em> panel: bond-length spread, bond valence and $R$ separate them far more
+            sharply than the correlation. A cation whose valence sums far below its formal charge has no real
+            bonds, whatever the map says.
+        </li>
+        <li>
+            <strong>Export.</strong> <strong>Save CIF</strong> writes the selected candidate with occupancy
+            $1.0$ and the Wyckoff multiplicity. <strong>PDF Report</strong> includes every candidate with full
+            coordinates, not only the one on screen.
+        </li>
+    </ol>
+</section>
+
+<section id="workflow-legacy">
+    <h2 id="wf-hybrid">9.3 Combined Hybrid Resolution Workflow</h2>
+    <ol>
+        <li>Load your diffraction data file and click <strong>Calculate Map</strong>. comp-Harker computes the FFT Patterson map, applies the optional Lorch filter, runs the peak search and the Harker section analysis, and constructs the <strong>Symmetry Minimum Function (SMF)</strong> map.</li>
+        <li>Inspect the observed pane in the Maps tab, section by section.</li>
+        <li>Review the Consolidated column in the <strong>Peaks</strong> tab, on both settings of <em>Consolidate sites via Harker</em>.</li>
+        <li>Enter the formula in <strong>Target Composition</strong> (section "2. Structure") and any distance constraints you can justify. Then open "4. Structure Search", set the contact floor and the three search-size sliders, and click <strong>Run Search</strong>.</li>
+        <li>Work through the candidates in the Search Results tab &mdash; the ranking alone will not separate them &mdash; then export your CIF file (and, if you'd like, the PDF report right beside it).</li>
+    </ol>
+</section>
+
+
+            <section id="troubleshooting">
+                <h2>10. Troubleshooting &amp; Technical FAQ</h2>
+                <table class="param-table">
+                    <thead>
+                        <tr>
+                            <th>Symptom / Question</th>
+                            <th>Root Cause / Explanation</th>
+                            <th>Resolution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lorch filter does not change peak list coordinates</td>
+                            <td>True interatomic vectors are robust physical features. Lorch modification tames ripples and broadens peaks, but does not displace true vector centers.</td>
+                            <td>This is normal and expected. Use Lorch strength ($0.1 - 0.3$) if termination ripples create noise peaks in the peak table.</td>
+                        </tr>
+                        <tr>
+                            <td>SMF map looks sparse/different from the raw Patterson map</td>
+                            <td>SMF evaluates an $N$-way minimum across all space group operators. It acts as a logical "AND" filter, suppressing background noise and leaving only true atomic positions in the absolute crystallographic frame.</td>
+                            <td>This is the expected behavior of SMF. Use the extracted SMF peaks as absolute candidate sites for seeding.</td>
+                        </tr>
+                        <tr>
+                            <td>"WebGPU is not supported..."</td>
+                            <td>WebGPU disabled or unsupported browser.</td>
+                            <td>Use a Chromium v113+ browser with updated graphics drivers.</td>
+                        </tr>
+                        <tr>
+                            <td>Atoms refusing to merge on special positions</td>
+                            <td>Minimum contact distance filter set too high.</td>
+                            <td>Lower the minimum contact distance slider down toward $0.00\text{ \AA}$ to permit overlapping symmetry-equivalent atoms.</td>
+                        </tr>
+                        <tr>
+                            <td>"&hellip; generated positions, above this GPU's limit of &hellip;. Search for fewer atoms at a time."</td>
+                            <td>
+                                Evaluating one particle means holding every symmetry-generated copy of every
+                                asymmetric-unit atom in the compute shader's per-workgroup memory at once, and that
+                                memory is a small, fixed pool on any GPU. The number of copies is
+                                (atoms you've entered) &times; (space group operators), and this message means that
+                                product is larger than what your specific GPU's workgroup memory can hold &ndash;
+                                comp-Harker sizes this limit to your actual hardware rather than assuming a fixed
+                                number, but there is still a ceiling somewhere. See 6.3.B for the full explanation
+                                of why this is a hard refusal rather than a silent, partially-wrong result.
+                            </td>
+                            <td>
+                                Remove an atom from the asymmetric unit if you can (the message tells you exactly
+                                how many positions were requested and what your GPU's actual limit is, so you can
+                                see how far over you are), or accept that this particular combination of structure
+                                size and space group needs a GPU with more workgroup storage than the one you're
+                                currently running on.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Composition-Driven Runs</h3>
+                <table class="param-table">
+                    <tr><th>Symptom</th><th>Cause &amp; Remedy</th></tr>
+                    <tr><td>"Setting X carries no Wyckoff table"</td>
+                        <td>An old database is being served. Regenerate with
+                            <span class="code">cctbx_Harko_v1.py</span> and check the console line naming
+                            which file won and how many settings carry projections. A stale legacy file in
+                            <span class="code">lib/</span> silently outranks a fresh
+                            <span class="code">sg/</span> unless the loader is told otherwise.</td></tr>
+                    <tr><td>"Not loaded: observations.js" or a stale-module warning</td>
+                        <td>The modules must sit beside <span class="code">Harko.html</span> and be served by
+                            the same server. If versions disagree, reload with Ctrl+Shift+R &mdash; save the
+                            modules and <span class="code">Harko.html</span> together.</td></tr>
+                    <tr><td>"Every particle scored exactly ..."</td>
+                        <td>The kernel dispatched but wrote nothing. Check the console for WGSL validation
+                            errors, and hard-reload: <span class="code">swarm_cc.wgsl</span> is fetched
+                            without a cache-busting query.</td></tr>
+                    <tr><td>Every candidate has an unbonded cation</td>
+                        <td>No distance windows were given &mdash; the header line says so explicitly. The
+                            search has nothing telling it that a polyanion should exist. Add
+                            <span class="code">S O 1.35 1.65</span> or equivalent.</td></tr>
+                    <tr><td>Candidates all within 0.01 in CC</td>
+                        <td>Expected. The map cannot separate them; the chemistry can. Use the Structure
+                            quality panel (<a href="#wy-quality">7.9</a>). Also raise Iterations and Restarts:
+                            high-dimensional assignments need a longer run to be judged fairly.</td></tr>
+                    <tr><td>"No combination of Wyckoff multiplicities sums to N"</td>
+                        <td>$Z$ is wrong, or the composition needs partial occupancy, which this search does
+                            not model. Try the neighbouring $Z$ values the suggestion line offers.</td></tr>
+                    <tr><td>Wilson $B$ reported as unphysical</td>
+                        <td>Intensity rising with angle. Usually $Lp$ or a sharpening applied twice &mdash;
+                            check which intensity route the Log reports.</td></tr>
+                </table>
+            </section>
+
+            <div class="footer">
+                <p>comp-Harker Documentation &middot;  NitaD, Univ Paris-Saclay, 07 August 2026.<br>Edited with AI code inspection.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('#toc li a.toc-parent').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('expanded');
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('#toc a');
+            const mainContent = document.getElementById('main-content');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        const activeLink = document.querySelector(`#toc a[href="#${id}"]`);
+                        if (activeLink) activeLink.classList.add('active');
+                        
+                        let parent = activeLink?.closest('li');
+                        while (parent) {
+                            parent.classList.add('expanded');
+                            parent = parent.parentElement?.closest('li');
+                        }
+                    }
+                });
+            }, { root: mainContent, rootMargin: "0px 0px -70% 0px" });
+
+            sections.forEach(section => observer.observe(section));
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.classList.contains('toc-parent')) return;
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        mainContent.scrollTo({
+                            top: targetElement.offsetTop - 32,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

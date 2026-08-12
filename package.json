@@ -1,0 +1,26 @@
+{
+  "name": "patterson",
+  "version": "1.0.0",
+  "description": "patterson maps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitad54448/Patterson.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nitad54448/Patterson/issues"
+  },
+  "homepage": "https://github.com/nitad54448/Patterson#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.3"
+  }
+}
