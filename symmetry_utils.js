@@ -474,7 +474,7 @@ function sharkoPattersonFFT(fullReflections, cell, requestedRes, lorchStrength =
         if (!Number.isFinite(h) || !Number.isFinite(k) || !Number.isFinite(l) || !Number.isFinite(I)) continue;
         if (Math.abs(h) > limit || Math.abs(k) > limit || Math.abs(l) > limit) { dropped++; continue; }
 
-        if (lorchStrength > 0 && Number.isFinite(dMin)) {
+  if (lorchStrength > 0 && Number.isFinite(dMin)) {
             const ds = sharkoDStar(h, k, l, B);
             const arg = Math.PI * ds * dMin;
             const sinc = arg === 0 ? 1 : Math.sin(arg) / arg;
