@@ -848,7 +848,6 @@ Modules carry version strings that are checked by the main HTML application. Kee
 - Harker tolerances operate on existing peaks and can update site lists immediately.
 - Search, map calculation, file loading, and exports are locked while a calculation is running, except for **Stop**.
 - Candidate coordinates are read-only because they are search results; dependent displays are derived from them.
-- The current sampler is replica-exchange Monte Carlo, not the older particle-swarm implementation.
 - The older vector/sigma fitness is retained in the technical documentation for historical context; the current search uses map correlation.
 
 ---
