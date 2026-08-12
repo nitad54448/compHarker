@@ -2201,7 +2201,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                 
                 let currentVal = parseInt(swarmParticlesSlider.value, 10);
                 if (currentVal === 512) {
-                    currentVal = Math.max(64, Math.floor((cap * 0.5) / 64) * 64);
+                    currentVal = Math.max(64, Math.floor((cap * 0.33) / 64) * 64);
                 } else if (currentVal > cap) {
                     currentVal = cap;
                 }
@@ -2228,7 +2228,11 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
         let cachedGpuDevice = null;
         if (navigator.gpu) {
             navigator.gpu.requestAdapter().then(adapter => {
-                if (adapter) return adapter.requestDevice();
+                if (adapter) return adapter.requestDevice({
+                    requiredLimits: {
+                        maxStorageBuffersPerShaderStage: adapter.limits.maxStorageBuffersPerShaderStage >= 14 ? 14 : adapter.limits.maxStorageBuffersPerShaderStage
+                    }
+                });
                 throw new Error("No WebGPU adapter");
             }).then(device => {
                 cachedGpuDevice = device;
@@ -3296,12 +3300,16 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
             let wyckoffGenCount = 0;
             swarmStartedAt = performance.now();
 
-            logSwarm('Requesting GPU...');
+logSwarm('Requesting GPU...');
             const adapter = await navigator.gpu.requestAdapter();
             if (!adapter) throw new Error('No compatible GPU adapter was found.');
-            const device = await adapter.requestDevice();
-            device.addEventListener('uncapturederror', ev => logSwarm('GPU error: ' + ev.error.message, true));
-            let gpuLabel = 'device ready';
+            if (adapter.limits.maxStorageBuffersPerShaderStage < 14) {
+                throw new Error(`Your GPU only supports ${adapter.limits.maxStorageBuffersPerShaderStage} storage buffers per shader stage, but 14 are required for the fast swarm architecture.`);
+            }
+            const device = await adapter.requestDevice({
+                requiredLimits: { maxStorageBuffersPerShaderStage: 14 }
+            });
+            device.addEventListener('uncapturederror', ev => logSwarm('GPU error: ' + ev.error.message, true));            let gpuLabel = 'device ready';
             try {
                 const info = adapter.info || (adapter.requestAdapterInfo ? await adapter.requestAdapterInfo() : null);
                 if (info) gpuLabel = `${info.vendor || ''} ${info.architecture || info.description || ''}`.trim() || gpuLabel;

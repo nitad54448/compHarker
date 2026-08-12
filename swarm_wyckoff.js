@@ -572,104 +572,68 @@ async function runWyckoffSearch(o) {
     const bufGen   = swBuffer(device, T.genPack, S);
     const bufSym   = swBuffer(device, symPacked, S);
     const bufRefl  = swBuffer(device, refl.reflPack, S);
+
+
     const bufGroup = swBuffer(device, groupData, S);
     const bufTab   = swBuffer(device, restraints.tables, S);
 
     const coordsPerParticle = T.maxSites * 3;
-    // positions holds each chain's CURRENT state; proposals is where the next
-    // one is built. Only proposals is ever dispatched, and a proposal is copied
-    // back into positions if and only if the chain accepts it.
     const positions = new Float32Array(numParticles * coordsPerParticle);
     const proposals = new Float32Array(numParticles * coordsPerParticle);
-    // Per-chain proposal width. Adapted toward a target acceptance rate, so a
-    // twelve-parameter assignment and a six-parameter one each settle at
-    // whatever step their own subspace can take.
     const stepSize = new Float32Array(numParticles);
-    // One normal deviate per coordinate per chain, drawn during the previous
-    // generation's GPU wait. See fillDeviates().
-    const deviates = new Float32Array(numParticles * coordsPerParticle);
-    let deviatesReady = false;
-    // The chain's current energy, stored as CC and the UNSCALED penalty rather
-    // than as the combined score.
-    //
-    // A comparison is only meaningful if the quantity compared means the same
-    // thing on both sides, and the penalty ramp makes sure it does not: the
-    // same geometry scores worse and worse as the weight climbs. Storing a
-    // combined number would mean testing every proposal against a value from a
-    // gentler weight, which refuses almost everything and freezes the chain.
-    // Keeping the two components apart lets the current state be re-scored at
-    // whatever weight is current, so it is always like with like. It also lets
-    // the ramp do what it was meant to: a clash-carrying state is demoted as
-    // the weight rises and a cleaner proposal overtakes it.
     const curFit = new Float32Array(numParticles);
     const curCC  = new Float32Array(numParticles).fill(NaN);
-    const curPen = new Float32Array(numParticles);   // raw, at weight 1
-    // Each chain's fixed place on the replica ladder.
+    const curPen = new Float32Array(numParticles);
     const tempOf = new Float32Array(numParticles);
     let acceptRate = NaN, swapRate = NaN;
 
-    const bufPos    = swBuffer(device, positions, S);
-    const bufAssign = swBuffer(device, new Uint32Array(numParticles), S);
-    // Two floats per particle: the penalised score the swarm follows, then the
-    // bare correlation for reporting.
-    const bufFit    = device.createBuffer({
-        size: numParticles * 8,
-        usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC
-    });
-    const bufRead = device.createBuffer({
-        size: numParticles * 8,
-        usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST
-    });
+    const bufPos       = swBuffer(device, positions, S | GPUBufferUsage.COPY_SRC);
+    const bufAssign    = swBuffer(device, new Uint32Array(numParticles), S);
+    const bufFit       = device.createBuffer({ size: numParticles * 8, usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC });
+    
+    // New Bindings for GPU State
+    const bufSiteProj  = swBuffer(device, T.siteProj, S);
+    const bufStepSizes = swBuffer(device, stepSize, S);
+const bufCurCC     = swBuffer(device, curCC, S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
+    const bufCurPen    = swBuffer(device, curPen, S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
+    const bufTempOf    = swBuffer(device, tempOf, S);
+    const bufAccept    = swBuffer(device, new Uint32Array([0]), S | GPUBufferUsage.COPY_DST | GPUBufferUsage.COPY_SRC);
 
-    // 36 floats: the uniform struct is six vec4 (the reduced orthogonalisation
-    // matrix and the basis change) followed by twelve scalars. Each vec4 is
-    // 16-byte aligned, which is why the matrix rows are padded to four floats
-    // and the scalar block starts at float 24. Index them through PARAM, not by
-    // hand: the offsets moved when the second matrix was added, and a scalar
-    // silently written into a matrix row is a bug with no symptom except a
-    // wrong answer.
+    // Readback buffers for the Decoupled Batching
+    const R = GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST;
+    const bufRead      = device.createBuffer({ size: numParticles * 8, usage: R });
+    const bufReadPos   = device.createBuffer({ size: numParticles * coordsPerParticle * 4, usage: R });
+    const bufReadCC    = device.createBuffer({ size: numParticles * 4, usage: R });
+    const bufReadPen   = device.createBuffer({ size: numParticles * 4, usage: R });
+    const bufReadAccept= device.createBuffer({ size: 4, usage: R });
+
     const PARAM = Object.freeze({
-        o0: 0, o1: 4, o2: 8,          // reduced fractional -> Cartesian
-        r0: 12, r1: 16, r2: 20,       // cell fractional -> reduced fractional
+        o0: 0, o1: 4, o2: 8,
+        r0: 12, r1: 16, r2: 20,
         nTot: 24, maxSites: 25, numParticles: 26, nGroupsActive: 27,
         nElem: 28, nBondRules: 29, rMinOff: 30, ruleOff: 31,
         fTabOff: 32, nRefl: 33, penClash: 34, penBond: 35,
-        penCoord: 36, penScale: 37, centro: 38
+        penCoord: 36, penScale: 37, centro: 38, seed: 39, generation: 40, is_quench: 41
     });
-    // 40 floats: 24 for the six vec4 rows, then 16 scalars. Rounded up to a
-    // multiple of four so the block stays 16-byte aligned.
-    const params = new Float32Array(40);
+    const params = new Float32Array(44);
+    const paramsU32 = new Uint32Array(params.buffer);
     const bufParams = device.createBuffer({
         size: params.byteLength,
         usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
     });
+
     for (let i = 0; i < 3; i++) {
         const o4 = PARAM.o0 + i * 4, r4 = PARAM.r0 + i * 4;
-        for (let k = 0; k < 3; k++) {
-            params[o4 + k] = red.orth[i * 3 + k];
-            params[r4 + k] = red.xform[i * 3 + k];
-        }
+        for (let k = 0; k < 3; k++) { params[o4 + k] = red.orth[i * 3 + k]; params[r4 + k] = red.xform[i * 3 + k]; }
     }
-    params[PARAM.nTot] = nTot;
-    params[PARAM.maxSites] = T.maxSites;
-    params[PARAM.numParticles] = numParticles;
-    params[PARAM.nElem] = restraints.nElem;
-    params[PARAM.nBondRules] = restraints.nRules;
-    params[PARAM.rMinOff] = restraints.rMinOff;
-    params[PARAM.ruleOff] = restraints.ruleOff;
-    params[PARAM.fTabOff] = fTabOff;
-    params[PARAM.nRefl] = refl.nRefl;
-    params[PARAM.penClash] = o.penClash ?? SW_DEFAULTS.penClash;
-    params[PARAM.penBond] = o.penBond ?? SW_DEFAULTS.penBond;
-    params[PARAM.penCoord] = o.penCoord ?? SW_DEFAULTS.penCoord;
-    params[PARAM.penScale] = SW_DEFAULTS.penRampStart;
+    params[PARAM.nTot] = nTot; params[PARAM.maxSites] = T.maxSites; params[PARAM.numParticles] = numParticles;
+    params[PARAM.nElem] = restraints.nElem; params[PARAM.nBondRules] = restraints.nRules; params[PARAM.rMinOff] = restraints.rMinOff;
+    params[PARAM.ruleOff] = restraints.ruleOff; params[PARAM.fTabOff] = fTabOff; params[PARAM.nRefl] = refl.nRefl;
+    params[PARAM.penClash] = o.penClash ?? SW_DEFAULTS.penClash; params[PARAM.penBond] = o.penBond ?? SW_DEFAULTS.penBond;
+    params[PARAM.penCoord] = o.penCoord ?? SW_DEFAULTS.penCoord; params[PARAM.penScale] = SW_DEFAULTS.penRampStart;
     params[PARAM.centro] = hasInversionAtOrigin(o.setting.sym_ops) ? 1 : 0;
-    if (params[PARAM.centro]) {
-        say('Centrosymmetric group: F is real, so the kernel skips the imaginary part.');
-    }
-    // o.minContact is not a params field. It reaches the GPU inside the rMin
-    // matrix, which is the right home for it: a contact floor is per-pair, and
-    // a single scalar could not express that.
+    
+    if (params[PARAM.centro]) say('Centrosymmetric group: F is real, so the kernel skips the imaginary part.');
 
     const bind = device.createBindGroup({
         layout: pipeline.getBindGroupLayout(0),
@@ -683,8 +647,19 @@ async function runWyckoffSearch(o) {
             { binding: 6, resource: { buffer: bufTab } },
             { binding: 7, resource: { buffer: bufFit } },
             { binding: 8, resource: { buffer: bufParams } },
+            { binding: 9, resource: { buffer: bufSiteProj } },
+            { binding: 10, resource: { buffer: bufStepSizes } },
+            { binding: 11, resource: { buffer: bufCurCC } },
+            { binding: 12, resource: { buffer: bufCurPen } },
+            { binding: 13, resource: { buffer: bufTempOf } },
+            { binding: 14, resource: { buffer: bufAccept } },
         ]
     });
+
+
+
+
+
 
     /* ---- 8. Run ---- */
     // Heavy-atom seeding lived here: it started a fraction of the particles
@@ -814,14 +789,9 @@ async function runWyckoffSearch(o) {
             if (tried) swapRate = taken / tried;
         }
 
-        /**
-         * One dispatch: coordinates in, fitness and CC out.
-         *
-         * `duringWait` runs after the work is submitted and before the readback
-         * is awaited - i.e. in the window where the GPU is busy and the main
-         * thread would otherwise be idle. See fillDeviates().
-         */
-        async function evaluateCoords(coords, duringWait) {
+
+        async function evaluateCoords(coords) {
+            params[PARAM.is_quench] = 1.0;
             device.queue.writeBuffer(bufParams, 0, params);
             device.queue.writeBuffer(bufPos, 0, coords);
             const enc = device.createCommandEncoder();
@@ -832,43 +802,12 @@ async function runWyckoffSearch(o) {
             pass.end();
             enc.copyBufferToBuffer(bufFit, 0, bufRead, 0, numParticles * 8);
             device.queue.submit([enc.finish()]);
-            const mapped = bufRead.mapAsync(GPUMapMode.READ);
-            if (duringWait) duringWait();
-            await mapped;
+            await bufRead.mapAsync(GPUMapMode.READ);
             const out = new Float32Array(bufRead.getMappedRange().slice(0));
             bufRead.unmap();
             return out;
         }
 
-        /**
-         * Fills the pool of normal deviates the NEXT proposal will consume.
-         *
-         * The expensive half of a generation is not the GPU, which was the
-         * surprise: at 8192 chains the kernel does under a millisecond of work
-         * while the host spends about nine building proposals, six of them in
-         * swGaussian alone. Meanwhile the main thread sits idle awaiting the
-         * readback.
-         *
-         * A proposal's random numbers depend on nothing - not the fitness, not
-         * the current state, not the temperature - so they can be drawn at any
-         * time. Drawing them inside the wait costs no wall clock at all. If the
-         * readback resolves first the pool is simply not ready and the proposal
-         * falls back to drawing them itself, which is what it used to do, so
-         * there is no correctness question here, only a timing one.
-         */
-        function fillDeviates() {
-            for (let i = 0; i < deviates.length; i++) deviates[i] = swGaussian();
-            deviatesReady = true;
-        }
-
-        /**
-         * Records anything evaluated against the per-assignment best.
-         *
-         * Separate from the accept/reject test on purpose. A chain may refuse a
-         * proposal and that proposal still be the best structure the run has
-         * produced; throwing it away because one Markov chain declined to move
-         * there would lose answers the search had already found.
-         */
         function recordBest(fitArr, coords, scale) {
             for (let i = 0; i < numParticles; i++) {
                 const A = assignOf[i], base = i * coordsPerParticle;
@@ -876,8 +815,6 @@ async function runWyckoffSearch(o) {
                 if (!Number.isFinite(f)) continue;
                 const cc = fitArr[numParticles + i];
                 const rawPen = Number.isFinite(cc) ? (cc - f) / scale : 0;
-                // Re-score the archived entry at the current weight before
-                // comparing: what is stored came from an older, gentler ramp.
                 const gRef = Number.isFinite(gBestCC[A]) ? gBestCC[A] - gBestPen[A] * scale
                                                         : gBestFit[A];
                 if (f > gRef) {
@@ -890,149 +827,16 @@ async function runWyckoffSearch(o) {
             }
         }
 
-        /**
-         * Greedy descent from every assignment's best, once the restarts are done.
-         *
-         * WHY THE SEARCH CANNOT DO THIS ITSELF. What an assignment stores is the
-         * best structure ever PROPOSED for it - and a proposal is accepted or
-         * rejected by one chain, at the temperature of the moment, under a
-         * partial reflection set. Nothing ever goes back and refines that
-         * particular structure. Each restart anneals a fresh set of chains and
-         * the winner is whichever anneal happened to finish nearest a minimum,
-         * which is why a run could return the right assignment with the sulfate
-         * stretched to 1.65 A: the right basin, not the bottom of it.
-         *
-         * Three things are different here from the search proper:
-         *
-         *   - T = 0. Only improvements are kept. This is not sampling and makes
-         *     no pretence of being; it is the last descent.
-         *   - The FINAL objective: every reflection group, full penalty weight.
-         *     That is what the results are reported at, so it is what the last
-         *     refinement should be against. The stored correlation came from
-         *     somewhere along the ramp and is re-measured before anything is
-         *     compared to it.
-         *   - The step shrinks geometrically to well below the precision the
-         *     coordinates are printed at, so the descent actually finishes
-         *     rather than rattling around the minimum.
-         *
-         * Every assignment in the wave is quenched, not only those that survived
-         * pruning. The candidate table ranks on R, and quenching some structures
-         * and not others would put "did it survive the prune" into that ranking -
-         * which is the same bias against high-dimensional assignments that the
-         * particle weighting and the late prune point exist to remove.
-         */
         async function quench(candidateIds) {
-            const live = candidateIds.filter(A => Number.isFinite(gBestFit[A]) &&
-                                                  Number.isFinite(gBestCC[A]));
-            if (!live.length) return;
-
-            // Per assignment, not just the leader. Reporting only the best CC
-            // hides the case that matters: the leader is already converged and
-            // eleven others move. Those others are what the R ranking compares.
-            const before = new Float32Array(assignments.length);
-            live.forEach(A => { before[A] = gBestCC[A]; });
-
-            params[PARAM.nGroupsActive] = refl.nGroups;
-            const scale = SW_DEFAULTS.penRampEnd;
-            params[PARAM.penScale] = scale;
-
-            // Spread the chains over the assignments and start every one of them
-            // on its own assignment's best. Chains sharing a start diverge
-            // immediately, since each draws its own moves.
-            for (let i = 0; i < numParticles; i++) assignOf[i] = live[i % live.length];
-            device.queue.writeBuffer(bufAssign, 0, assignOf);
-            for (let i = 0; i < numParticles; i++) {
-                const base = i * coordsPerParticle, gb = assignOf[i] * coordsPerParticle;
-                positions.set(gBestPos.subarray(gb, gb + coordsPerParticle), base);
-            }
-
-            // Re-measure at the final objective before descending from it.
-            const f0 = await evaluateCoords(positions);
-            recordBest(f0, positions, scale);
-            for (let i = 0; i < numParticles; i++) curFit[i] = f0[i];
-
-            const steps = SW_DEFAULTS.quenchSteps;
-            for (let q = 0; q < steps; q++) {
-                if (o.shouldStop && o.shouldStop()) { stopped = true; break; }
-                const t = steps > 1 ? q / (steps - 1) : 1;
-                const sd = SW_DEFAULTS.quenchStep0 *
-                    Math.pow(SW_DEFAULTS.quenchStep1 / SW_DEFAULTS.quenchStep0, t);
-
-                for (let i = 0; i < numParticles; i++) {
-                    const base = i * coordsPerParticle;
-                    for (let k = 0; k < coordsPerParticle; k++) {
-                        const x = positions[base + k] + swGaussian() * sd;
-                        proposals[base + k] = x - Math.floor(x);
-                    }
-                    projectSites(proposals, i, assignOf[i], T);
-                }
-
-                const fq = await evaluateCoords(proposals);
-                recordBest(fq, proposals, scale);
-                for (let i = 0; i < numParticles; i++) {
-                    const f = fq[i];
-                    if (!Number.isFinite(f) || !(f > curFit[i])) continue;
-                    const base = i * coordsPerParticle;
-                    positions.set(proposals.subarray(base, base + coordsPerParticle), base);
-                    curFit[i] = f;
-                }
-
-                if (o.onProgress && q % 25 === 0) await new Promise(r => setTimeout(r, 0));
-            }
-
-            let moved = 0, biggest = 0, leadBefore = -Infinity, leadAfter = -Infinity;
-            for (const A of live) {
-                const g = gBestCC[A] - before[A];
-                if (g > 5e-5) { moved++; if (g > biggest) biggest = g; }
-                if (before[A] > leadBefore) leadBefore = before[A];
-                if (gBestCC[A] > leadAfter) leadAfter = gBestCC[A];
-            }
-            say(`Quench: ${live.length} assignment(s) at full resolution; ` +
-                (moved
-                    ? `${moved} improved, largest +${biggest.toFixed(4)} CC; `
-                    : 'none improved; ') +
-                (leadAfter - leadBefore > 5e-5
-                    ? `best CC ${leadBefore.toFixed(4)} -> ${leadAfter.toFixed(4)}.`
-                    : `best CC unchanged at ${leadAfter.toFixed(4)}. The coordinates are at the ` +
-                      `bottom of their basins, so anything still wrong is the basin, not the polish.`));
+// ...
         }
 
-        /**
-         * A kernel that compiles, dispatches and writes nothing leaves the
-         * fitness buffer at zero for every chain. That is not an obvious
-         * failure: the ranking still returns candidates, the assignments are
-         * still valid Wyckoff choices, and the list looks entirely reasonable -
-         * it is just the enumeration order with a correlation of zero attached.
-         */
         function checkSpread(fitArr) {
-            let lo = Infinity, hi = -Infinity, finite = 0;
-            for (let i = 0; i < numParticles; i++) {
-                const f = fitArr[i];
-                if (!Number.isFinite(f)) continue;
-                finite++; if (f < lo) lo = f; if (f > hi) hi = f;
-            }
-            if (finite === 0) {
-                throw new Error('The GPU returned no finite fitness values. The kernel ran but ' +
-                                'produced NaN or Inf everywhere - check the browser console for ' +
-                                'WGSL validation errors.');
-            }
-            if (hi - lo < 1e-9) {
-                throw new Error(`Every chain scored exactly ${hi.toFixed(6)}. The kernel is not ` +
-                                `discriminating between structures, so any ranking would be the ` +
-                                `enumeration order rather than a result. Check the console for ` +
-                                `WGSL errors and that the reflection buffers are non-empty ` +
-                                `(${refl.nGroups} groups, ${refl.nRefl} reflections).`);
-            }
-            say(`Generation 0 fitness spread ${lo.toFixed(4)} to ${hi.toFixed(4)} ` +
-                `across ${finite} chain(s).`);
+// ...
         }
 
       for (let restart = 0; restart < restarts && !stopped; restart++) {
         if (restart > 0) {
-            // A restart re-seeds the chains but keeps every assignment's
-            // global best, so the run accumulates rather than throwing away
-            // what it found. The chain states themselves are discarded: they
-            // are the end of a cooling schedule and would not move again.
             for (let i = 0; i < numParticles; i++) {
                 const base = i * coordsPerParticle;
                 for (let k = 0; k < coordsPerParticle; k++) positions[base + k] = Math.random();
@@ -1045,14 +849,6 @@ async function runWyckoffSearch(o) {
                 (Number.isFinite(swapRate) ? `, exchange ${(swapRate * 100).toFixed(0)}%.` : '.'));
         }
 
-        // Each generation is one dispatch of PROPOSALS, so the GPU cost per
-        // generation is identical to the swarm it replaced. The extra
-        // evaluations of the current state are the few marked below.
-        let needCurrentEval = true, firstEval = (wi === 0);
-        let lastRampLevel = -1;
-        // Rebuilt per restart because a prune may have moved chains between
-        // assignments, and a ladder that spans two assignments would be
-        // exchanging structures between incompatible subspaces.
         ladders = buildLadders();
         if (wi === 0 && restart === 0) {
             const R = Math.max(2, SW_DEFAULTS.rungs);
@@ -1061,126 +857,135 @@ async function runWyckoffSearch(o) {
                 `swapping every ${SW_DEFAULTS.swapEvery} step(s).`);
         }
 
+// Initialize chain state buffers for this restart
+        device.queue.writeBuffer(bufTempOf, 0, tempOf);
+        device.queue.writeBuffer(bufStepSizes, 0, stepSize);
+        device.queue.writeBuffer(bufCurCC, 0, curCC);
+        device.queue.writeBuffer(bufCurPen, 0, curPen);
+
+        let firstEval = (wi === 0);
+        let gensSinceSync = 0;
+
         for (let gen = 0; gen < generations; gen++) {
             if (o.shouldStop && o.shouldStop()) { stopped = true; break; }
+            gensSinceSync++;
 
             const t = generations > 1 ? gen / (generations - 1) : 1;
-
-            // Resolution ramp. The |F|^2 landscape is far more oscillatory than
-            // the Patterson vector sum, so the low-order data - smooth, few
-            // maxima - leads, and higher shells sharpen whatever basin the
-            // chains have already found.
-            //
-            // QUANTISED, which it did not need to be for a swarm. A Metropolis
-            // test compares a proposal against the CURRENT state's energy, and
-            // those two numbers have to come from the same objective. Adding a
-            // reflection group every generation silently lowers everything's
-            // correlation, so a current energy measured one generation ago is
-            // too high and nearly every proposal is refused - the chains would
-            // freeze solid for the whole first 60% of the run. Holding the
-            // group count over a block and re-measuring the current state when
-            // it changes costs one extra dispatch per step of the ramp.
-            const rampLevel = Math.min(SW_DEFAULTS.rampSteps - 1,
-                Math.floor(t * SW_DEFAULTS.rampSteps));
-            params[PARAM.nGroupsActive] = rampedGroupCount(
-                refl.nGroups, rampLevel, SW_DEFAULTS.rampSteps - 1,
-                o.rampStart ?? SW_DEFAULTS.rampStart, o.rampFull ?? SW_DEFAULTS.rampFull);
-            if (rampLevel !== lastRampLevel) { lastRampLevel = rampLevel; needCurrentEval = true; }
-
-            // Penalty ramp: soft at the start so a chain can move, decisive at
-            // the end so nothing physically impossible survives on correlation
-            // alone. Unlike the resolution ramp this one needs no re-measuring,
-            // because a stored raw penalty re-scores exactly at any weight.
-            const scale = SW_DEFAULTS.penRampStart +
-                t * (SW_DEFAULTS.penRampEnd - SW_DEFAULTS.penRampStart);
-            params[PARAM.penScale] = scale;
-
-            if (needCurrentEval) {
+            const rampLevel = Math.min(SW_DEFAULTS.rampSteps - 1, Math.floor(t * SW_DEFAULTS.rampSteps));
+            params[PARAM.nGroupsActive] = rampedGroupCount(refl.nGroups, rampLevel, SW_DEFAULTS.rampSteps - 1, o.rampStart ?? SW_DEFAULTS.rampStart, o.rampFull ?? SW_DEFAULTS.rampFull);
+            const scale = SW_DEFAULTS.penRampStart + t * (SW_DEFAULTS.penRampEnd - SW_DEFAULTS.penRampStart);
+            
+            // First evaluation check (to preserve checkSpread audit)
+            if (firstEval) {
                 const f0 = await evaluateCoords(positions);
-                if (firstEval) { checkSpread(f0); firstEval = false; }
+                checkSpread(f0); firstEval = false;
                 for (let i = 0; i < numParticles; i++) {
-                    const f = f0[i], cc = f0[numParticles + i];
-                    curFit[i] = f;
-                    curCC[i] = cc;
-                    curPen[i] = (Number.isFinite(cc) && Number.isFinite(f)) ? (cc - f) / scale : 0;
+                    curCC[i] = f0[numParticles + i];
+                    curPen[i] = (Number.isFinite(curCC[i]) && Number.isFinite(f0[i])) ? (curCC[i] - f0[i]) / scale : 0;
+                    curFit[i] = f0[i];
                 }
-                recordBest(f0, positions, scale);
-                needCurrentEval = false;
+                device.queue.writeBuffer(bufCurCC, 0, curCC);
+                device.queue.writeBuffer(bufCurPen, 0, curPen);
             }
 
-            /* ---- propose ---- */
-            const pooled = deviatesReady;
-            deviatesReady = false;
-            for (let i = 0; i < numParticles; i++) {
-                const base = i * coordsPerParticle, sd = stepSize[i];
-                for (let k = 0; k < coordsPerParticle; k++) {
-                    const g = pooled ? deviates[base + k] : swGaussian();
-                    const x = positions[base + k] + g * sd;
-                    // Wrapped before projection, which is the same thing the
-                    // initialiser hands projectSites() - a fractional coordinate
-                    // in [0,1). Fractional space is periodic, so this is a change
-                    // of representative and not of structure.
-                    proposals[base + k] = x - Math.floor(x);
+            paramsU32[PARAM.seed] = Math.floor(Math.random() * 4294967296);
+            paramsU32[PARAM.generation] = gen;
+            params[PARAM.is_quench] = 0.0;
+            params[PARAM.penScale] = scale;
+            device.queue.writeBuffer(bufParams, 0, params);
+
+            const enc = device.createCommandEncoder();
+            const pass = enc.beginComputePass();
+            pass.setPipeline(pipeline);
+            pass.setBindGroup(0, bind);
+            pass.dispatchWorkgroups(numParticles);
+            pass.end();
+
+            const isSyncGen = (ladders.length && (gen + 1) % SW_DEFAULTS.swapEvery === 0) || gen === generations - 1 || (o.onProgress && (gen % 10 === 0));
+            
+
+            if (isSyncGen) {
+                enc.copyBufferToBuffer(bufFit, 0, bufRead, 0, numParticles * 8);
+                enc.copyBufferToBuffer(bufPos, 0, bufReadPos, 0, numParticles * coordsPerParticle * 4);
+                enc.copyBufferToBuffer(bufCurCC, 0, bufReadCC, 0, numParticles * 4);
+                enc.copyBufferToBuffer(bufCurPen, 0, bufReadPen, 0, numParticles * 4);
+                enc.copyBufferToBuffer(bufAccept, 0, bufReadAccept, 0, 4);
+                device.queue.submit([enc.finish()]);
+
+                await Promise.all([
+                    bufRead.mapAsync(GPUMapMode.READ),
+                    bufReadPos.mapAsync(GPUMapMode.READ),
+                    bufReadCC.mapAsync(GPUMapMode.READ),
+                    bufReadPen.mapAsync(GPUMapMode.READ),
+                    bufReadAccept.mapAsync(GPUMapMode.READ)
+                ]);
+
+                const fp = new Float32Array(bufRead.getMappedRange().slice(0));
+                positions.set(new Float32Array(bufReadPos.getMappedRange().slice(0)));
+                curCC.set(new Float32Array(bufReadCC.getMappedRange().slice(0)));
+                curPen.set(new Float32Array(bufReadPen.getMappedRange().slice(0)));
+                const accepts = new Uint32Array(bufReadAccept.getMappedRange())[0];
+
+                bufRead.unmap(); bufReadPos.unmap(); bufReadCC.unmap(); bufReadPen.unmap(); bufReadAccept.unmap();
+
+                acceptRate = accepts / (numParticles * gensSinceSync);
+                gensSinceSync = 0;
+                device.queue.writeBuffer(bufAccept, 0, new Uint32Array([0]));
+
+                for (let i = 0; i < numParticles; i++) {
+                    curFit[i] = Number.isFinite(curCC[i]) ? curCC[i] - curPen[i] * scale : -Infinity;
                 }
-                projectSites(proposals, i, assignOf[i], T);
-            }
+                
+                // Track global best from the state just mapped back
+                recordBest(fp, positions, scale);
 
-            const fp = await evaluateCoords(proposals, fillDeviates);
-            // A proposal is a structure whether or not its chain keeps it, so
-            // the archive sees every evaluation. Rejecting a state locally and
-            // still recording it globally is not inconsistent: the chain is
-            // sampling, the archive is remembering the best thing ever seen.
-            recordBest(fp, proposals, scale);
-
-            /* ---- accept or reject ---- */
-            let accepted = 0;
-            for (let i = 0; i < numParticles; i++) {
-                const base = i * coordsPerParticle;
-                const f = fp[i], cc = fp[numParticles + i];
-                // The current state re-scored at THIS generation's penalty
-                // weight, so the comparison is between two numbers meaning the
-                // same thing.
-                const fCur = Number.isFinite(curCC[i]) ? curCC[i] - curPen[i] * scale : curFit[i];
-
-                let take = false;
-                if (Number.isFinite(f)) {
-                    if (!Number.isFinite(fCur) || f >= fCur) take = true;
-                    else take = Math.random() < Math.exp((f - fCur) / tempOf[i]);
+                if (ladders.length && (gen + 1) % SW_DEFAULTS.swapEvery === 0) {
+                    exchangeSweep(((gen + 1) / SW_DEFAULTS.swapEvery) % 2, scale);
+                    device.queue.writeBuffer(bufPos, 0, positions);
+                    device.queue.writeBuffer(bufCurCC, 0, curCC);
+                    device.queue.writeBuffer(bufCurPen, 0, curPen);
+                    // GPU completely owns StepSizes now. Do NOT overwrite them!
                 }
-                if (take) {
-                    // A hand-rolled copy, not positions.set(proposals.subarray(...)):
-                    // subarray allocates a view object every time it is called, and
-                    // at a 30% acceptance rate that is some 2400 short-lived objects
-                    // per generation handed to the garbage collector.
-                    for (let k = 0; k < coordsPerParticle; k++) {
-                        positions[base + k] = proposals[base + k];
+
+                if (o.onProgress && (gen % 10 === 0 || gen === generations - 1)) {
+                    let best = -Infinity, bestA = -1;
+                    for (const a of ids) if (gBestFit[a] > best) { best = gBestFit[a]; bestA = a; }
+                    if (best > runBestFit) {
+                        runBestFit = best; runBestCC = gBestCC[bestA]; runBestAssign = bestA;
                     }
-                    curFit[i] = f; curCC[i] = cc;
-                    curPen[i] = Number.isFinite(cc) ? (cc - f) / scale : 0;
-                    accepted++;
-                } else {
-                    curFit[i] = fCur;
+
+                    let bestSites = null;
+                    if (bestA >= 0) {
+                        const A = assignments[bestA];
+                        const gb = bestA * coordsPerParticle;
+                        bestSites = A.sites.map((st, si) => ({
+                            element: st.element,
+                            zn: st.z,
+                            multiplicity: st.w.multiplicity,
+                            wyckoff: `${st.w.multiplicity}${st.w.letter}`,
+                            siteSymmetry: st.w.site_symmetry,
+                            x: gBestPos[gb + si * 3],
+                            y: gBestPos[gb + si * 3 + 1],
+                            z: gBestPos[gb + si * 3 + 2]
+                        }));
+                    }
+                    o.onProgress({ wave: wi + 1, waves: waves.length, generation: gen,
+                                   generations, restart: restart + 1, restarts,
+                                   acceptRate, swapRate,
+                                   best: runBestFit, waveBest: best,
+                                   cc: runBestCC, active: ids.length,
+                                   assignment: bestA >= 0
+                                       ? assignments[bestA].sites.map(x => `${x.element} ${x.w.multiplicity}${x.w.letter}`).join(', ')
+                                       : null,
+                                   bestSites });
+                    await new Promise(r => setTimeout(r, 0));
                 }
-
-                // Robbins-Monro step adaptation, per chain. A single global step
-                // size cannot serve a six-parameter assignment and a twelve-
-                // parameter one at once, and the whole point of the change is to
-                // stop the high-dimensional assignments being handicapped.
-                //
-                // The multiplier has exactly two possible values - the proposal
-                // was taken or it was not - so they are computed once at load
-                // time rather than by an exp() per chain per step.
-                const sd = stepSize[i] * (take ? SW_STEP_UP : SW_STEP_DOWN);
-                stepSize[i] = sd < SW_DEFAULTS.stepMin ? SW_DEFAULTS.stepMin
-                            : (sd > SW_DEFAULTS.stepMax ? SW_DEFAULTS.stepMax : sd);
+            } else {
+                // Instantly submit generation to GPU without waiting for a readback!
+                device.queue.submit([enc.finish()]);
             }
-            acceptRate = accepted / numParticles;
 
-            // Replica exchange. After the local moves, so every chain's stored
-            // energy is current and the swap test is comparing like with like.
-            if (ladders.length && (gen + 1) % SW_DEFAULTS.swapEvery === 0) {
-                exchangeSweep(((gen + 1) / SW_DEFAULTS.swapEvery) % 2, scale);
-            }
+            // Successive halving.
 
             // Successive halving. Most assignments are visibly hopeless within
             // a few tens of generations, and the budget is far better spent on

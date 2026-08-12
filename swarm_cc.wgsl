@@ -50,55 +50,47 @@
 // translations are searched as well, which is exact at any distance. The common
 // case injects 0 and the loop collapses to a single iteration.
 
-struct Params {
-    o0: vec4<f32>,          // REDUCED fractional -> Cartesian, one row per vec4
-    o1: vec4<f32>,
-    o2: vec4<f32>,
+struct WyckoffProj { row0: vec4<f32>, row1: vec4<f32>, row2: vec4<f32> }
 
-    r0: vec4<f32>,          // cell fractional -> reduced fractional (integer entries)
-    r1: vec4<f32>,
-    r2: vec4<f32>,
-
-    nTot: f32,              // atoms per cell - identical for every assignment
-    maxSites: f32,
-    numParticles: f32,
-    nGroupsActive: f32,     // resolution ramp: use groups [0, nGroupsActive)
-
-    nElem: f32,
-    nBondRules: f32,
-    rMinOff: f32,
-    ruleOff: f32,
-
-    fTabOff: f32,           // start of the scattering table inside groupData
-    nRefl: f32,
-
-    penClash: f32,          // CC units subtracted per clashing pair
-    penBond: f32,           // CC units per Angstrom of unmet distance window
-    penCoord: f32,          // CC units per missing or excess neighbour
-    penScale: f32,          // penalty ramp, see below
-
-    // 1 when the space group contains (-I | 0), so the generated cell contents
-    // are closed under inversion through the origin and F is REAL. The host
-    // tests the operator list for it rather than assuming. Appended rather than
-    // inserted: a params slot silently shifted by one is a wrong answer with no
-    // symptom.
-    centro: f32,
-    pad0: f32,
-};
-
-@group(0) @binding(0) var<storage, read> particles: array<f32>;
+@group(0) @binding(0) var<storage, read_write> particles: array<f32>;
 @group(0) @binding(1) var<storage, read> particleAssign: array<u32>;
 @group(0) @binding(2) var<storage, read> genPack: array<u32>;
-@group(0) @binding(3) var<storage, read> symOps: array<f32>;    // 12 floats/op
-@group(0) @binding(4) var<storage, read> reflPack: array<u32>;  // 2 u32/reflection
-// groupData holds, in one buffer: 3 f32 per group (start, count, Iobs) followed
-// by the scattering table, nElem f32 per reflection. Concatenated because
-// WebGPU guarantees only 8 storage buffers per stage and this kernel uses all
-// of them; fTabOff in the uniform block says where the second section begins.
+@group(0) @binding(3) var<storage, read> symOps: array<f32>;
+@group(0) @binding(4) var<storage, read> reflPack: array<u32>;
 @group(0) @binding(5) var<storage, read> groupData: array<f32>;
-@group(0) @binding(6) var<storage, read> tables: array<f32>;    // rMin | bondRules
+@group(0) @binding(6) var<storage, read> tables: array<f32>;
 @group(0) @binding(7) var<storage, read_write> fitnesses: array<f32>;
 @group(0) @binding(8) var<uniform> params: Params;
+@group(0) @binding(9) var<storage, read> siteProj: array<WyckoffProj>;
+@group(0) @binding(10) var<storage, read_write> stepSizes: array<f32>;
+@group(0) @binding(11) var<storage, read_write> curCC: array<f32>;
+@group(0) @binding(12) var<storage, read_write> curPen: array<f32>;
+@group(0) @binding(13) var<storage, read> tempOf: array<f32>;
+@group(0) @binding(14) var<storage, read_write> acceptCount: array<atomic<u32>>;
+
+struct Params {
+    o0: vec4<f32>, o1: vec4<f32>, o2: vec4<f32>,
+    r0: vec4<f32>, r1: vec4<f32>, r2: vec4<f32>,
+    nTot: f32, maxSites: f32, numParticles: f32, nGroupsActive: f32,
+    nElem: f32, nBondRules: f32, rMinOff: f32, ruleOff: f32,
+    fTabOff: f32, nRefl: f32, penClash: f32, penBond: f32,
+    penCoord: f32, penScale: f32, centro: f32, seed: u32,
+    generation: u32, is_quench: f32,
+};
+
+fn pcg_hash(seed: u32) -> u32 {
+    var state = seed * 747796405u + 2891336453u;
+    let word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+    return (word >> 22u) ^ word;
+}
+
+fn box_muller(seed1: u32, seed2: u32) -> vec2<f32> {
+    let u1 = max(f32(pcg_hash(seed1)) / 4294967295.0, 1e-7); 
+    let u2 = f32(pcg_hash(seed2)) / 4294967295.0;
+    let r = sqrt(-2.0 * log(u1));
+    let theta = 6.28318530718 * u2;
+    return vec2<f32>(r * cos(theta), r * sin(theta));
+}
 
 const WG: u32 = 64u;
 const MAX_GEN_ATOMS: u32 = 384u; //__MAX_GEN_ATOMS__
@@ -139,6 +131,7 @@ var<workgroup> rIc:   array<f32, WG>;
 var<workgroup> rIc2:  array<f32, WG>;
 var<workgroup> rIoIc: array<f32, WG>;
 var<workgroup> rPen:  array<f32, WG>;
+var<workgroup> prop_coords: array<f32, 72>;
 
 fn cartDist(p1: vec3<f32>, p2: vec3<f32>) -> f32 {
     let d = p1 - p2;
@@ -191,6 +184,49 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
     let gBase = A * nTot;
     let pBase = pIdx * maxSites * 3u;
 
+    // --- PROPOSAL AND PROJECTION PHASE ---
+    if (lid == 0u) {
+        let mSites = u32(params.maxSites);
+        if (params.is_quench > 0.5) {
+            for (var s = 0u; s < mSites; s = s + 1u) {
+                prop_coords[s*3u]      = particles[pBase + s*3u];
+                prop_coords[s*3u + 1u] = particles[pBase + s*3u + 1u];
+                prop_coords[s*3u + 2u] = particles[pBase + s*3u + 2u];
+            }
+        } else {
+            let step = stepSizes[pIdx];
+            let base_seed = params.seed ^ pIdx ^ params.generation;
+
+            for (var s = 0u; s < mSites; s = s + 1u) {
+                let cx = particles[pBase + s*3u];
+                let cy = particles[pBase + s*3u + 1u];
+                let cz = particles[pBase + s*3u + 2u];
+
+                // Hash `s` to guarantee completely independent seeds per coordinate
+                let s_hash = pcg_hash(s);
+                let bm1 = box_muller(base_seed ^ s_hash, base_seed ^ (s_hash + 1u));
+                let bm2 = box_muller(base_seed ^ (s_hash + 2u), base_seed ^ (s_hash + 3u));
+                
+                var raw_pos = vec3<f32>(cx + bm1.x * step, cy + bm1.y * step, cz + bm2.x * step);
+                raw_pos = raw_pos - floor(raw_pos); // CRITICAL: Wrap BEFORE projection
+                
+                let proj = siteProj[A * mSites + s];
+                
+                var new_pos = vec3<f32>(
+                    dot(proj.row0, vec4<f32>(raw_pos, 1.0)),
+                    dot(proj.row1, vec4<f32>(raw_pos, 1.0)),
+                    dot(proj.row2, vec4<f32>(raw_pos, 1.0))
+                );
+                new_pos = new_pos - floor(new_pos);
+                
+                prop_coords[s*3u]      = new_pos.x;
+                prop_coords[s*3u + 1u] = new_pos.y;
+                prop_coords[s*3u + 2u] = new_pos.z;
+            }
+        }
+    }
+    workgroupBarrier();
+
     // --- 1. Generate the cell contents ---------------------------------
     // Site coordinates arrive already projected onto their Wyckoff subspace by
     // the host; the operator indices are the position's precomputed coset
@@ -202,8 +238,7 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
         let o  = (pk >> 8u) & 0xFFFu;
         let ty = (pk >> 20u) & 0xFu;
 
-        let c = pBase + s * 3u;
-        let p = vec3<f32>(particles[c], particles[c + 1u], particles[c + 2u]);
+        let p = vec3<f32>(prop_coords[s * 3u], prop_coords[s * 3u + 1u], prop_coords[s * 3u + 2u]);
 
         let ob = o * 12u;
         var n = vec3<f32>(
@@ -528,5 +563,40 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
         // the bare correlation.
         fitnesses[pIdx] = cc - rPen[0];
         fitnesses[u32(params.numParticles) + pIdx] = cc;
+
+        // --- METROPOLIS ACCEPT/REJECT PHASE ---
+        if (params.is_quench < 0.5) {
+            let fProp = cc - rPen[0];
+            let cCC = curCC[pIdx];
+            let cPen = curPen[pIdx];
+            
+            var fCur: f32 = -1e30;
+            if (cCC > -2.0) { fCur = cCC - cPen * params.penScale; }
+
+            var take = false;
+            if (fProp >= fCur || fCur < -9999.0) {
+                take = true;
+            } else {
+                let threshold = exp((fProp - fCur) / tempOf[pIdx]);
+                let rand_val = f32(pcg_hash(params.seed ^ pIdx ^ 9999u)) / 4294967295.0;
+                if (rand_val < threshold) { take = true; }
+            }
+
+let step = stepSizes[pIdx];
+            if (take) {
+                let mSites = u32(params.maxSites);
+                for (var s = 0u; s < mSites; s = s + 1u) {
+                    particles[pBase + s*3u]      = prop_coords[s*3u];
+                    particles[pBase + s*3u + 1u] = prop_coords[s*3u + 1u];
+                    particles[pBase + s*3u + 2u] = prop_coords[s*3u + 2u];
+                }
+                curCC[pIdx]  = cc;
+                curPen[pIdx] = rPen[0] / params.penScale; 
+                stepSizes[pIdx] = min(0.5, step * 1.058);
+                atomicAdd(&acceptCount[0], 1u);
+            } else {
+                stepSizes[pIdx] = max(0.0002, step * 0.976);
+            }
+        }
     }
 }

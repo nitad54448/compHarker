@@ -355,7 +355,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
   └─ Extract peaks from SMF/Supermap (unmasked) as consolidated absolute candidate sites
                 </pre>
 
-                <h3 id="arch-gpu">2.3 WebGPU Structure Search</h3>
+<h3 id="arch-gpu">2.3 WebGPU Structure Search</h3>
                 <p>
                     The third piece of the pipeline, and the only one that runs on the GPU rather than the main
                     thread or the worker, is the search for atomic coordinates once the map
@@ -365,8 +365,11 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                     with the hardware-limits half specifically in 6.3. The short version, for the architectural
                     picture: the main thread builds the WGSL compute shader from <code>swarm_compute.wgsl</code>,
                     sizing a couple of its constants to your actual GPU before compiling it, then dispatches one
-                    workgroup per particle every generation and reads back only the best-found fitness and
-                    position, keeping the heavy per-particle arithmetic entirely off the JavaScript thread.
+                    workgroup per particle. <strong>Crucially, the entire Markov chain state &mdash; including random 
+                    number generation, Wyckoff projection, and Metropolis acceptance &mdash; is maintained natively 
+                    on the GPU.</strong> The JavaScript host queues batches of generations without waiting for 
+                    readbacks, completely eliminating PCI-e synchronization latency. It only reads back the state 
+                    during replica-exchange sweeps or to update the UI.
                 </p>
                 <p class="callout-info">
                     Since the composition-driven route was added, each particle also carries a
@@ -590,10 +593,12 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                 <h3 id="swarm-theory">6.1 Replica-Exchange Monte Carlo</h3>
                 <p>
                     comp-Harker searches for atomic coordinates with a population of independent
-                    <strong>Markov chains</strong> on the GPU. Each chain holds one trial structure. Every step it
-                    proposes a Gaussian move on the free coordinates, projects the result back onto its Wyckoff
-                    subspace, and accepts by the Metropolis rule &mdash; always if the fit improved, and with
-                    probability $\exp(\Delta f / T)$ if it did not:
+                    <strong>Markov chains</strong> on the GPU. Each chain holds one trial structure, and <strong>the 
+                    entire update loop executes within the WGSL compute shader</strong>. Every step, the GPU generates 
+                    its own Gaussian deviates (via PCG hashing and Box-Muller), proposes a move on the free coordinates, 
+                    projects the result back onto its Wyckoff subspace using a pre-uploaded affine matrix, and accepts 
+                    by the Metropolis rule &mdash; always if the fit improved, and with probability $\exp(\Delta f / T)$ 
+                    if it did not:
                 </p>
                 <div class="math-display">
                     $$ P(\text{accept}) \;=\; \min\!\left[\,1,\; \exp\!\left(\frac{f_{\text{new}} - f_{\text{cur}}}{T}\right)\right] $$
@@ -883,7 +888,10 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                     proposal is projected before it is evaluated &mdash; not as a correction for drift, but as
                     part of how a move is made. A move is therefore a step in the ambient cell followed by a
                     projection, which is a symmetric proposal on the subspace and leaves the Metropolis
-                    acceptance rule valid.
+                    acceptance rule valid. <strong>This projection is executed natively on the GPU</strong>: 
+                    the 12-element affine projector $\mathbf{P}$ and $\mathbf{t}$ for each site is uploaded 
+                    to a storage buffer once, and the WGSL kernel applies it to every Gaussian proposal 
+                    before scoring.
                 </div>
 
                 <h3 id="wy-database">7.2 The Space-Group Database</h3>
@@ -1056,6 +1064,12 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                     own global best, and chains of different assignments never exchange.
                 </p>
                 <ul>
+                    <li><strong>Zero-Round-Trip Execution.</strong> Previous versions suffered from host-bound 
+                        latency (achieving ~40 gen/sec) because the CPU generated proposals, projected them, 
+                        and awaited a GPU readback every single generation. The current architecture batches 
+                        dispatches without CPU synchronization, evaluating the Metropolis rule and Robbins-Monro 
+                        step adaptation directly in WGSL. The host only synchronizes to perform replica-exchange 
+                        sweeps, yielding a ~100x speedup.</li>
                     <li><strong>Particles are shared by dimensionality, not equally.</strong> An assignment
                         with no free parameters is solved by its first particle; an eleven-parameter one is
                         still searching when the run ends and reports a correlation below what it could reach.

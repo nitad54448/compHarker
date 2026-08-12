@@ -381,10 +381,14 @@ function buildAssignmentTables(assignments, symOpCount, demand) {
                 genType[ai * nTot + g] = s.elementIdx;
                 g++;
             }
+
             const { P, T } = wyckoffProjector(s.w);
             const b = (ai * maxSites + si) * 12;
-            for (let k = 0; k < 9; k++) siteProj[b + k] = P[k];
-            for (let k = 0; k < 3; k++) siteProj[b + 9 + k] = T[k];
+            siteProj[b + 0] = P[0]; siteProj[b + 1] = P[1]; siteProj[b + 2] = P[2]; siteProj[b + 3] = T[0];
+            siteProj[b + 4] = P[3]; siteProj[b + 5] = P[4]; siteProj[b + 6] = P[5]; siteProj[b + 7] = T[1];
+            siteProj[b + 8] = P[6]; siteProj[b + 9] = P[7]; siteProj[b + 10] = P[8]; siteProj[b + 11] = T[2];
+
+
         });
         // Unused site slots project to the origin so a stale coordinate can
         // never leak into a shorter assignment's atom list.
@@ -639,9 +643,9 @@ function projectSites(positions, particleIdx, assignIdx, tables) {
         const b = (assignIdx * maxSites + s) * 12;
         const o = particleIdx * stride + s * 3;
         const x = positions[o], y = positions[o + 1], z = positions[o + 2];
-        positions[o]     = siteProj[b]     * x + siteProj[b + 1] * y + siteProj[b + 2] * z + siteProj[b + 9];
-        positions[o + 1] = siteProj[b + 3] * x + siteProj[b + 4] * y + siteProj[b + 5] * z + siteProj[b + 10];
-        positions[o + 2] = siteProj[b + 6] * x + siteProj[b + 7] * y + siteProj[b + 8] * z + siteProj[b + 11];
+        positions[o]     = siteProj[b + 0] * x + siteProj[b + 1] * y + siteProj[b + 2]  * z + siteProj[b + 3];
+        positions[o + 1] = siteProj[b + 4] * x + siteProj[b + 5] * y + siteProj[b + 6]  * z + siteProj[b + 7];
+        positions[o + 2] = siteProj[b + 8] * x + siteProj[b + 9] * y + siteProj[b + 10] * z + siteProj[b + 11];
         for (let k = 0; k < 3; k++) {
             const i = o + k;
             positions[i] -= Math.floor(positions[i]);
