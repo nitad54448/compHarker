@@ -1428,15 +1428,14 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
         reason; everything else re-enables the instant the run ends or is stopped.
     </div>
 
-    <h3 id="ui-right-panel">8.3 Right Results Panel</h3>
+ <h3 id="ui-right-panel">8.3 Right Results Panel</h3>
     <p>
-        The right side is three tabs: <strong>Maps</strong>, <strong>Peaks</strong> and <strong>Swarm
-        Results</strong>.
+        The right side consists of two primary tabs: <strong>Maps</strong> and <strong>Search Results</strong>.
     </p>
 
     <h4>1. Maps</h4>
     <p>
-        A single row of <strong>three equal square panes</strong>, all sliced at the same axis and section:
+        The top area displays a single row of <strong>three equal square panes</strong>, all sliced at the same axis and section:
     </p>
     <ul>
         <li><strong>Observed:</strong> the experimental Patterson synthesis computed from the intensities.</li>
@@ -1461,9 +1460,9 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
         at the cost of making a faint section look as vivid as a strong one.
     </p>
 
-    <h4>2. Peaks</h4>
+<h4>2. Vectors &rarr; sites (Peaks Accordion)</h4>
     <p>
-        Three columns, left to right, so what is derived from what stays visible as one pipeline:
+        Located at the bottom of the <strong>Maps</strong> tab is the collapsible <strong>Vectors &rarr; sites (Peaks)</strong> accordion (closed by default). Opening it reveals three tables side by side:
     </p>
     <ol>
         <li><strong>Patterson peaks:</strong> raw 3D local maxima $(u,v,w)$, ordered by height in $\sigma$.</li>
@@ -1474,7 +1473,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
             map, or positions agreed across sections within the combination tolerance.</li>
     </ol>
     <p>
-        <strong>Peaks (.csv)</strong> at the head of the tab writes all three columns to one file.
+        <strong>Peaks (.csv)</strong> inside the accordion header writes all three tables to one file.
     </p>
 
     <h4>3. Search Results</h4>
@@ -1532,7 +1531,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
             as a VESTA-readable volume &mdash; observed, calculated, difference <em>and the SMF map</em>, which is
             still computed even though it no longer has a pane of its own. Panes with no data yet are skipped and
             named in the status line.</li>
-        <li><strong>Peaks (.csv)</strong> (Peaks, at the head of the tab): the Patterson peaks, the Harker
+        <li><strong>Peaks (.csv)</strong> (Maps tab, inside the Vectors &rarr; sites accordion): the Patterson peaks, the Harker
             solutions and the consolidated sites in one file.</li>
     </ul>
 </section>
@@ -1574,8 +1573,8 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
             first pass and read its note: if it reports near misses, widen it. The combination tolerance stays
             disabled until at least two sections have produced partial sites, which is normal and not a fault.
         </li>
-        <li>
-            <strong>Check the candidate sites:</strong> the <strong>Peaks</strong> tab, Consolidated column. Flip
+      <li>
+            <strong>Check the candidate sites:</strong> open the <strong>Vectors &rarr; sites (Peaks)</strong> accordion at the bottom of the Maps tab, Consolidated column. Flip
             <em>Consolidate sites via Harker</em> in the left panel to see the other route's answer &mdash; both
             are always computed, so the switch is instant, and agreement between them is worth more than either
             list alone.
@@ -1638,8 +1637,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
     <ol>
         <li>Load your diffraction data file and click <strong>Calculate Map</strong>. comp-Harker computes the FFT Patterson map, applies the optional Lorch filter, runs the peak search and the Harker section analysis, and constructs the <strong>Symmetry Minimum Function (SMF)</strong> map.</li>
         <li>Inspect the observed pane in the Maps tab, section by section.</li>
-        <li>Review the Consolidated column in the <strong>Peaks</strong> tab, on both settings of <em>Consolidate sites via Harker</em>.</li>
-        <li>Enter the formula in <strong>Target Composition</strong> (section "2. Structure") and any distance constraints you can justify. Then open "4. Structure Search", set the contact floor and the three search-size sliders, and click <strong>Run Search</strong>.</li>
+<li>Review the Consolidated column inside the <strong>Vectors &rarr; sites (Peaks)</strong> accordion on the Maps tab, on both settings of <em>Consolidate sites via Harker</em>.</li>        <li>Enter the formula in <strong>Target Composition</strong> (section "2. Structure") and any distance constraints you can justify. Then open "4. Structure Search", set the contact floor and the three search-size sliders, and click <strong>Run Search</strong>.</li>
         <li>Work through the candidates in the Search Results tab &mdash; the ranking alone will not separate them &mdash; then export your CIF file (and, if you'd like, the PDF report right beside it).</li>
     </ol>
 </section>

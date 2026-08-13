@@ -28,7 +28,7 @@
 <body>
 
 <div id="top-right-controls">
-    <button id="info-btn" title="comp-Harker 2.1.1, 12 aug 2026" aria-label="Info">
+    <button id="info-btn" title="comp-Harker 2.1.2, 13 aug 2026" aria-label="Info">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
     </button>
     <button id="theme-toggle" title="Toggle light / dark theme" aria-label="Toggle theme">
@@ -300,12 +300,12 @@
                  so the four caption / slider pairs share a single rhythm. -->
             <div class="slider-group">
             <label class="field-label" for="min-contact-input">Minimum contact distance (&#8491;):
-                <span id="min-contact-value" class="mono">1.00</span>
+                <span id="min-contact-value" class="mono">1.10</span>
                 <span class="tooltip"><span class="help-dot">?</span><span class="tooltiptext">
                     A <b>hard floor under every interatomic contact</b>, symmetry included. No two
                     atoms may come closer than this.<br><br>
                     It applies to every element pair alike. 
-                    <b>Default 1.0 &#8491;.</b> Below any real bond so it discards nonsense without putting a true structure out of
+                    <b>Default 1.10 &#8491;.</b> Below any real bond so it discards nonsense without putting a true structure out of
                     reach. <b>0 turns it off.</b><br><br>
                     Raise it with care. Too high does not merely reject the right answer, it charges it
                     more than a wrong one, because the clash penalty grows with overlap depth. If you
@@ -313,7 +313,7 @@
                     &mdash; <b>S O - 1.30/</b> makes 1.30 &#8491; a hard floor for S&ndash;O alone.
                     <span id="contact-report" class="readout tt-live"></span></span></span>
             </label>
-            <input type="range" id="min-contact-input" min="0" max="3" value="1.00" step="0.05">
+            <input type="range" id="min-contact-input" min="0" max="3" value="1.10" step="0.05">
 
             <label class="field-label" for="swarm-particles">Chains: <span id="swarm-particles-value" class="mono">512</span>
                 <span class="tooltip"><span class="help-dot">?</span>
@@ -393,19 +393,18 @@
 
     <div class="right-tabs">
         <button class="right-tab-button right-tab-active" data-rtab="map-view-tab">Maps</button>
-        <button class="right-tab-button" data-rtab="peaks-results-tab">Peaks</button>
         <button class="right-tab-button" data-rtab="swarm-results-tab">Search Results</button>
     </div>
 
     <div class="right-tab-panes">
 
         <!-- ---------- MAPS ---------- -->
-        <div id="map-view-tab" class="right-tab-content active">
-            <div id="maps-workspace">
+        <div id="map-view-tab" class="right-tab-content active" style="display: flex; flex-direction: column; height: 100%;">
+            <div id="maps-workspace" style="flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column;">
 
                 <!-- ===== 2D slice ===== -->
 
-                <section class="map-section" id="map2d-section">
+                <section class="map-section" id="map2d-section" style="flex-shrink: 0;">
                     <div class="section-head-row">
                         <h2 class="map-section-title mb-0">Patterson map slices</h2>
                     </div>
@@ -459,7 +458,7 @@
                         </label>
                     </div>
 
-                    <!-- One controls row under the maps -->
+<!-- One controls row under the maps -->
                     <div class="map-controls-row">
                         <div class="map-ctrl">
                             <label class="field-label" for="axis-select">Axis</label>
@@ -474,7 +473,7 @@
                             <input type="range" id="section-slider" min="0" max="1" value="0.5" step="0.02" disabled>
                             <div id="section-readout" class="readout">&mdash;</div>
                         </div>
-                        <div class="map-ctrl">
+                <div class="map-ctrl">
                             <button id="export-grd-btn" class="btn btn-primary" disabled
                                     title="Write all maps as volume files VESTA can open">Density (.grd)</button>
                         </div>
@@ -482,62 +481,72 @@
 
                 </section>
 
-            </div>
-        </div>
+        <hr style="margin: 2.5rem 0 1.5rem 0; border: none; border-top: 1px solid var(--rule, #475569); flex-shrink: 0; clear: both;">
 
-        <!-- ---------- PEAKS (merged) ---------- -->
-        <div id="peaks-results-tab" class="right-tab-content">
-            <div class="row-between mb-1 no-shrink">
-                <h2 class="map-section-title mb-0">Vectors &rarr; sites</h2>
-                <button id="export-peaks-csv-btn" class="btn btn-primary" disabled
-                        title="Save the Patterson peaks, Harker solutions, and consolidated sites as one CSV file">Peaks (.csv)</button>
-            </div>
+                <!-- ---------- PEAKS (merged into Map tab as Accordion) ---------- -->
+                <section class="map-section" style="margin-bottom: 2rem; flex-shrink: 0;">
+                    <details class="settings-card">
+                        <summary class="card-header" style="cursor: pointer; font-weight: 600;">
+                            Vectors &rarr; sites (Peaks)
+                        </summary>
 
-            <p class="hint mb-2 no-shrink">
-                Peaks in the Patterson map are interatomic <em>vectors</em>. Those lying on a Harker
-                section are decoded into candidate atom <em>positions</em>, and positions that agree
-                across several sections are merged into the consolidated list used as the starting
-                point for the search.</p>
-            <div id="peaks-columns">
-                <div class="peaks-column">
-                    <div class="peaks-column-head">
-                        <h3>1 &middot; Patterson peaks</h3>
-                        <span id="patterson-peak-count" class="count"></span>
-                    </div>
-                    <div class="col-sub">vectors (u,v,w)</div>
-                    <div class="table-container">
-                        <table id="peaks-table" class="styled-table">
-                            <thead><tr><th>#</th><th>&sigma;</th><th>u</th><th>v</th><th>w</th></tr></thead>
-                            <tbody id="peaks-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="peaks-column">
-                    <div class="peaks-column-head">
-                        <h3>2 &middot; Harker solutions</h3>
-                        <span id="harker-site-count" class="count"></span>
-                    </div>
-                    <div class="col-sub">positions from one section each</div>
-                    <div class="table-container">
-                        <table id="sites-table" class="styled-table">
-                            <thead><tr><th>Section</th><th>x</th><th>y</th><th>z</th></tr></thead>
-                            <tbody id="sites-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="peaks-column">
-                    <div class="peaks-column-head">
-                        <h3>3 &middot; Consolidated</h3>
-                        <span id="consolidated-peak-count" class="count"></span>
-                    </div>
-                    <div class="col-sub">agreed across sections</div>
-                    <div class="table-container">
-                        <table id="consolidated-sites-table" class="styled-table">
-                            <thead><tr><th>#</th><th>x</th><th>y</th><th>z</th></tr></thead>
-                            <tbody id="consolidated-sites-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
+                        <div class="mt-3">
+                            <div class="row-between mb-2 no-shrink" style="align-items: flex-start;">
+                                <p class="hint mb-0 no-shrink" style="margin-right: 1rem;">
+                                    Peaks in the Patterson map are interatomic <em>vectors</em>. Those lying on a Harker
+                                    section are decoded into candidate atom <em>positions</em>, and positions that agree
+                                    across several sections are merged into the consolidated list used as the starting
+                                    point for the search.
+                                </p>
+                                <button id="export-peaks-csv-btn" class="btn btn-primary" disabled
+                                        title="Save the Patterson peaks, Harker solutions, and consolidated sites as one CSV file">Peaks (.csv)</button>
+                            </div>
+                            
+                            <div id="peaks-columns">
+                                <div class="peaks-column">
+                                    <div class="peaks-column-head">
+                                        <h3>1 &middot; Patterson peaks</h3>
+                                        <span id="patterson-peak-count" class="count"></span>
+                                    </div>
+                                    <div class="col-sub">vectors (u,v,w)</div>
+                                    <div class="table-container">
+                                        <table id="peaks-table" class="styled-table">
+                                            <thead><tr><th>#</th><th>&sigma;</th><th>u</th><th>v</th><th>w</th></tr></thead>
+                                            <tbody id="peaks-table-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="peaks-column">
+                                    <div class="peaks-column-head">
+                                        <h3>2 &middot; Harker solutions</h3>
+                                        <span id="harker-site-count" class="count"></span>
+                                    </div>
+                                    <div class="col-sub">positions from one section each</div>
+                                    <div class="table-container">
+                                        <table id="sites-table" class="styled-table">
+                                            <thead><tr><th>Section</th><th>x</th><th>y</th><th>z</th></tr></thead>
+                                            <tbody id="sites-table-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="peaks-column">
+                                    <div class="peaks-column-head">
+                                        <h3>3 &middot; Consolidated</h3>
+                                        <span id="consolidated-peak-count" class="count"></span>
+                                    </div>
+                                    <div class="col-sub">agreed across sections</div>
+                                    <div class="table-container">
+                                        <table id="consolidated-sites-table" class="styled-table">
+                                            <thead><tr><th>#</th><th>x</th><th>y</th><th>z</th></tr></thead>
+                                            <tbody id="consolidated-sites-table-body"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
             </div>
         </div>
 
@@ -1242,7 +1251,7 @@
             // little over 1.1 for B-O and C-O) and well above the distances a
             // wrong assignment produces, so it discards nonsense without
             // putting any true structure out of reach. 0 turns the floor off.
-            minContactA: 1.0,
+            minContactA: 1.1,
             wyckoffCapCeiling: 24,      // refuse to enumerate beyond this many sites per element
             // The solver returns SW_DEFAULTS.topN assignments; this is how many
             // of the survivors reach the results table.
@@ -5586,6 +5595,10 @@ function exportGRD() {
         themeToggle?.addEventListener('click', () => {
             const now = document.documentElement.getAttribute('data-theme');
             applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+
+        document.getElementById('info-btn')?.addEventListener('click', (e) => {
+            alert(e.currentTarget.getAttribute('title'));
         });
 
         /* ==============================================================

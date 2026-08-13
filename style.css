@@ -567,8 +567,8 @@ input[type="checkbox"].check:disabled { opacity: .45; cursor: default; }
 .left-tab-button, .right-tab-button {
     padding: .42rem .85rem; background: none; border: none;
     border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
-    font-family: var(--font-mono); font-size: .7rem; font-weight: 600;
-    letter-spacing: .06em; text-transform: uppercase; color: var(--fg-3);
+    font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase; color: var(--fg-3);
     transition: color .15s, border-color .15s;
 }
 .left-tab-button:hover:not(:disabled), .right-tab-button:hover:not(:disabled) { color: var(--fg); }

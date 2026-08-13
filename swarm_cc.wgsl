@@ -156,6 +156,13 @@ fn cartDist(p1: vec3<f32>, p2: vec3<f32>) -> f32 {
         params.r2.x*d.x + params.r2.y*d.y + params.r2.z*d.z);
     q = q - round(q);
 
+if (MIN_IMAGE_SHELL == 0) {
+        let cx = params.o0.x*q.x + params.o0.y*q.y + params.o0.z*q.z;
+        let cy = params.o1.x*q.x + params.o1.y*q.y + params.o1.z*q.z;
+        let cz = params.o2.x*q.x + params.o2.y*q.y + params.o2.z*q.z;
+        return sqrt(cx*cx + cy*cy + cz*cz);
+    }
+
     var best: f32 = 1.0e30;
     for (var i = -MIN_IMAGE_SHELL; i <= MIN_IMAGE_SHELL; i = i + 1) {
         for (var j = -MIN_IMAGE_SHELL; j <= MIN_IMAGE_SHELL; j = j + 1) {
@@ -304,7 +311,10 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
             var fLoc: array<f32, MAX_ELEM>;
             for (var e = 0u; e < nLoad; e = e + 1u) { fLoc[e] = groupData[fb + e]; }
 
-            var re: f32 = 0.0; var im: f32 = 0.0;
+        var re: f32 = 0.0; var im: f32 = 0.0;
+            let h2pi = TWO_PI * h;
+            let k2pi = TWO_PI * k;
+            let l2pi = TWO_PI * l;
             if (centro) {
                 // F is real. In a centrosymmetric group the generated contents
                 // come in +/- pairs about the origin, so every sine term is
@@ -312,12 +322,12 @@ fn main(@builtin(workgroup_id) wgId: vec3<u32>,
                 // not merely small. Computing it anyway is half the
                 // transcendentals in the kernel spent to confirm a zero.
                 for (var j = 0u; j < nTot; j = j + 1u) {
-                    let ph = TWO_PI * (h * gx[j] + k * gy[j] + l * gz[j]);
+                    let ph = h2pi * gx[j] + k2pi * gy[j] + l2pi * gz[j];
                     re = re + fLoc[gT[j]] * cos(ph);
                 }
             } else {
                 for (var j = 0u; j < nTot; j = j + 1u) {
-                    let ph = TWO_PI * (h * gx[j] + k * gy[j] + l * gz[j]);
+                    let ph = h2pi * gx[j] + k2pi * gy[j] + l2pi * gz[j];
                     let fj = fLoc[gT[j]];
                     re = re + fj * cos(ph);
                     im = im + fj * sin(ph);
