@@ -4092,7 +4092,117 @@ function parsePeakFile(text) {
                 polarisationK: undefined
             };
 
-            const cellRegex = /^(a|b|c|alpha|beta|gamma)\b\s*(?:\(.*\))?\s*[=:]?\s*([\d.eE+-]+)/i;
+
+            // Detect CIF format
+        if (text.includes('_cell_length_a') && text.includes('loop_')) {
+            console.log("Detected CIF format.");
+            const lines = text.split('\n');
+            let inLoop = false;
+            let loopHeaders = [];
+            let loopData = [];
+
+            const processCifLoop = () => {
+                const hIdx = loopHeaders.indexOf('_refln_index_h');
+                const kIdx = loopHeaders.indexOf('_refln_index_k');
+                const lIdx = loopHeaders.indexOf('_refln_index_l');
+                const fSqIdx = loopHeaders.indexOf('_refln_f_squared_meas');
+                const fSqCalcIdx = loopHeaders.indexOf('_refln_f_squared_calc');
+                const dIdx = loopHeaders.indexOf('_refln_d_spacing');
+
+                // Prioritize measured F_squared, fallback to calculated if needed
+                const fIdx = fSqIdx !== -1 ? fSqIdx : fSqCalcIdx;
+
+                if (hIdx !== -1 && kIdx !== -1 && lIdx !== -1 && fIdx !== -1) {
+                    loopData.forEach(row => {
+                        if (row.length <= fIdx) return;
+                        const h = parseInt(row[hIdx]);
+                        const k = parseInt(row[kIdx]);
+                        const l = parseInt(row[lIdx]);
+                        const fSq = parseFloat(row[fIdx]);
+                        if (!isNaN(h) && !isNaN(k) && !isNaN(l) && !isNaN(fSq)) {
+                            const ref = { h, k, l };
+                            // Program expects Fo, so we feed it the square root. 
+                            // applyIntensityCorrections will automatically square it back to F^2.
+                            ref.Fo = fSq > 0 ? Math.sqrt(fSq) : 0;
+                            if (dIdx !== -1) ref.d = parseFloat(row[dIdx]);
+                            data.reflections.push(ref);
+                        }
+                    });
+                }
+            };
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+                const commentIdx = line.indexOf('#');
+                if (commentIdx !== -1) line = line.substring(0, commentIdx).trim();
+                if (!line) continue;
+
+                if (line === 'loop_') {
+                    if (inLoop) processCifLoop();
+                    inLoop = true;
+                    loopHeaders = [];
+                    loopData = [];
+                    continue;
+                }
+
+                if (inLoop) {
+                    if (line.startsWith('_')) {
+                        loopHeaders.push(line.toLowerCase());
+                    } else {
+                        if (line.startsWith('data_')) {
+                            processCifLoop();
+                            inLoop = false;
+                            continue;
+                        }
+                        const parts = line.split(/[\s,]+/);
+                        if (parts[0].startsWith('_') || parts[0] === 'loop_') {
+                            processCifLoop();
+                            inLoop = false;
+                            i--; 
+                            continue;
+                        }
+                        if (parts.length >= loopHeaders.length) {
+                            loopData.push(parts);
+                        }
+                    }
+                } else {
+                    const match = line.match(/^(_[^\s]+)\s+(.+)$/);
+                    if (match) {
+                        const key = match[1].toLowerCase();
+                        let val = match[2].trim();
+                        if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+                        
+                        if (key === '_cell_length_a') data.cell.a = parseFloat(val);
+                        else if (key === '_cell_length_b') data.cell.b = parseFloat(val);
+                        else if (key === '_cell_length_c') data.cell.c = parseFloat(val);
+                        else if (key === '_cell_angle_alpha') data.cell.alpha = parseFloat(val);
+                        else if (key === '_cell_angle_beta') data.cell.beta = parseFloat(val);
+                        else if (key === '_cell_angle_gamma') data.cell.gamma = parseFloat(val);
+                        else if (key === '_space_group_it_number') {
+                            if (!data.spaceGroup) data.spaceGroup = { number: parseInt(val), name: '' };
+                            else data.spaceGroup.number = parseInt(val);
+                        }
+                        else if (key === '_space_group_name_h-m_alt' || key === '_symmetry_space_group_name_h-m') {
+                            if (!data.spaceGroup) data.spaceGroup = { number: 0, name: val };
+                            else data.spaceGroup.name = val;
+                        }
+                        else if (key === '_diffrn_radiation_wavelength') data.wavelength = parseFloat(val);
+                    }
+                }
+            }
+            if (inLoop) processCifLoop();
+
+            if (!data.reflections.length) throw new Error("No reflections found in CIF file.");
+            console.log(`Parsed ${data.reflections.length} reflections from CIF.`);
+            if (data.wavelength) {
+                const wlInput = document.getElementById('wavelength');
+                if (wlInput) wlInput.value = data.wavelength;
+            }
+            return data;
+        }
+
+        const cellRegex = /^(a|b|c|alpha|beta|gamma)\b\s*(?:\(.*\))?\s*[=:]?\s*([\d.eE+-]+)/i;
+
             // "Radiation 1 (A)  1.540560e+0" and "Polarisation K  1.000000e+0".
             // Both were being ignored, so the wavelength box kept its 1.54056
             // default whatever the file said - right for a copper tube and
