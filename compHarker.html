@@ -924,7 +924,7 @@
                         <h3 style="margin-top:0;">${escapeHtml(rec.display_label || rec.symbol)}</h3>
                         <div style="display:grid;grid-template-columns:100px 1fr;gap:4px;font-size:13px;margin-bottom:15px;">
                             <strong>Number:</strong> <span>#${rec.number}</span>
-                            <strong>Symbol:</strong> <span>${escapeHtml(rec.standard_symbol)}</span>
+                            <strong>Symbol:</strong> <span>${escapeHtml(rec.symbol)}</span>
                             <strong>Setting:</strong> <span>${escapeHtml(rec.setting_description || '(default)')}</span>
                             <strong>System:</strong> <span>${escapeHtml(rec.system)}</span>
                             <strong>Laue:</strong> <span>${escapeHtml(rec.laue_class)}</span>
@@ -3269,12 +3269,16 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                 throw new Error(`No atomic data for ${unknown.join(', ')}. Check the formula spelling.`);
 
             let Z = parseInt(wyckoffZEl.value, 10);
+            let zCandidates = [Z];
             if (!Number.isFinite(Z) || Z < 1) {
                 const perFormula = comp.reduce((n, c) => n + c.count, 0);
                 const sug = suggestZ(sharkoCellVolume(cd.cell), perFormula, setting.order_z);
-                Z = sug ? sug.likely : 1;
-                logSwarm(`Z was blank; using ${Z} from the cell volume. Check this - a wrong Z ` +
-                         `fails completely rather than partially.`);
+                if (sug) {
+                    zCandidates = [sug.likely, ...sug.favoured.filter(z => z !== sug.likely), ...sug.candidates.filter(z => !sug.favoured.includes(z))];
+                    logSwarm(`Z was blank; checking candidates from cell volume: ${zCandidates.join(', ')}.`);
+                } else {
+                    zCandidates = [1];
+                }
             }
 
             const { windows, bad, warn } = parseDistanceConstraints(wyckoffWindowsEl.value);
@@ -3333,179 +3337,222 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                 return r.text();
             });
 
-            let out;
+            let allCandidates = [];
+            let cumulativeOut = null;
+            let globalGenOffset = 0;
+
             try {
-                out = await runWyckoffSearch({
-                    device, ccShaderSource: ccSrc,
-                    setting,
-                    cell: cd.cell,
-                    reflections: cd.reflections,
-                    wavelength: parseFloat(document.getElementById('wavelength').value),
-                    polarisationK: cd.polarisationK,
-                    formula, Z,
-                    // Blank means "let the composition decide": enumerateAssignments
-                    // raises whatever it is given to the minimum the demand needs,
-                    // so an explicit value here can only ever ALLOW more, never
-                    // less. That is deliberate - the previous flat default of 4
-                    // silently made low-symmetry groups unsolvable.
-                    maxSitesPerElement: parseInt(wyckoffMaxSitesEl?.value, 10) || undefined,
-                    maxRepeat: parseInt(wyckoffMaxRepeatEl?.value, 10) || undefined,
-                    wyckoffCapCeiling: SHARKO_DEFAULTS.wyckoffCapCeiling,
-                    atomData: ATOM_DATA,
-                    scatterTables: wyckoffScatterTables,
-                    windows,
-                    harkerSites: state.consolidatedSites || [],
-                    numParticles: Math.max(64, parseInt(swarmParticlesSlider.value) || 512),
-                    generations: Math.max(50, parseInt(swarmIterationsSlider.value) || 4000),
-                    // The Restarts slider was being ignored by this path, so a
-                    // run set to 4 restarts did one. Each restart re-seeds the
-                    // particles but keeps every assignment's best, which is how
-                    // a high-dimensional assignment escapes a bad first draw.
-                    restarts: Math.max(1, parseInt(swarmRestartsSlider?.value) || 1),
-                    // One control for both: what the swarm avoids is what the
-                    // candidate filter rejects.
-                    minContact: parseFloat(minContactInput.value) || 0,
-                    onLog: m => logSwarm(m),
-                    // The page has no cached handles for these two - the classic
-                    // swarm looks them up each time it writes - so do the same
-                    // rather than introduce bindings that only this path uses.
-                    onProgress: p => {
-                        // The chart is cumulative across waves and restarts: each
-                        // restarts its own generation counter, so plotting
-                        // p.generation alone would draw the trace back over itself.
-                        //
-                        // This used to be a counter incremented once per callback,
-                        // and the callback fires every TENTH generation - so the
-                        // axis read 40 for a 400-generation run, and with restarts
-                        // it was not even a consistent tenth. The true cumulative
-                        // generation is computed from the run structure instead.
-                        wyckoffGenCount =
-                            ((p.wave - 1) * p.restarts + (p.restart - 1)) * p.generations
-                            + p.generation + 1;
-                        if (Number.isFinite(p.best))
-                            costHistory.push({ gen: wyckoffGenCount, fitness: p.best });
-                        drawCostChart();
+                for (const testZ of zCandidates) {
+                    logSwarm(`\n>>> Starting search for Z = ${testZ} <<<`);
+                    let lastGenCount = 0;
+                    
+                    try {
+                        const out = await runWyckoffSearch({
+                            device, ccShaderSource: ccSrc,
+                            setting,
+                            cell: cd.cell,
+                            reflections: cd.reflections,
+                            wavelength: parseFloat(document.getElementById('wavelength').value),
+                            polarisationK: cd.polarisationK,
+                            formula, Z: testZ,
+                            // Blank means "let the composition decide": enumerateAssignments
+                            // raises whatever it is given to the minimum the demand needs,
+                            // so an explicit value here can only ever ALLOW more, never
+                            // less. That is deliberate - the previous flat default of 4
+                            // silently made low-symmetry groups unsolvable.
+                            maxSitesPerElement: parseInt(wyckoffMaxSitesEl?.value, 10) || undefined,
+                            maxRepeat: parseInt(wyckoffMaxRepeatEl?.value, 10) || undefined,
+                            wyckoffCapCeiling: SHARKO_DEFAULTS.wyckoffCapCeiling,
+                            atomData: ATOM_DATA,
+                            scatterTables: wyckoffScatterTables,
+                            windows,
+                            harkerSites: state.consolidatedSites || [],
+                            numParticles: Math.max(64, parseInt(swarmParticlesSlider.value) || 512),
+                            generations: Math.max(50, parseInt(swarmIterationsSlider.value) || 4000),
+                            // The Restarts slider was being ignored by this path, so a
+                            // run set to 4 restarts did one. Each restart re-seeds the
+                            // particles but keeps every assignment's best, which is how
+                            // a high-dimensional assignment escapes a bad first draw.
+                            restarts: Math.max(1, parseInt(swarmRestartsSlider?.value) || 1),
+                            // One control for both: what the swarm avoids is what the
+                            // candidate filter rejects.
+                            minContact: parseFloat(minContactInput.value) || 0,
+                            onLog: m => logSwarm(m),
+                            // The page has no cached handles for these two - the classic
+                            // swarm looks them up each time it writes - so do the same
+                            // rather than introduce bindings that only this path uses.
+                            onProgress: p => {
+                                // The chart is cumulative across waves and restarts: each
+                                // restarts its own generation counter, so plotting
+                                // p.generation alone would draw the trace back over itself.
+                                //
+                                // This used to be a counter incremented once per callback,
+                                // and the callback fires every TENTH generation - so the
+                                // axis read 40 for a 400-generation run, and with restarts
+                                // it was not even a consistent tenth. The true cumulative
+                                // generation is computed from the run structure instead.
+                                const currentZGen = ((p.wave - 1) * p.restarts + (p.restart - 1)) * p.generations + p.generation + 1;
+                                wyckoffGenCount = globalGenOffset + currentZGen;
+                                lastGenCount = currentZGen;
+                                
+                                if (Number.isFinite(p.best))
+                                    costHistory.push({ gen: wyckoffGenCount, fitness: p.best });
+                                drawCostChart();
 
-                        // Show the running best AS A STRUCTURE, not only as a
-                        // number. A correlation climbing on its own says
-                        // something is improving but not what; the site table,
-                        // the 3D view and the difference map are where a
-                        // misplaced atom shows itself, and watching them settle
-                        // is the useful signal.
-                        //
-                       // Only trigger UI updates if the search actually found a better structure
-                        if (p.bestSites && p.bestSites.length && Number.isFinite(p.best) && p.best > liveBestSoFar) {
-                            liveBestSoFar = p.best;
+                                // Show the running best AS A STRUCTURE, not only as a
+                                // number. A correlation climbing on its own says
+                                // something is improving but not what; the site table,
+                                // the 3D view and the difference map are where a
+                                // misplaced atom shows itself, and watching them settle
+                                // is the useful signal.
+                                //
+                               // Only trigger UI updates if the search actually found a better structure
+                                if (p.bestSites && p.bestSites.length && Number.isFinite(p.best) && p.best > liveBestSoFar) {
+                                    liveBestSoFar = p.best;
 
-                            // Update the live candidates list immediately so it matches the Best Fitness readout
-                            const sitesForList = p.bestSites.map(st => ({
-                                element: st.element, x: st.x, y: st.y, z: st.z,
-                                mult: st.multiplicity, wyckoff: st.wyckoff
-                            }));
-                            recordLiveCandidate(p, sitesForList);
+                                    // Update the live candidates list immediately so it matches the Best Fitness readout
+                                    const sitesForList = p.bestSites.map(st => ({
+                                        element: st.element, x: st.x, y: st.y, z: st.z,
+                                        mult: st.multiplicity, wyckoff: st.wyckoff
+                                    }));
+                                    recordLiveCandidate(p, sitesForList);
 
-                            const now = performance.now();
-                            // Keep the throttle so rapid early improvements don't crash the framerate
-                            if (now - lastMapRender > 1000) {
-                                lastMapRender = now;
-                                showRunningBest(p);
+                                    const now = performance.now();
+                                    // Keep the throttle so rapid early improvements don't crash the framerate
+                                    if (now - lastMapRender > 1000) {
+                                        lastMapRender = now;
+                                        showRunningBest(p);
 
-                                if (state.pattersonMap3D) {
-                                    const stg = resolveActiveSetting();
+                                        if (state.pattersonMap3D) {
+                                            const stg = resolveActiveSetting();
 
-                            if (stg && stg.sym_ops) {
-                                const n = p.bestSites.length;
-                                const cc = new Float32Array(n * 3), zz = new Float32Array(n);
-                                const mm = p.bestSites.map(st => st.multiplicity);
-                                p.bestSites.forEach((st, i) => {
-                                    cc[i*3] = st.x; cc[i*3+1] = st.y; cc[i*3+2] = st.z;
-                                    zz[i] = st.zn;
-                                });
-                              state.calculatedMap3D = buildCalcMap(cc, zz, stg.sym_ops,
-                                                                     state.mapResolution, effectiveSigma(),
-                                                                     { multiplicity: mm });
-                                drawPattersonSlice();
-                            }
+                                            if (stg && stg.sym_ops) {
+                                                const n = p.bestSites.length;
+                                                const cc = new Float32Array(n * 3), zz = new Float32Array(n);
+                                                const mm = p.bestSites.map(st => st.multiplicity);
+                                                p.bestSites.forEach((st, i) => {
+                                                    cc[i*3] = st.x; cc[i*3+1] = st.y; cc[i*3+2] = st.z;
+                                                    zz[i] = st.zn;
+                                                });
+                                              state.calculatedMap3D = buildCalcMap(cc, zz, stg.sym_ops,
+                                                                                     state.mapResolution, effectiveSigma(),
+                                                                                     { multiplicity: mm });
+                                                drawPattersonSlice();
+                                            }
+                                        }
+                                    } // Closes the throttle check: if (now - lastMapRender > 1000)
+                                } // Closes the better structure check: if (p.bestSites && ... )
+                        
+                                const genEl = document.getElementById('swarm-gen');
+                                const fitEl = document.getElementById('swarm-fitness');
+                                if (genEl) genEl.textContent =
+                                    `${p.generation} / ${p.generations}` +
+                                    (p.restarts > 1 ? ` r${p.restart}/${p.restarts}` : '') +
+                                    (p.waves > 1 ? ` (wave ${p.wave}/${p.waves})` : '') +
+                                    ` [Z=${testZ}]`;
+                                if (fitEl) fitEl.textContent = Number.isFinite(p.best) ? p.best.toFixed(4) : '--';
+
+                                // Acceptance. A chain that is refusing everything has
+                                // stopped searching, and until this was on screen the
+                                // only symptom was a fitness that failed to climb -
+                                // which looks identical to a hard problem.
+                                const accEl = document.getElementById('swarm-accept');
+                                if (accEl) {
+                                    if (Number.isFinite(p.acceptRate)) {
+                                        const pc = p.acceptRate * 100;
+                                        accEl.textContent = `${pc.toFixed(0)}%`;
+                                        // Late in the schedule a low rate is the point;
+                                        // early it means the chains never got going.
+                                        const early = p.generation < 0.5 * p.generations;
+                                        accEl.className = 'v' +
+                                            ((early && pc < 5) || pc > 90 ? ' warn' : '');
+                                    } else {
+                                        accEl.textContent = '--';
+                                    }
+                                }
+
+                                // Elapsed and rate. swarmRateEl was declared, given a
+                                // placeholder in the markup, and never written to - the
+                                // row read "0.0s / --" for the whole run, which is worse
+                                // than absent because it looks like a measurement.
+                                //
+                                // The rate is generations per second over the whole run,
+                                // not since the last tick: instantaneous rate jitters
+                                // with every dropped frame, and the number is wanted for
+                                // estimating how long the rest will take.
+                                if (swarmRateEl) {
+                                    const elapsed = (performance.now() - swarmStartedAt) / 1000;
+                                    const done = (p.wave - 1) * p.generations + p.generation;
+                                    const rate = elapsed > 0.2 ? done / elapsed : null;
+                                    const total = p.generations * p.waves;
+                                    const eta = (rate && done > 0 && done < total)
+                                        ? (total - done) / rate : null;
+                                    swarmRateEl.textContent =
+                                        `${elapsed.toFixed(1)}s / ` +
+                                        (rate ? `${rate.toFixed(1)} gen/s` : '--') +
+                                        (eta !== null ? ` \u00b7 ~${formatDuration(eta)} left for Z=${testZ}` : '');
+                                }
+
+                                if (swarmProgressBar) swarmProgressBar.style.width =
+                                    `${(100 * (p.wave - 1 + p.generation / p.generations) / p.waves).toFixed(1)}%`;
+                            },
+                            shouldStop: () => swarmStopRequested
+                        });
+                        
+                        allCandidates.push(...out.candidates);
+                        
+                        // Merge constraints and overall metadata to track global progress
+                        if (!cumulativeOut) {
+                            cumulativeOut = { ...out, candidates: [] };
+                        } else {
+                            cumulativeOut.assignments += out.assignments;
+                            cumulativeOut.groups = out.groups; 
+                            cumulativeOut.reflections = out.reflections;
+                            cumulativeOut.overallB = out.overallB;
+                            cumulativeOut.obsRows = out.obsRows;
                         }
-                    } // Closes the throttle check: if (now - lastMapRender > 1000)
-                } // Closes the better structure check: if (p.bestSites && ... )
-                
-                        const genEl = document.getElementById('swarm-gen');
-                        const fitEl = document.getElementById('swarm-fitness');
-                        if (genEl) genEl.textContent =
-                            `${p.generation} / ${p.generations}` +
-                            (p.restarts > 1 ? ` r${p.restart}/${p.restarts}` : '') +
-                            (p.waves > 1 ? ` (wave ${p.wave}/${p.waves})` : '');
-                        if (fitEl) fitEl.textContent = Number.isFinite(p.best) ? p.best.toFixed(4) : '--';
-
-                        // Acceptance. A chain that is refusing everything has
-                        // stopped searching, and until this was on screen the
-                        // only symptom was a fitness that failed to climb -
-                        // which looks identical to a hard problem.
-                        const accEl = document.getElementById('swarm-accept');
-                        if (accEl) {
-                            if (Number.isFinite(p.acceptRate)) {
-                                const pc = p.acceptRate * 100;
-                                accEl.textContent = `${pc.toFixed(0)}%`;
-                                // Late in the schedule a low rate is the point;
-                                // early it means the chains never got going.
-                                const early = p.generation < 0.5 * p.generations;
-                                accEl.className = 'v' +
-                                    ((early && pc < 5) || pc > 90 ? ' warn' : '');
-                            } else {
-                                accEl.textContent = '--';
-                            }
-                        }
-
-                        // Elapsed and rate. swarmRateEl was declared, given a
-                        // placeholder in the markup, and never written to - the
-                        // row read "0.0s / --" for the whole run, which is worse
-                        // than absent because it looks like a measurement.
-                        //
-                        // The rate is generations per second over the whole run,
-                        // not since the last tick: instantaneous rate jitters
-                        // with every dropped frame, and the number is wanted for
-                        // estimating how long the rest will take.
-                        if (swarmRateEl) {
-                            const elapsed = (performance.now() - swarmStartedAt) / 1000;
-                            const done = (p.wave - 1) * p.generations + p.generation;
-                            const rate = elapsed > 0.2 ? done / elapsed : null;
-                            const total = p.generations * p.waves;
-                            const eta = (rate && done > 0 && done < total)
-                                ? (total - done) / rate : null;
-                            swarmRateEl.textContent =
-                                `${elapsed.toFixed(1)}s / ` +
-                                (rate ? `${rate.toFixed(1)} gen/s` : '--') +
-                                (eta !== null ? ` \u00b7 ~${formatDuration(eta)} left` : '');
-                        }
-
-                        if (swarmProgressBar) swarmProgressBar.style.width =
-                            `${(100 * (p.wave - 1 + p.generation / p.generations) / p.waves).toFixed(1)}%`;
-                    },
-                    shouldStop: () => swarmStopRequested
-                });
+                        
+                        globalGenOffset += lastGenCount;
+                        if (swarmStopRequested) break;
+                        
+                    } catch (e) {
+                        logSwarm(`Z=${testZ} skipped: ${e.message}`);
+                    }
+                }
             } finally {
                 try { device.destroy(); } catch (e) {}
             }
 
-            renderWyckoffResults(out);
+            if (!cumulativeOut || allCandidates.length === 0) {
+                throw new Error("No candidate produced a finite score across any tested Z value.");
+            }
+
+            // Sort all gathered candidates by CC score globally
+            allCandidates.sort((a, b) => b.cc - a.cc);
+            
+            // Slice the top results matching what the solver expects
+            const topN = cumulativeOut.topN || 20;
+            cumulativeOut.candidates = allCandidates.slice(0, topN);
+            cumulativeOut.kept = cumulativeOut.candidates.length;
+
+            renderWyckoffResults(cumulativeOut);
             // After rendering, so the summary reports the candidates that
             // actually survived the filters rather than everything the solver
             // returned.
-            logRunSummary(out, (performance.now() - swarmStartedAt) / 1000);
-            window.sharkoWyckoffResult = out;
+            logRunSummary(cumulativeOut, (performance.now() - swarmStartedAt) / 1000);
+            window.sharkoWyckoffResult = cumulativeOut;
 
             // The calculated and difference maps are built by
             // selectWyckoffCandidate(), which renderWyckoffResults() calls for
             // the top candidate and again on every click. Building one here as
             // well would compute the same grid twice and pin the maps to the
             // best candidate even after the user selected another.
-            if (out.candidates.length && !state.pattersonMap3D) {
+            if (cumulativeOut.candidates.length && !state.pattersonMap3D) {
                 logSwarm('No observed Patterson map in memory, so no calculated or difference map ' +
                          'was built. Run the map calculation first if you want to compare them.');
             }
 
-            return out;
+            return cumulativeOut;
         }
 
         stopSwarmBtn.addEventListener('click', () => {
@@ -5799,7 +5846,8 @@ function exportGRD() {
             L.push('');
             if (d.spaceGroup) {
                 L.push(`_space_group_IT_number        ${q(d.spaceGroup.number)}`);
-                L.push(`_space_group_name_H-M_alt     ${q(state.expansionSymmetry?.settingSymbol || d.spaceGroup.name)}`);
+                const hmSymbol = (currentSG && currentSG.symbol) || state.expansionSymmetry?.settingSymbol || d.spaceGroup.name;
+                L.push(`_space_group_name_H-M_alt     ${q(hmSymbol)}`);
                 // Disambiguates the setting the way the number and the H-M
                 // string alone cannot -- see the loader's note on why. Only
                 // written when currentSG is actually the setting this file's

@@ -941,7 +941,9 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                     $Z$ may be left blank. The estimate spans 11&ndash;22 &Aring;$^3$ per non-hydrogen atom
                     and flags values dividing the group order &mdash; a range, not a determination. The
                     familiar 18 &Aring;$^3$ rule is organic-chemistry lore and returns $Z=3$ for
-                    $\text{PbSO}_4$, whose $Z$ is 4.
+                    $\text{PbSO}_4$, whose $Z$ is 4. <strong>When left blank, the search will automatically test 
+                    all physically plausible $Z$ candidates in sequence</strong>, starting with the most crystallographically 
+                    likely ones, and aggregate the top structures found across all valid $Z$ values.
                 </p>
                 <p>
                     Assignments are ordered before the search by <em>Harker residual</em>: the distance from
@@ -1301,7 +1303,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
             <span class="code">PbSO4</span>, with $Z$ optional. This is what makes the composition-driven route
             available: the formula gives both the elements and how many of each, so the search solves for which
             Wyckoff positions carry that composition rather than for a fixed list of independent atoms. Leave $Z$
-            blank and the cell volume suggests a range, reported at the foot of the Target Composition help box.</li>
+            blank and the program will suggest a range from the cell volume, reported at the foot of the Target Composition help box, <strong>and automatically evaluate the swarm fitness for all of those valid $Z$ candidates in sequence.</strong></li>
         <li><strong>Max sites / element</strong> and <strong>Max reuse / position:</strong> caps on the
             enumeration &mdash; how many distinct Wyckoff positions one element may occupy, and how many
             independent atoms may share one position at different coordinates. Blank means automatic, which is
@@ -1316,8 +1318,8 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
 
     <h4>3. Patterson Map Synthesis</h4>
     <ul>
-        <li><strong>High resolution grid:</strong> off is a $64^3$ grid, on is $128^3$ &ndash; eight times the
-            voxels, memory and time. The FFT needs a power of two, so these are the only two settings exposed; if
+        <li><strong>High resolution grid:</strong> off is a $64^3$ grid (262,144 voxels), on is $128^3$ (2,097,152 voxels) &ndash; exactly eight times the
+            memory and calculation time. <strong>Why choose one over the other?</strong> $64^3$ is faster and lighter, making it ideal for quick, iterative screening. $128^3$ provides a finer sampling rate, yielding smoother visuals and more precise fractional coordinates for peak detection, which is helpful when resolving tightly clustered atoms. The FFT needs a power of two, so these are the only two settings exposed; if
             the data reach an index high enough that $128^3$ would alias one reflection onto another, comp-Harker
             steps the grid up on its own; the grid actually used is reported in the toggle's help box.</li>
         <li><strong>Consolidate sites via Harker:</strong> chooses which of the two routes from map to atom list is
@@ -1411,6 +1413,12 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
         rungs at $20$&ndash;$45\%$. Single digits in the first half of a run means the chains are frozen and the
         budget is being wasted; above $90\%$ means they are still wandering and nothing will settle. The row turns
         amber in either case. Both numbers also appear on every restart line in the log.
+    </div>
+
+    <div class="callout callout-info">
+        <strong>⏱ Typical Execution Times:</strong><br>
+        &bull; <strong>Calculate Map:</strong> Very fast. The CPU-based FFT synthesis, peak search, and SMF generation typically complete in <strong>under 1 second</strong> for a $64^3$ grid, and a few seconds for $128^3$.<br>
+        &bull; <strong>Run Search (Structure Fit):</strong> Varies by GPU and structure complexity. A well-configured run (e.g., 1 wave, adequate chains, 1000&ndash;4000 iterations) usually takes <strong>10 to 45 seconds</strong>. If your run takes several minutes, check if your Chains limit is forcing the search into multiple waves (see the warning above).
     </div>
 
     <h4>5. Log</h4>
@@ -1591,8 +1599,7 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
         <li>
             <strong>State the composition.</strong> In <em>2. Structure</em>, type the formula &mdash;
             <span class="code">PbSO4</span> &mdash; and leave $Z$ blank unless you know it. The line below
-            suggests a range from the cell volume and flags the values that divide the group order. Check it:
-            a wrong $Z$ fails completely rather than partially.
+            suggests a range from the cell volume and flags the values that divide the group order. If left blank, the search engine will automatically test these candidates sequentially until valid assignments are found and solved.
         </li>
         <li>
             <strong>Add what you know about the chemistry.</strong> A window such as
@@ -1722,9 +1729,9 @@ STAGE 2: PEAK DETECTION, SMF & BUERGER SUPERPOSITION
                         <td>Expected. The map cannot separate them; the chemistry can. Use the Structure
                             quality panel (<a href="#wy-quality">7.9</a>). Also raise Iterations and Restarts:
                             high-dimensional assignments need a longer run to be judged fairly.</td></tr>
-                    <tr><td>"No combination of Wyckoff multiplicities sums to N"</td>
+                    <tr><td>"No candidate produced a finite score across any tested Z value" or "No combination of Wyckoff multiplicities sums to N"</td>
                         <td>$Z$ is wrong, or the composition needs partial occupancy, which this search does
-                            not model. Try the neighbouring $Z$ values the suggestion line offers.</td></tr>
+                            not model. If $Z$ was left blank, it means <em>none</em> of the auto-suggested $Z$ values yielded a physically valid structure. Verify your formula or cell parameters.</td></tr>
                     <tr><td>Wilson $B$ reported as unphysical</td>
                         <td>Intensity rising with angle. Usually $Lp$ or a sharpening applied twice &mdash;
                             check which intensity route the Log reports.</td></tr>

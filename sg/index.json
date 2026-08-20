@@ -2393,16 +2393,16 @@
       "file": "sg/48.json",
       "settings": [
         {
-          "symbol": "Pnnn",
-          "description": "standard",
+          "symbol": "Pnnn:1",
+          "description": "origin choice 1",
           "hall": "P 2 2 -1n",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pnnn",
-          "description": "standard",
+          "symbol": "Pnnn:2",
+          "description": "origin choice 2",
           "hall": "-P 2ab 2bc",
           "centering": "P",
           "order_z": 8,
@@ -2457,23 +2457,23 @@
       "file": "sg/50.json",
       "settings": [
         {
-          "symbol": "Pban",
-          "description": "standard",
+          "symbol": "Pban:1",
+          "description": "origin choice 1",
           "hall": "P 2 2 -1ab",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pban",
-          "description": "standard",
+          "symbol": "Pban:2",
+          "description": "origin choice 2",
           "hall": "-P 2ab 2b",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pcna",
+          "symbol": "Pcna:1",
           "description": "bca",
           "hall": "P 2 2 -1ac",
           "centering": "P",
@@ -2481,7 +2481,7 @@
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pcna",
+          "symbol": "Pcna:2",
           "description": "bca",
           "hall": "-P 2a 2c",
           "centering": "P",
@@ -2489,7 +2489,7 @@
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pncb",
+          "symbol": "Pncb:1",
           "description": "cab",
           "hall": "P 2 2 -1bc",
           "centering": "P",
@@ -2497,7 +2497,7 @@
           "n_wyckoff": 13
         },
         {
-          "symbol": "Pncb",
+          "symbol": "Pncb:2",
           "description": "cab",
           "hall": "-P 2b 2bc",
           "centering": "P",
@@ -2925,23 +2925,23 @@
       "file": "sg/59.json",
       "settings": [
         {
-          "symbol": "Pmmn",
-          "description": "standard",
+          "symbol": "Pmmn:1",
+          "description": "origin choice 1",
           "hall": "P 2 2ab -1ab",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 7
         },
         {
-          "symbol": "Pmmn",
-          "description": "standard",
+          "symbol": "Pmmn:2",
+          "description": "origin choice 2",
           "hall": "-P 2ab 2a",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 7
         },
         {
-          "symbol": "Pmnm",
+          "symbol": "Pmnm:1",
           "description": "bca",
           "hall": "P 2ac 2ac -1ac",
           "centering": "P",
@@ -2949,7 +2949,7 @@
           "n_wyckoff": 7
         },
         {
-          "symbol": "Pmnm",
+          "symbol": "Pmnm:2",
           "description": "bca",
           "hall": "-P 2c 2a",
           "centering": "P",
@@ -2957,7 +2957,7 @@
           "n_wyckoff": 7
         },
         {
-          "symbol": "Pnmm",
+          "symbol": "Pnmm:1",
           "description": "cab",
           "hall": "P 2bc 2 -1bc",
           "centering": "P",
@@ -2965,7 +2965,7 @@
           "n_wyckoff": 7
         },
         {
-          "symbol": "Pnmm",
+          "symbol": "Pnmm:2",
           "description": "cab",
           "hall": "-P 2c 2bc",
           "centering": "P",
@@ -3385,7 +3385,7 @@
       "file": "sg/68.json",
       "settings": [
         {
-          "symbol": "Abaa",
+          "symbol": "Abaa:1",
           "description": "cab",
           "hall": "A 2 2 -1ab",
           "centering": "A",
@@ -3393,7 +3393,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Abaa",
+          "symbol": "Abaa:2",
           "description": "cab",
           "hall": "-A 2a 2b",
           "centering": "A",
@@ -3401,7 +3401,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Acaa",
+          "symbol": "Acaa:2",
           "description": "-cba",
           "hall": "-A 2ab 2b",
           "centering": "A",
@@ -3409,7 +3409,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Bbab",
+          "symbol": "Bbab:2",
           "description": "a-cb",
           "hall": "-B 2b 2ab",
           "centering": "B",
@@ -3417,7 +3417,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Bbcb",
+          "symbol": "Bbcb:1",
           "description": "bca",
           "hall": "B 2 2 -1ab",
           "centering": "B",
@@ -3425,7 +3425,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Bbcb",
+          "symbol": "Bbcb:2",
           "description": "bca",
           "hall": "-B 2ab 2b",
           "centering": "B",
@@ -3433,23 +3433,23 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "Ccca",
-          "description": "standard",
+          "symbol": "Ccca:1",
+          "description": "origin choice 1",
           "hall": "C 2 2 -1ac",
           "centering": "C",
           "order_z": 16,
           "n_wyckoff": 9
         },
         {
-          "symbol": "Ccca",
-          "description": "standard",
+          "symbol": "Ccca:2",
+          "description": "origin choice 2",
           "hall": "-C 2a 2ac",
           "centering": "C",
           "order_z": 16,
           "n_wyckoff": 9
         },
         {
-          "symbol": "Cccb",
+          "symbol": "Cccb:2",
           "description": "ba-c",
           "hall": "-C 2a 2c",
           "centering": "C",
@@ -3489,16 +3489,16 @@
       "file": "sg/70.json",
       "settings": [
         {
-          "symbol": "Fddd",
-          "description": "standard",
+          "symbol": "Fddd:1",
+          "description": "origin choice 1",
           "hall": "F 2 2 -1d",
           "centering": "F",
           "order_z": 32,
           "n_wyckoff": 8
         },
         {
-          "symbol": "Fddd",
-          "description": "standard",
+          "symbol": "Fddd:2",
+          "description": "origin choice 2",
           "hall": "-F 2uv 2vw",
           "centering": "F",
           "order_z": 32,
@@ -3861,16 +3861,16 @@
       "file": "sg/85.json",
       "settings": [
         {
-          "symbol": "P4/n",
-          "description": "standard",
+          "symbol": "P4/n:1",
+          "description": "origin choice 1",
           "hall": "P 4ab -1ab",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 7
         },
         {
-          "symbol": "P4/n",
-          "description": "standard",
+          "symbol": "P4/n:2",
+          "description": "origin choice 2",
           "hall": "-P 4a",
           "centering": "P",
           "order_z": 8,
@@ -3889,16 +3889,16 @@
       "file": "sg/86.json",
       "settings": [
         {
-          "symbol": "P42/n",
-          "description": "standard",
+          "symbol": "P42/n:1",
+          "description": "origin choice 1",
           "hall": "P 4n -1n",
           "centering": "P",
           "order_z": 8,
           "n_wyckoff": 7
         },
         {
-          "symbol": "P42/n",
-          "description": "standard",
+          "symbol": "P42/n:2",
+          "description": "origin choice 2",
           "hall": "-P 4bc",
           "centering": "P",
           "order_z": 8,
@@ -3937,16 +3937,16 @@
       "file": "sg/88.json",
       "settings": [
         {
-          "symbol": "I41/a",
-          "description": "standard",
+          "symbol": "I41/a:1",
+          "description": "origin choice 1",
           "hall": "I 4bw -1bw",
           "centering": "I",
           "order_z": 16,
           "n_wyckoff": 6
         },
         {
-          "symbol": "I41/a",
-          "description": "standard",
+          "symbol": "I41/a:2",
+          "description": "origin choice 2",
           "hall": "-I 4ad",
           "centering": "I",
           "order_z": 16,
@@ -4685,16 +4685,16 @@
       "file": "sg/125.json",
       "settings": [
         {
-          "symbol": "P4/nbm",
-          "description": "standard",
+          "symbol": "P4/nbm:1",
+          "description": "origin choice 1",
           "hall": "P 4 2 -1ab",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 14
         },
         {
-          "symbol": "P4/nbm",
-          "description": "standard",
+          "symbol": "P4/nbm:2",
+          "description": "origin choice 2",
           "hall": "-P 4a 2b",
           "centering": "P",
           "order_z": 16,
@@ -4713,16 +4713,16 @@
       "file": "sg/126.json",
       "settings": [
         {
-          "symbol": "P4/nnc",
-          "description": "standard",
+          "symbol": "P4/nnc:1",
+          "description": "origin choice 1",
           "hall": "P 4 2 -1n",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 11
         },
         {
-          "symbol": "P4/nnc",
-          "description": "standard",
+          "symbol": "P4/nnc:2",
+          "description": "origin choice 2",
           "hall": "-P 4a 2bc",
           "centering": "P",
           "order_z": 16,
@@ -4781,16 +4781,16 @@
       "file": "sg/129.json",
       "settings": [
         {
-          "symbol": "P4/nmm",
-          "description": "standard",
+          "symbol": "P4/nmm:1",
+          "description": "origin choice 1",
           "hall": "P 4ab 2ab -1ab",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 11
         },
         {
-          "symbol": "P4/nmm",
-          "description": "standard",
+          "symbol": "P4/nmm:2",
+          "description": "origin choice 2",
           "hall": "-P 4a 2a",
           "centering": "P",
           "order_z": 16,
@@ -4809,16 +4809,16 @@
       "file": "sg/130.json",
       "settings": [
         {
-          "symbol": "P4/ncc",
-          "description": "standard",
+          "symbol": "P4/ncc:1",
+          "description": "origin choice 1",
           "hall": "P 4ab 2n -1ab",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 7
         },
         {
-          "symbol": "P4/ncc",
-          "description": "standard",
+          "symbol": "P4/ncc:2",
+          "description": "origin choice 2",
           "hall": "-P 4a 2ac",
           "centering": "P",
           "order_z": 16,
@@ -4877,16 +4877,16 @@
       "file": "sg/133.json",
       "settings": [
         {
-          "symbol": "P42/nbc",
-          "description": "standard",
+          "symbol": "P42/nbc:1",
+          "description": "origin choice 1",
           "hall": "P 4n 2c -1n",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 11
         },
         {
-          "symbol": "P42/nbc",
-          "description": "standard",
+          "symbol": "P42/nbc:2",
+          "description": "origin choice 2",
           "hall": "-P 4ac 2b",
           "centering": "P",
           "order_z": 16,
@@ -4905,16 +4905,16 @@
       "file": "sg/134.json",
       "settings": [
         {
-          "symbol": "P42/nnm",
-          "description": "standard",
+          "symbol": "P42/nnm:1",
+          "description": "origin choice 1",
           "hall": "P 4n 2 -1n",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 14
         },
         {
-          "symbol": "P42/nnm",
-          "description": "standard",
+          "symbol": "P42/nnm:2",
+          "description": "origin choice 2",
           "hall": "-P 4ac 2bc",
           "centering": "P",
           "order_z": 16,
@@ -4973,16 +4973,16 @@
       "file": "sg/137.json",
       "settings": [
         {
-          "symbol": "P42/nmc",
-          "description": "standard",
+          "symbol": "P42/nmc:1",
+          "description": "origin choice 1",
           "hall": "P 4n 2n -1n",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 8
         },
         {
-          "symbol": "P42/nmc",
-          "description": "standard",
+          "symbol": "P42/nmc:2",
+          "description": "origin choice 2",
           "hall": "-P 4ac 2a",
           "centering": "P",
           "order_z": 16,
@@ -5001,16 +5001,16 @@
       "file": "sg/138.json",
       "settings": [
         {
-          "symbol": "P42/ncm",
-          "description": "standard",
+          "symbol": "P42/ncm:1",
+          "description": "origin choice 1",
           "hall": "P 4n 2ab -1n",
           "centering": "P",
           "order_z": 16,
           "n_wyckoff": 10
         },
         {
-          "symbol": "P42/ncm",
-          "description": "standard",
+          "symbol": "P42/ncm:2",
+          "description": "origin choice 2",
           "hall": "-P 4ac 2ac",
           "centering": "P",
           "order_z": 16,
@@ -5069,16 +5069,16 @@
       "file": "sg/141.json",
       "settings": [
         {
-          "symbol": "I41/amd",
-          "description": "standard",
+          "symbol": "I41/amd:1",
+          "description": "origin choice 1",
           "hall": "I 4bw 2bw -1bw",
           "centering": "I",
           "order_z": 32,
           "n_wyckoff": 9
         },
         {
-          "symbol": "I41/amd",
-          "description": "standard",
+          "symbol": "I41/amd:2",
+          "description": "origin choice 2",
           "hall": "-I 4bd 2",
           "centering": "I",
           "order_z": 32,
@@ -5097,16 +5097,16 @@
       "file": "sg/142.json",
       "settings": [
         {
-          "symbol": "I41/acd",
-          "description": "standard",
+          "symbol": "I41/acd:1",
+          "description": "origin choice 1",
           "hall": "I 4bw 2aw -1bw",
           "centering": "I",
           "order_z": 32,
           "n_wyckoff": 7
         },
         {
-          "symbol": "I41/acd",
-          "description": "standard",
+          "symbol": "I41/acd:2",
+          "description": "origin choice 2",
           "hall": "-I 4bd 2c",
           "centering": "I",
           "order_z": 32,
@@ -5185,7 +5185,7 @@
       "file": "sg/146.json",
       "settings": [
         {
-          "symbol": "R3",
+          "symbol": "R3:H",
           "description": "standard",
           "hall": "R 3",
           "centering": "R",
@@ -5193,7 +5193,7 @@
           "n_wyckoff": 2
         },
         {
-          "symbol": "R3",
+          "symbol": "R3:R",
           "description": "standard",
           "hall": "P 3*",
           "centering": "P",
@@ -5233,7 +5233,7 @@
       "file": "sg/148.json",
       "settings": [
         {
-          "symbol": "R-3",
+          "symbol": "R-3:H",
           "description": "standard",
           "hall": "-R 3",
           "centering": "R",
@@ -5241,7 +5241,7 @@
           "n_wyckoff": 6
         },
         {
-          "symbol": "R-3",
+          "symbol": "R-3:R",
           "description": "standard",
           "hall": "-P 3*",
           "centering": "P",
@@ -5381,7 +5381,7 @@
       "file": "sg/155.json",
       "settings": [
         {
-          "symbol": "R32",
+          "symbol": "R32:H",
           "description": "standard",
           "hall": "R 3 2\"",
           "centering": "R",
@@ -5389,7 +5389,7 @@
           "n_wyckoff": 6
         },
         {
-          "symbol": "R32",
+          "symbol": "R32:R",
           "description": "standard",
           "hall": "P 3* 2",
           "centering": "P",
@@ -5489,7 +5489,7 @@
       "file": "sg/160.json",
       "settings": [
         {
-          "symbol": "R3m",
+          "symbol": "R3m:H",
           "description": "standard",
           "hall": "R 3 -2\"",
           "centering": "R",
@@ -5497,7 +5497,7 @@
           "n_wyckoff": 3
         },
         {
-          "symbol": "R3m",
+          "symbol": "R3m:R",
           "description": "standard",
           "hall": "P 3* -2",
           "centering": "P",
@@ -5517,7 +5517,7 @@
       "file": "sg/161.json",
       "settings": [
         {
-          "symbol": "R3c",
+          "symbol": "R3c:H",
           "description": "standard",
           "hall": "R 3 -2\"c",
           "centering": "R",
@@ -5525,7 +5525,7 @@
           "n_wyckoff": 2
         },
         {
-          "symbol": "R3c",
+          "symbol": "R3c:R",
           "description": "standard",
           "hall": "P 3* -2n",
           "centering": "P",
@@ -5625,7 +5625,7 @@
       "file": "sg/166.json",
       "settings": [
         {
-          "symbol": "R-3m",
+          "symbol": "R-3m:H",
           "description": "standard",
           "hall": "-R 3 2\"",
           "centering": "R",
@@ -5633,7 +5633,7 @@
           "n_wyckoff": 9
         },
         {
-          "symbol": "R-3m",
+          "symbol": "R-3m:R",
           "description": "standard",
           "hall": "-P 3* 2",
           "centering": "P",
@@ -5653,7 +5653,7 @@
       "file": "sg/167.json",
       "settings": [
         {
-          "symbol": "R-3c",
+          "symbol": "R-3c:H",
           "description": "standard",
           "hall": "-R 3 2\"c",
           "centering": "R",
@@ -5661,7 +5661,7 @@
           "n_wyckoff": 6
         },
         {
-          "symbol": "R-3c",
+          "symbol": "R-3c:R",
           "description": "standard",
           "hall": "-P 3* 2n",
           "centering": "P",
@@ -6341,16 +6341,16 @@
       "file": "sg/201.json",
       "settings": [
         {
-          "symbol": "Pn-3",
-          "description": "standard",
+          "symbol": "Pn-3:1",
+          "description": "origin choice 1",
           "hall": "P 2 2 3 -1n",
           "centering": "P",
           "order_z": 24,
           "n_wyckoff": 8
         },
         {
-          "symbol": "Pn-3",
-          "description": "standard",
+          "symbol": "Pn-3:2",
+          "description": "origin choice 2",
           "hall": "-P 2ab 2bc 3",
           "centering": "P",
           "order_z": 24,
@@ -6389,16 +6389,16 @@
       "file": "sg/203.json",
       "settings": [
         {
-          "symbol": "Fd-3",
-          "description": "standard",
+          "symbol": "Fd-3:1",
+          "description": "origin choice 1",
           "hall": "F 2 2 3 -1d",
           "centering": "F",
           "order_z": 96,
           "n_wyckoff": 7
         },
         {
-          "symbol": "Fd-3",
-          "description": "standard",
+          "symbol": "Fd-3:2",
+          "description": "origin choice 2",
           "hall": "-F 2uv 2vw 3",
           "centering": "F",
           "order_z": 96,
@@ -6777,16 +6777,16 @@
       "file": "sg/222.json",
       "settings": [
         {
-          "symbol": "Pn-3n",
-          "description": "standard",
+          "symbol": "Pn-3n:1",
+          "description": "origin choice 1",
           "hall": "P 4 2 3 -1n",
           "centering": "P",
           "order_z": 48,
           "n_wyckoff": 9
         },
         {
-          "symbol": "Pn-3n",
-          "description": "standard",
+          "symbol": "Pn-3n:2",
+          "description": "origin choice 2",
           "hall": "-P 4a 2bc 3",
           "centering": "P",
           "order_z": 48,
@@ -6825,16 +6825,16 @@
       "file": "sg/224.json",
       "settings": [
         {
-          "symbol": "Pn-3m",
-          "description": "standard",
+          "symbol": "Pn-3m:1",
+          "description": "origin choice 1",
           "hall": "P 4n 2 3 -1n",
           "centering": "P",
           "order_z": 48,
           "n_wyckoff": 12
         },
         {
-          "symbol": "Pn-3m",
-          "description": "standard",
+          "symbol": "Pn-3m:2",
+          "description": "origin choice 2",
           "hall": "-P 4bc 2bc 3",
           "centering": "P",
           "order_z": 48,
@@ -6893,16 +6893,16 @@
       "file": "sg/227.json",
       "settings": [
         {
-          "symbol": "Fd-3m",
-          "description": "standard",
+          "symbol": "Fd-3m:1",
+          "description": "origin choice 1",
           "hall": "F 4d 2 3 -1d",
           "centering": "F",
           "order_z": 192,
           "n_wyckoff": 9
         },
         {
-          "symbol": "Fd-3m",
-          "description": "standard",
+          "symbol": "Fd-3m:2",
+          "description": "origin choice 2",
           "hall": "-F 4vw 2vw 3",
           "centering": "F",
           "order_z": 192,
@@ -6921,16 +6921,16 @@
       "file": "sg/228.json",
       "settings": [
         {
-          "symbol": "Fd-3c",
-          "description": "standard",
+          "symbol": "Fd-3c:1",
+          "description": "origin choice 1",
           "hall": "F 4d 2 3 -1ad",
           "centering": "F",
           "order_z": 192,
           "n_wyckoff": 8
         },
         {
-          "symbol": "Fd-3c",
-          "description": "standard",
+          "symbol": "Fd-3c:2",
+          "description": "origin choice 2",
           "hall": "-F 4ud 2vw 3",
           "centering": "F",
           "order_z": 192,

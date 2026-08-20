@@ -398,24 +398,64 @@ async function runWyckoffSearch(o) {
     const log = [];
     const say = m => { log.push(m); if (o.onLog) o.onLog(m); };
 
-    /* ---- 1. Composition ---- */
-    const comp = parseFormula(o.formula, o.Z);
-    const demand = comp.map(c => {
-        const ad = (o.atomData || {})[c.element];
-        if (!ad) throw new Error(`No atomic data for element "${c.element}".`);
-        if (!Number.isInteger(c.count)) {
-            throw new Error(`${c.element} needs ${c.count} atoms per cell, which is not a whole ` +
-                            `number. Partial occupancy is not supported by this search.`);
+    /* ---- 1. Composition and Assignments ---- */
+    const zCandidates = Array.isArray(o.Z) ? o.Z : [o.Z];
+    let comp, demand, nTot, en, assignments;
+    let lastError = null;
+    let bestZ = zCandidates[0];
+
+    if (!o.setting.wyckoff || !o.setting.wyckoff.length) {
+        throw new Error(`Setting ${o.setting.symbol} carries no Wyckoff table. ` +
+                        `Regenerate the database with cctbx_Harko_v1.py.`);
+    }
+
+    for (const testZ of zCandidates) {
+        try {
+            comp = parseFormula(o.formula, testZ);
+            demand = comp.map(c => {
+                const ad = (o.atomData || {})[c.element];
+                if (!ad) throw new Error(`No atomic data for element "${c.element}".`);
+                if (!Number.isInteger(c.count)) {
+                    throw new Error(`${c.element} needs ${c.count} atoms per cell, which is not a whole ` +
+                                    `number. Partial occupancy is not supported by this search.`);
+                }
+                // `r` is the covalent radius (van der Waals only where none is listed).
+                // It no longer sets the clash floor - that is the minimum-contact
+                // slider, applied to every pair alike, see buildRestraintTables - and
+                // is carried here only as per-element metadata for anything that wants
+                // a size.
+                return { element: c.element, count: c.count, z: ad.z, r: ad.rc ?? ad.r };
+            });
+
+            en = enumerateAssignments(o.setting.wyckoff, demand, {
+                maxSites: o.maxSitesPerElement ?? SW_DEFAULTS.maxSitesPerElement,
+                maxRepeat: o.maxRepeat ?? SW_DEFAULTS.maxRepeatPerPosition,
+                ceiling: o.wyckoffCapCeiling
+            });
+
+            if (en.error) {
+                lastError = en.error;
+                continue;
+            }
+            assignments = en.assignments;
+            if (!assignments.length) {
+                lastError = 'No Wyckoff assignment matches this composition.';
+                continue;
+            }
+
+            bestZ = testZ;
+            break;
+        } catch (err) {
+            lastError = err.message;
         }
-        // `r` is the covalent radius (van der Waals only where none is listed).
-        // It no longer sets the clash floor - that is the minimum-contact
-        // slider, applied to every pair alike, see buildRestraintTables - and
-        // is carried here only as per-element metadata for anything that wants
-        // a size.
-        return { element: c.element, count: c.count, z: ad.z, r: ad.rc ?? ad.r };
-    });
-    const nTot = demand.reduce((n, d) => n + d.count, 0);
-    say(`${o.formula} with Z=${o.Z}: ${demand.map(d => d.element + d.count).join(' ')} ` +
+    }
+
+    if (!assignments || !assignments.length) {
+        throw new Error(lastError || 'No valid Z found in candidates.');
+    }
+
+    nTot = demand.reduce((n, d) => n + d.count, 0);
+    say(`${o.formula} with Z=${bestZ}: ${demand.map(d => d.element + d.count).join(' ')} ` +
         `= ${nTot} atoms per cell.`);
 
     /* ---- 2. Observations ---- */
@@ -448,20 +488,8 @@ async function runWyckoffSearch(o) {
         overallB = wil.B;
         say(`Overall B = ${overallB.toFixed(2)}${wil.ok ? ` (Wilson, ${wil.shells} shells)` : ''}.`);
     }
-    /* ---- 4. Assignments ---- */
-    if (!o.setting.wyckoff || !o.setting.wyckoff.length) {
-        throw new Error(`Setting ${o.setting.symbol} carries no Wyckoff table. ` +
-                        `Regenerate the database with cctbx_Harko_v1.py.`);
-    }
-    const en = enumerateAssignments(o.setting.wyckoff, demand, {
-        maxSites: o.maxSitesPerElement ?? SW_DEFAULTS.maxSitesPerElement,
-        maxRepeat: o.maxRepeat ?? SW_DEFAULTS.maxRepeatPerPosition,
-        ceiling: o.wyckoffCapCeiling
-    });
-    if (en.error) throw new Error(en.error);
-    let assignments = en.assignments;
-    if (!assignments.length) throw new Error('No Wyckoff assignment matches this composition.');
 
+    /* ---- 4. Ranking ---- */
     // Reduced basis, so every distance in this run - the pre-search ranking
     // here, and the kernel's contact tests below - uses the same, correct,
     // nearest-image convention.

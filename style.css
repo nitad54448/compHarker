@@ -19,10 +19,8 @@
     color-scheme: light;
 
     /* Type */
-    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
-                 Helvetica, Arial, sans-serif;
-    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono",
-                 "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
     /* Surfaces — neutral grays (slight cool cast, like brushed aluminum) */
     --bg-app:        #e8eaed;   /* outer chassis */
@@ -141,35 +139,10 @@
 
 * { box-sizing: border-box; }
 
-/* numeric inputs & readouts get monospace */
-input[type="number"],
-.control-input[type="number"],
-input[type="text"].sg-search-row input,
-.slider-value-display,
-.result-card-value,
-#app-version-footer,
-.sg-list-item .num,
-.sg-explain-grid dd {
-    font-family: var(--font-mono);
-    font-feature-settings: "tnum" 1, "zero" 1;
-    letter-spacing: 0;
-}
-
 /* ---------- App shell ---------- */
 
 /* The only element inside #controls-panel that scrolls. Everything that
-   isn't the action-button-bar footer lives in here, so the footer itself
-   never has to "catch up" via position:sticky — it simply isn't part of
-   the scrolling flow, and is always visible regardless of tab content
-   height or scroll position. */
-
-/* A true fixed footer (flex-shrink:0, outside #controls-scroll) rather than
-   a sticky element inside the scroll flow — sticky only keeps an element
-   from scrolling OUT of view once you've already scrolled to it; it does
-   nothing for the very first render, so on tall panels (e.g. Profile with
-   many parameters) the buttons stayed below the fold until manually
-   scrolled down. As a direct, non-scrolling flex child of #controls-panel,
-   this bar is visible immediately on every tab, with no scrolling needed. */
+   isn't the action-button-bar footer lives in here. */
 
 #drag-handle::after {
     content: "";
@@ -181,11 +154,13 @@ input[type="text"].sg-search-row input,
     box-shadow: 0 0 0 1px var(--accent-ring);
 }
 
-/* App version footer (model-number tag) */
-
-/* ---------- Labels ---------- */
-
 /* ---------- Inputs ---------- */
+
+.control-input,
+.control-select,
+button, textarea {
+    font-family: var(--font-sans);
+}
 
 .control-input,
 .control-select {
@@ -238,9 +213,6 @@ input[type="text"].sg-search-row input,
     padding-right: 26px;
 }
 
-/* number-input spinners — keep them but tone down */
-/* ---------- Buttons ---------- */
-
 [data-theme="dark"] .btn:hover:not(:disabled) {
     background: var(--bg-elevated);
 }
@@ -249,21 +221,15 @@ input[type="text"].sg-search-row input,
     box-shadow: 0 1px 2px rgba(0,0,0,0.20) inset;
 }
 
-/* ---------- Tabs ---------- */
-
 #lattice-parameters-container {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* ---------- Placeholder (empty stage) ---------- */
-
 [data-theme="dark"] #results-area {
     background-image: none;
 }
-
-/* ---------- Animations & focus ---------- */
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
@@ -275,11 +241,6 @@ input[type="text"].sg-search-row input,
     outline-offset: 1px;
 }
 
-/* ---------- Space Group modal ---------- */
-
-/* ---------- Misc safety: tighten anything inline-styled in old CSS ----- */
-
-/* Make the "Select Group »" button match other inputs visually */
 #space-group-open-modal {
     background: var(--bg-inset) !important;
     border: 1px solid var(--rule) !important;
@@ -291,17 +252,6 @@ input[type="text"].sg-search-row input,
     border-color: var(--accent) !important;
     color: var(--accent) !important;
 }
-
-/* --- 3D isosurface: per-site legend -------------------------------------
-   One row per unique site: rank, the colour density3d.js draws it in, the
-   peak height and a show/hide toggle. It sits in the controls column where
-   the old "Atom positions" checkbox was; "hide all" does what that checkbox
-   used to do, one row at a time or all at once.
-
-   The list shows ten rows and scrolls beyond that, so a solution with forty
-   sites cannot push the rest of the panel off the screen. The cap is written
-   in rows rather than pixels, and the row height is fixed, so the two cannot
-   disagree about what ten rows measures. */
 
 /* Fix to force the left panel to clip bleeding text and hide the horizontal scrollbar */
 #controls-panel, #panel-scroll {
@@ -765,7 +715,7 @@ canvas { display: block; }
 .stat-row { display: flex; justify-content: space-between; gap: 10px; font-size: .74rem; }
 .stat-row + .stat-row { margin-top: 5px; }
 .stat-row .k { color: var(--fg-3); }
-.stat-row .v { font-family: var(--font-mono); font-weight: 600; color: var(--fg); }
+.stat-row .v { font-family: var(--font-sans); font-weight: 600; color: var(--fg); }
 .stat-row .v.good { color: var(--success); }
 /* Acceptance outside its healthy band: the chains are stuck, or wandering. */
 .stat-row .v.warn { color: var(--warning); }
@@ -850,7 +800,7 @@ canvas { display: block; }
 
 .edit-row:last-child { border-bottom: none; }
 .edit-row .el {
-    font-family: var(--font-mono); font-size: .72rem; font-weight: 600; color: var(--fg);
+    font-family: var(--font-sans); font-size: .72rem; font-weight: 600; color: var(--fg);
 }
 .edit-row input[type="number"] {
     padding: 2px 4px; font-size: .68rem; width: 100%;
@@ -858,7 +808,7 @@ canvas { display: block; }
 }
 
 .edit-row .wyck {
-    font-family: var(--font-mono); font-size: .68rem; color: var(--fg-2);
+    font-family: var(--font-sans); font-size: .68rem; color: var(--fg-2);
     text-align: center;
 }
 .visibility-btn { background: none; border: none; padding: 0; cursor: pointer; color: var(--fg-3); font-size: 14px; justify-self: end; }
@@ -868,7 +818,7 @@ canvas { display: block; }
     display: grid;
     grid-template-columns: 2.4rem 3.4rem repeat(3, minmax(0, 5.5rem)) minmax(2rem, 1fr);
     gap: 4px; padding: 3px 6px;
-    font-family: var(--font-mono); font-size: .6rem; letter-spacing: .06em;
+    font-family: var(--font-sans); font-size: .6rem; letter-spacing: .06em;
     text-transform: uppercase; color: var(--fg-4);
     border-bottom: 1px solid var(--rule);
 }
@@ -905,7 +855,7 @@ details > summary::-webkit-details-marker { display: revert; }
 .pane-actions .btn { flex: 1 1 0; }
 
 .tag-warn {
-    font-family: var(--font-mono); font-size: .6rem; font-weight: 700;
+    font-family: var(--font-sans); font-size: .6rem; font-weight: 700;
     letter-spacing: .06em; text-transform: uppercase;
     color: var(--warning); border: 1px solid var(--warning);
     border-radius: var(--r-1); padding: 1px 5px;
@@ -1213,11 +1163,11 @@ body > .tooltiptext a       { color: var(--accent); }
 }
 #controls-panel .check-row { display: flex; align-items: center; gap: 8px; }
 #controls-panel .readout {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: .7rem; font-weight: 400; color: var(--fg-3); line-height: 1.5;
 }
 #controls-panel .control-label {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: .66rem; font-weight: 600; color: var(--fg-3);
     letter-spacing: .09em; text-transform: uppercase;
 }
@@ -1271,7 +1221,7 @@ body > .tooltiptext a       { color: var(--accent); }
 .tooltiptext .tt-live {
     display: block; margin-top: 11px; padding-top: 9px;
     border-top: 1px solid var(--rule-soft);
-    font-family: var(--font-mono); font-size: .7rem; line-height: 1.5;
+    font-family: var(--font-sans); font-size: .7rem; line-height: 1.5;
     color: var(--fg-3);
 }
 .tooltiptext .tt-live:empty { display: none; }
@@ -1280,7 +1230,7 @@ body > .tooltiptext a       { color: var(--accent); }
 
 /* Sub-line inside a tooltip (e.g. the live GPU limits under Configurations) */
 .tooltiptext .tt-sub {
-    display: block; font-family: var(--font-mono);
+    display: block; font-family: var(--font-sans);
     font-size: .7rem; color: var(--fg-3);
 }
 
