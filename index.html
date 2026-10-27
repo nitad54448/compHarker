@@ -4103,6 +4103,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
          *     -> [h,k,l | 2th_corr | d | m | Lp | I_hkl | sigma(I) | |Fo| | I_obs]
          */
         function parseReflectionHeader(line) {
+            line = line.replace(/^\s*h\s+k\s+l\b/i, 'h,k,l');
             const cols = [];
             line.trim().split(/\s+/).forEach(tok => {
                 if (/^\(.*\)$/.test(tok) && cols.length) return; // bare unit, e.g. (°) (Å) (Area)
@@ -4125,7 +4126,70 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
             if (n === 'i_hkl' || n === 'i_refined' || n.startsWith('i_')) return 'Ihkl';
             return null;
         }
+        /** Powder 6 tab-separated report; corrected intensities are already per reflection. */
+        function parseWppfReport(text) {
+            const lines = text.split(/\r?\n/);
+            if (lines.filter(l => /^## Dataset\b/.test(l)).length !== 1 ||
+                lines.filter(l => /^### Phase\b/.test(l)).length !== 1 ||
+                lines.filter(l => /^### Reflections of\b/.test(l)).length !== 1) {
+                throw new Error('Import a WPPF report containing one dataset and one phase.');
+            }
+            const data = { reflections: [], reflectionColumns: null, intensitySource: null,
+                perReflection: true, parseWarnings: [], cell: {}, spaceGroup: null };
+            let columns = null;
+            let overlap = 0;
+            for (const raw of lines) {
+                const line = raw.trim();
+                const wl = line.match(/^Wavelength 1:\s*([\d.eE+-]+)/i);
+                if (wl) data.wavelength = Number(wl[1]);
+                const pk = line.match(/^Polarisation K:\s*([\d.eE+-]+)/i);
+                if (pk) data.polarisationK = Number(pk[1]);
+                const sg = line.match(/^Space group:\s*(.*?)\s*\((\d+)\)\s*$/i);
+                if (sg) data.spaceGroup = { name: sg[1], number: Number(sg[2]) };
+                if (/^Cell:/i.test(line)) {
+                    for (const m of line.matchAll(/\b(a|b|c|alpha|beta|gamma)\s*=\s*([\d.eE+-]+)/gi)) {
+                        data.cell[m[1].toLowerCase()] = Number(m[2]);
+                    }
+                }
+                if (/^h\tk\tl\t/.test(line)) {
+                    columns = raw.trim().split('\t');
+                    data.reflectionColumns = columns;
+                    for (const name of ['h', 'k', 'l', 'm', 'd', '2theta', 'I', 'sigma', 'I/(m*Lp)']) {
+                        if (!columns.includes(name)) throw new Error(`Missing WPPF reflection column: ${name}`);
+                    }
+                    continue;
+                }
+                if (/^##/.test(line)) columns = null;
+                if (!columns || !/^-?\d+\t/.test(line)) continue;
+                // Keep empty flag fields: splitting on whitespace would shift the uncertainty column.
+                const values = raw.trim().split('\t');
+                const value = name => Number(values[columns.indexOf(name)]);
+                const ref = { h: value('h'), k: value('k'), l: value('l'),
+                    multiplicity: value('m'), d: value('d'), twoTheta: value('2theta'),
+                    Ihkl: value('I'), sigma: value('sigma') };
+                let fSquared = value('I/(m*Lp)');
+                // Powder 6 writes a dash for the corrected intensity at the zero bound.
+                if (!Number.isFinite(fSquared) && ref.Ihkl === 0) fSquared = 0;
+                if (![ref.h, ref.k, ref.l].every(Number.isInteger) ||
+                    ![ref.Ihkl, ref.d, ref.twoTheta, fSquared].every(Number.isFinite) ||
+                    ref.multiplicity <= 0 || !Number.isFinite(ref.multiplicity) || fSquared < 0) {
+                    throw new Error(`Invalid WPPF reflection: ${line}`);
+                }
+                ref.Fo = Math.sqrt(fSquared);
+                if ((values[columns.indexOf('flag')] || '').includes('overlap')) overlap++;
+                data.reflections.push(ref);
+            }
+            if (!data.reflections.length) throw new Error('No reflections found in WPPF report.');
+            if (overlap) data.parseWarnings.push(`${overlap} overlapping reflections have individually undetermined intensities in the WPPF report.`);
+            if (Number.isFinite(data.wavelength) && data.wavelength > 0) {
+                const input = document.getElementById('wavelength');
+                if (input) input.value = data.wavelength;
+            }
+            return data;
+        }
+
 function parsePeakFile(text) {
+            if (/^# WPPF refinement report\s*$/m.test(text)) return parseWppfReport(text);
             console.log("Parsing peak file...");
             const data = {
                 reflections: [],
@@ -6779,6 +6843,8 @@ updateWyckoffCapsNote();
                          intensitySource: parsedData.intensitySource,
                          perReflection: parsedData.perReflection,
                          parseWarnings: parsedData.parseWarnings,
+                         wavelength: parsedData.wavelength,
+                         polarisationK: parsedData.polarisationK,
                          spaceGroup: currentSG ? { number: currentSG.number, name: currentSG.symbol } : null,
                          cell: getUI_Cell()
                      };

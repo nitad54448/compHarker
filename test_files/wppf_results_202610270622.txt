@@ -1,0 +1,564 @@
+# WPPF refinement report
+Powder 6 2.47.1 (26 oct 2026)
+Created: 2026-10-27 06:22:07
+
+## How to read this report
+zero = 2theta_obs - 2theta_calc_without_zero (exp - calc), in degrees 2theta. Positive zero shifts calculated peaks to higher measured angles.
+Value and standard uncertainty are listed separately. Fixed parameters have no estimated uncertainty. Linked and symmetry-dependent parameters are identified explicitly.
+Reflection tables contain every calculated reflection overlapping the fitted range. Excluded observations have no weight in the fit.
+
+## Dataset A_2surC_PE43_OH50_tth2C_2026_09_15_12-54-20_0016_2columns_sol (1)_sol
+
+### Fit summary
+Method: WPPF
+Result: iteration limit reached
+Range: 5.8128 to 33.6448 degrees 2theta
+Points used: 6959
+Weighting: poisson
+Rp / Rwp / Rexp: 2.21% / 3.52% / 17.82%
+Reduced chi-squared: 0.0390673
+Algorithm: lm
+Refinement: Individual
+Iterations: 16
+Refined parameters: 17
+Free reflection intensities: 149
+Iteration limit: 30
+Convergence tolerance: 0.00001
+
+### Fit diagnostics
+- Joint uncertainties unavailable: singular or ill-conditioned refinement (12 independent directions among 15 interior variables).
+- Cannot distinguish the combined effects of inst.U, inst.W, p1.size, p1.sizeMix. Fix redundant variables or supply independent calibration/data.
+- Cannot distinguish the combined effects of inst.Y, p1.strain. Fix redundant variables or supply independent calibration/data.
+- Cannot distinguish the combined effects of inst.U, inst.W, inst.X, p1.sizeMix. Fix redundant variables or supply independent calibration/data.
+
+### Instrument and geometry
+Instrument profile: Thompson-Cox-Hastings
+Radiation: X-rays
+Wavelength 1: 0.67776 A
+Polarisation K: 1
+Zero shift: -0.0001648084 (uncertainty unavailable) degrees; exp - calc
+Displacement convention: Delta(2theta) = -(disp/1000) cos(theta), in radians
+Transparency convention: Delta(2theta) = transp sin(2theta), in radians
+Calibration offset: 0.0001648084084858451 degrees; calc - exp = -zero. Calibrated angle = measured angle + calibration offset.
+
+### Anomalous scattering
+Status: Enabled
+Source: Not used by free-intensity methods
+Reference wavelength: 0.67776 A
+Interpolation: linear in photon energy; no extrapolation
+Energy: 18293.230410941964 eV
+
+### Background and exclusions
+Background: Monotone cubic spline through 32 anchors
+Anchor 2theta (degrees)	Intensity	Status
+5.8128	39.896618	Fixed
+5.9968	41.325874	Fixed
+8.3568	49.951979	Fixed
+8.816400623471496	50.21519	Fixed
+9.103442904634626	50.904528	Fixed
+9.882461718577588	51.132143	Fixed
+11.10031645827881	46.489939	Fixed
+11.326356428574112	41.314857	Fixed
+11.603542485613495	38.575706	Fixed
+11.75945964269815	37.829823	Fixed
+11.960419534051704	36.361251	Fixed
+12.24903491922084	36.230465	Fixed
+12.790209197174665	33.638184	Fixed
+13.05687478341278	31.88483	Fixed
+13.310468527188245	30.427526	Fixed
+13.575593186482212	30.317989	Fixed
+14.710260610656047	28.265243	Fixed
+14.835561307804078	28.155366	Fixed
+15.065279252575467	27.828293	Fixed
+15.998073331344141	25.792984	Fixed
+16.53408186914405	23.860022	Fixed
+19.17931880893581	20.859928	Fixed
+19.64006936513656	20.202035	Fixed
+19.89539552176852	20.087552	Fixed
+22.874200682474722	19.935917	Fixed
+23.828634172741815	19.122152	Fixed
+25.190517591183372	18.633538	Fixed
+26.463050479308944	18.681765	Fixed
+30.375300350240448	17.994538	Fixed
+30.549251134624818	18.3841	Fixed
+33.376802574412935	18.211942	Fixed
+33.6448	18.645394	Fixed
+Excluded intervals: None
+
+### Parameters
+Refined means varied in this calculation; Fixed means held constant. Retained values unused by the selected model are marked Unused.
+Parameter	Value	Standard uncertainty	Status	Unit
+zero	-1.64808408E-4	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	degrees
+disp	0	not estimated	Fixed	
+transp	0	not estimated	Fixed	
+inst.U	27.77986962	Unavailable: Cannot distinguish the combined effects of inst.U, inst.W, inst.X, p1.sizeMix. Fix redundant variables or supply independent calibration/data.	Refined	cdeg^2
+inst.V	1.3238385	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	cdeg^2
+inst.W	0.02029150625	Unavailable: Cannot distinguish the combined effects of inst.U, inst.W, inst.X, p1.sizeMix. Fix redundant variables or supply independent calibration/data.	Refined	cdeg^2
+inst.X	0.3132947618	Unavailable: Cannot distinguish the combined effects of inst.U, inst.W, inst.X, p1.sizeMix. Fix redundant variables or supply independent calibration/data.	Refined	cdeg
+inst.Y	6.765414088	Unavailable: Cannot distinguish the combined effects of inst.Y, p1.strain. Fix redundant variables or supply independent calibration/data.	Refined	cdeg
+inst.Z	0	not estimated	Refined	cdeg
+inst.SL	0.01876900714	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	
+inst.HL	-0.1317509991	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	
+inst.eta	0.5	not estimated	Unused: other instrument profile	
+inst.U_L	2	not estimated	Unused: other instrument profile	cdeg^2
+inst.V_L	-2	not estimated	Unused: other instrument profile	cdeg^2
+inst.W_L	5	not estimated	Unused: other instrument profile	cdeg^2
+inst.X_L	1	not estimated	Unused: other instrument profile	cdeg
+inst.U_R	2	not estimated	Unused: other instrument profile	cdeg^2
+inst.V_R	-2	not estimated	Unused: other instrument profile	cdeg^2
+inst.W_R	5	not estimated	Unused: other instrument profile	cdeg^2
+inst.X_R	1	not estimated	Unused: other instrument profile	cdeg
+inst.eta_split	0.5	not estimated	Unused: other instrument profile	
+bga0	39.89661764	not estimated	Fixed	counts
+bga1	41.3258743	not estimated	Fixed	counts
+bga2	49.95197879	not estimated	Fixed	counts
+bga3	50.21519003	not estimated	Fixed	counts
+bga4	50.90452825	not estimated	Fixed	counts
+bga5	51.13214316	not estimated	Fixed	counts
+bga6	46.48993883	not estimated	Fixed	counts
+bga7	41.3148574	not estimated	Fixed	counts
+bga8	38.57570555	not estimated	Fixed	counts
+bga9	37.82982266	not estimated	Fixed	counts
+bga10	36.36125144	not estimated	Fixed	counts
+bga11	36.23046524	not estimated	Fixed	counts
+bga12	33.63818383	not estimated	Fixed	counts
+bga13	31.88483047	not estimated	Fixed	counts
+bga14	30.42752601	not estimated	Fixed	counts
+bga15	30.3179888	not estimated	Fixed	counts
+bga16	28.26524252	not estimated	Fixed	counts
+bga17	28.1553661	not estimated	Fixed	counts
+bga18	27.82829296	not estimated	Fixed	counts
+bga19	25.792984	not estimated	Fixed	counts
+bga20	23.86002212	not estimated	Fixed	counts
+bga21	20.85992795	not estimated	Fixed	counts
+bga22	20.20203531	not estimated	Fixed	counts
+bga23	20.08755223	not estimated	Fixed	counts
+bga24	19.93591669	not estimated	Fixed	counts
+bga25	19.12215176	not estimated	Fixed	counts
+bga26	18.63353846	not estimated	Fixed	counts
+bga27	18.68176478	not estimated	Fixed	counts
+bga28	17.99453785	not estimated	Fixed	counts
+bga29	18.38410013	not estimated	Fixed	counts
+bga30	18.21194163	not estimated	Fixed	counts
+bga31	18.64539409	not estimated	Fixed	counts
+p1.scale	0.001	not estimated	Unused by WPPF	
+p1.a	11.18190046	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	A
+p1.b	7.29784542	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	A
+p1.c	6.951709268	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	A
+p1.beta	93.06513005	Unavailable: Joint covariance unavailable because other refined variables cannot be distinguished; this does not establish that this parameter is unconstrained.	Refined	degrees
+p1.size	3034.672451	Unavailable: Cannot distinguish the combined effects of inst.U, inst.W, p1.size, p1.sizeMix. Fix redundant variables or supply independent calibration/data.	Refined	nm
+p1.sizeMix	0.3037651034	Unavailable: Cannot distinguish the combined effects of inst.U, inst.W, inst.X, p1.sizeMix. Fix redundant variables or supply independent calibration/data.	Refined	
+p1.strainMix	1	not estimated	Refined	
+p1.strain	6076.727392	Unavailable: Cannot distinguish the combined effects of inst.Y, p1.strain. Fix redundant variables or supply independent calibration/data.	Refined	ppm
+p1.po	1	not estimated	Unused by WPPF	
+
+### Phase Na2CuFeCN6_geometry_corrected (p1)
+Space group: I12/m1 (12)
+Crystal system: monoclinic
+Intensity model: WPPF
+Peak profile: Instrument resolution plus sample broadening
+Cell: a = 11.1819 (uncertainty unavailable); b = 7.297845 (uncertainty unavailable); c = 6.951709 (uncertainty unavailable); alpha = 90; beta = 93.06513 (uncertainty unavailable); gamma = 90
+Cell volume: 566.4742 A^3
+Formula: Cu2 Fe2 Na4 C12 N12
+Density: 1.8847 g/cm^3
+Scale, mass fraction and structural R factors are not determined by this free-intensity method. Available retained atoms are included in the pdCIF export.
+Sample broadening: size: isotropic; axis 0 0 1. Strain: isotropic; axis 0 0 1
+Width units: U,V,W: cdeg^2; X,Y,Z: cdeg; size: nm; strain: ppm. All profile values and refinement states are listed in Parameters.
+
+### Reflections of Na2CuFeCN6_geometry_corrected in A_2surC_PE43_OH50_tth2C_2026_09_15_12-54-20_0016_2columns_sol (1)_sol - WPPF
+Reflections overlapping the fitted range: 392. Wavelength 1: 0.67776 A. d is in A; 2theta is in degrees; m is multiplicity.
+I is integrated intensity; sigma is its standard uncertainty; I/(m*Lp) is on the |F|^2 scale. Flag overlap means only the sum of coincident reflections is determined; zero means an intensity held at its non-negative bound.
+h	k	l	m	d	2theta	I	sigma	I/(m*Lp)	flag	uncertainty
+1	1	0	4	6.108811	6.35995	0	0.025106	—	zero	conditional at bound
+1	0	-1	2	6.041991	6.43036	0.48875171	0.0271022	7.723530E-4		conditional
+1	0	1	2	5.758892	6.74683	0.33668337	0.0275434	5.859206E-4		conditional
+2	0	0	2	5.582952	6.95971	2.6227687	0.0352399	0.0048581633		conditional
+0	1	1	4	5.029742	7.72632	20.142055	0.0691144	0.023013386		conditional
+2	1	-1	4	3.811032	10.20289	3.9685258	0.0432356	0.0079378999		conditional
+2	1	1	4	3.666904	10.60504	3.3887916	0.0483219	0.0073285747		conditional
+0	2	0	2	3.648923	10.65745	2.4249666	0.0463909	0.01059339		conditional
+0	0	2	2	3.470882	11.20585	0.58996922	0.0339087	0.0028523191		conditional
+3	0	-1	2	3.355795	11.59145	0.010355843	0.0302904	5.361362E-5		conditional
+3	1	0	4	3.315649	11.73230	0	0.0302409	—	zero	conditional at bound
+3	0	1	2	3.209526	12.12166	0.082311282	0.0302076	4.665257E-4		conditional
+1	2	-1	4	3.123501	12.45681	0.3063683	0.031329	9.175564E-4		conditional
+1	2	1	4	3.082286	12.62405	0.25359854	0.0314651	7.803305E-4		conditional
+1	1	-2	4	3.056437	12.73126	0.074890441	0.0305101	2.344265E-4		conditional
+2	2	0	4	3.054405	12.73976	0	0.138475	—	zero	conditional at bound
+2	0	-2	2	3.020996	12.88125	0	0.0295213	—	zero	conditional at bound
+1	1	2	4	2.980570	13.05672	0	0.0289995	—	zero	conditional at bound
+2	0	2	2	2.879446	13.51736	0	0.0287263	—	zero	conditional at bound
+4	0	0	2	2.791476	13.94544	5.5082355	0.0442358	0.041492642		conditional
+0	2	2	4	2.514871	15.48822	14.018336	0.0613367	0.065384744		conditional
+4	1	-1	4	2.481911	15.69519	0.84966472	0.0373755	0.0040719319		conditional
+3	2	-1	4	2.470043	15.77108	0.23139499	0.0345989	0.0011199187		conditional
+3	1	-2	4	2.456680	15.85742	0	0.0316673	—	zero	conditional at bound
+3	2	1	4	2.409934	16.16705	0.036635822	0.0368183	1.865314E-4		conditional
+4	1	1	4	2.401610	16.22346	0.6894365	0.038464	0.0035353655		conditional
+1	3	0	4	2.376862	16.39354	0.033409216	0.0288539	1.750141E-4		conditional
+3	1	2	4	2.342435	16.63617	0.0072794924	0.0294251	3.929793E-5		conditional
+2	2	-2	4	2.326983	16.74744	0.40639042	0.0307818	0.0022240318		conditional
+0	3	1	4	2.295735	16.97706	1.1261005	0.0491444	0.0063371364		conditional
+1	0	-3	2	2.290245	17.01806	0.40122349	0.0475897	0.0045381567		conditional
+2	2	2	4	2.260414	17.24435	0.94092845	0.0319076	0.0054674305		conditional
+1	0	3	2	2.242085	17.38641	0.28284528	0.0368759	0.0033428398		conditional
+4	0	-2	2	2.234384	17.44681	0.25236186	0.0368354	0.0030038683		conditional
+4	2	0	4	2.217101	17.58388	0.34589677	0.0327929	0.0020919459		conditional
+0	1	3	4	2.205703	17.67547	0.74961152	0.0334887	0.0045821925		conditional
+5	0	-1	2	2.159817	18.05410	0.002491527	0.0282924	3.181609E-5		conditional
+2	3	-1	4	2.136565	18.25225	0.36169118	0.0304176	0.0023617744		conditional
+5	1	0	4	2.135437	18.26198	0	0.167412	—	zero	conditional at bound
+4	0	2	2	2.120583	18.39101	0.10586149	0.0323669	0.0014042219		conditional
+2	3	1	4	2.110150	18.48273	0.53728409	0.0336343	0.0036001339		conditional
+5	0	1	2	2.093498	18.63105	0.25628757	0.0438289	0.0034915569		conditional
+2	1	-3	4	2.088101	18.67963	0.52093995	0.0437035	0.0035676222		conditional
+3	3	0	4	2.036270	19.15953	0.025176065	0.028586	1.816712E-4		conditional
+2	1	3	4	2.016582	19.34838	0.28467037	0.0716541	0.0020961839		conditional
+3	0	-3	2	2.013997	19.37345	0.091364695	0.0711822	0.0013491379		conditional
+1	3	-2	4	1.971592	19.79429	0	0.0282574	—	zero	conditional at bound
+1	3	2	4	1.950778	20.00765	0.080503074	0.0303947	6.352756E-4		conditional
+1	2	-3	4	1.939810	20.12195	0.15465921	0.0309841	0.0012349315		conditional
+3	0	3	2	1.919631	20.33571	0.10725911	0.0331058	0.0017507699		conditional
+1	2	3	4	1.910286	20.43626	0.50158083	0.0520045	0.0041356224		conditional
+4	2	-2	4	1.905516	20.48797	1.6110709	0.0506469	0.013353269		conditional
+5	1	-2	4	1.861759	20.97488	0.27575734	0.0588699	0.0023996309		conditional
+6	0	0	2	1.860984	20.98372	0	0.4991	—	zero	conditional at bound
+5	2	-1	4	1.858632	21.01057	0.21094009	0.0588861	0.001842078		conditional
+4	2	2	4	1.833452	21.30247	1.7934358	0.0395658	0.016116575		conditional
+0	4	0	2	1.824461	21.40868	1.5796895	0.0431168	0.028686325		conditional
+5	2	1	4	1.815862	21.51127	0.51458346	0.0361084	0.0047189208		conditional
+4	3	-1	4	1.788707	21.84182	0.3819651	0.0335217	0.0036156048		conditional
+3	3	-2	4	1.779193	21.96007	0.077984302	0.0520405	7.465238E-4		conditional
+5	1	2	4	1.778642	21.96696	0	0.518582	—	zero	conditional at bound
+4	1	-3	4	1.775218	22.00985	0.2771254	0.0559007	0.0026653826		conditional
+6	1	-1	4	1.767780	22.10363	0.6439446	0.0541792	0.0062485014		conditional
+3	2	-3	4	1.763248	22.16116	0.050148958	0.0586222	4.892605E-4		conditional
+4	3	1	4	1.757936	22.22897	0.28888555	0.0436062	0.0028364012		conditional
+1	4	-1	4	1.746570	22.37549	0.16843116	0.0376949	0.0016765218		conditional
+1	4	1	4	1.739265	22.47069	0.19541766	0.0718618	0.0019624287		conditional
+0	0	4	2	1.735441	22.52086	0.27747034	0.213554	0.0055988121		conditional
+3	3	2	4	1.734325	22.53553	0	8.36089	—	zero	conditional at bound
+2	4	0	4	1.734209	22.53706	0.41589863	0.180546	0.0042023108		conditional
+6	1	1	4	1.723749	22.67563	0.43520417	0.0342426	0.0044539584		conditional
+3	2	3	4	1.698880	23.01207	0.011926992	0.0323408	1.258740E-4		conditional
+4	1	3	4	1.689266	23.14485	0.095928725	0.0343186	0.0010246451		conditional
+2	0	-4	2	1.682926	23.23325	0	0.056165	—	zero	conditional at bound
+1	1	-4	4	1.682371	23.24103	0	0.0607232	—	zero	conditional at bound
+6	0	-2	2	1.677898	23.30385	0.016718905	0.135773	3.623077E-4		conditional
+0	3	3	4	1.676581	23.32242	1.9952039	0.135897	0.021654597		conditional
+6	2	0	4	1.657824	23.59005	0	0.0307554	—	zero	conditional at bound
+1	1	4	4	1.656692	23.60641	0	0.0306374	—	zero	conditional at bound
+5	0	-3	2	1.651618	23.67998	0	0.0300101	—	zero	conditional at bound
+5	3	0	4	1.645092	23.77529	0	0.0298843	—	zero	conditional at bound
+2	0	4	2	1.632661	23.95899	0	0.0321135	—	zero	conditional at bound
+2	3	-3	4	1.623155	24.10140	0.88000691	0.0365991	0.010231128		conditional
+0	4	2	4	1.614944	24.22581	0.65514736	0.0367759	0.0076995466		conditional
+6	0	2	2	1.604763	24.38185	0	0.0848754	—	zero	conditional at bound
+3	4	-1	4	1.602884	24.41087	0.34714364	0.033101	0.0041454321		conditional
+2	3	3	4	1.588871	24.62952	0.9085484	0.0634742	0.011054529		conditional
+3	4	1	4	1.586106	24.67314	0.20979253	0.0626372	0.0025621027		conditional
+7	0	-1	2	1.573081	24.88069	0.083905866	0.0403639	0.0020858089		conditional
+3	1	-4	4	1.568565	24.95347	0	0.260932	—	zero	conditional at bound
+0	2	4	4	1.567218	24.97527	0.28517412	0.125258	0.0035729517		conditional
+5	0	3	2	1.565597	25.00155	0.16761102	0.139894	0.0042093033		conditional
+2	4	-2	4	1.561750	25.06412	0.18796897	0.0549701	0.0023727259		conditional
+7	1	0	4	1.558338	25.11990	0	0.0544771	—	zero	conditional at bound
+2	4	2	4	1.541143	25.40483	0.2279057	0.0431667	0.0029597862		conditional
+7	0	1	2	1.536782	25.47814	0.13495108	0.0453071	0.0035265332		conditional
+2	2	-4	4	1.528218	25.62333	0.76943332	0.052401	0.01017451		conditional
+4	4	0	4	1.527203	25.64066	0	0.26808	—	zero	conditional at bound
+6	2	-2	4	1.524450	25.68775	0.48291257	0.0499631	0.0064196307		conditional
+4	0	-4	2	1.510498	25.92914	0.36982202	0.0381303	0.010028437		conditional
+5	3	-2	4	1.509762	25.94199	0	0.228228	—	zero	conditional at bound
+3	1	4	4	1.508326	25.96713	0	0.0986293	—	zero	conditional at bound
+5	2	-3	4	1.504661	26.03149	0.050039637	0.0372719	6.841262E-4		conditional
+2	2	4	4	1.490285	26.28708	0.15206853	0.032255	0.0021223846		conditional
+6	2	2	4	1.468977	26.67537	0.17596764	0.0458308	0.0025332869		conditional
+5	3	2	4	1.464411	26.76009	0.21488306	0.108595	0.0031143587		conditional
+4	3	-3	4	1.462498	26.79574	0.42610714	0.112721	0.0061931147		conditional
+6	1	-3	4	1.459496	26.85188	0	0.245799	—	zero	conditional at bound
+6	3	-1	4	1.458330	26.87375	0.39690178	0.0525032	0.0058042594		conditional
+7	1	-2	4	1.450216	27.02697	0.10502582	0.0404876	0.0015544988		conditional
+1	5	0	4	1.447257	27.08327	0	0.0992661	—	zero	conditional at bound
+7	2	-1	4	1.444559	27.13481	0.13766517	0.0515413	0.0020548682		conditional
+4	0	4	2	1.439723	27.22772	0.14340338	0.190067	0.0043121768		conditional
+5	2	3	4	1.438757	27.24635	0.17407274	0.187262	0.0026210046		conditional
+6	3	1	4	1.433315	27.35182	0.23139691	0.0551255	0.0035128027		conditional
+0	5	1	4	1.428338	27.44898	0.41570992	0.132266	0.0063584969		conditional
+1	4	-3	4	1.427013	27.47497	0.28052938	0.121459	0.0042994686		conditional
+7	2	1	4	1.416298	27.68696	0.32191402	0.0887553	0.005014924		conditional
+1	4	3	4	1.415135	27.71016	0	0.672838	—	zero	conditional at bound
+4	3	3	4	1.413305	27.74675	0.16702461	2.4587	0.002613938		conditional
+4	4	-2	4	1.413192	27.74901	0.22026627	2.43341	0.0034477692		conditional
+1	3	-4	4	1.409260	27.82800	0.36272852	0.0628101	0.0057120909		conditional
+8	0	0	2	1.395738	28.10311	0.78114618	0.0384041	0.025122398		conditional
+4	2	-4	4	1.395644	28.10503	0	1.58521	—	zero	conditional at bound
+7	1	2	4	1.394666	28.12517	0	0.147126	—	zero	conditional at bound
+1	3	4	4	1.394063	28.13757	0	0.101052	—	zero	conditional at bound
+5	4	-1	4	1.393747	28.14408	0	0.0890904	—	zero	conditional at bound
+6	1	3	4	1.387920	28.26470	0.36976527	0.167888	0.0060189986		conditional
+2	5	-1	4	1.387440	28.27469	0	2.5112	—	zero	conditional at bound
+1	0	-5	2	1.386854	28.28688	0.24227827	0.191465	0.0079007394		conditional
+4	4	2	4	1.383034	28.36663	0.3558137	0.0903542	0.0058364602		conditional
+5	1	-4	4	1.381801	28.39248	0	0.377877	—	zero	conditional at bound
+2	5	1	4	1.380128	28.42762	0.36905114	0.0736408	0.0060813543		conditional
+5	4	1	4	1.375437	28.52662	0.19872269	0.04681	0.0032989664		conditional
+1	0	5	2	1.368811	28.66767	0.2687462	0.044386	0.0090171394		conditional
+0	1	5	4	1.363891	28.77329	0.4487415	0.0473799	0.0075875046		conditional
+3	5	0	4	1.358823	28.88295	0	0.585778	—	zero	conditional at bound
+8	1	-1	4	1.358546	28.88897	0.33745901	0.0433146	0.0057549453		conditional
+3	4	-3	4	1.352144	29.02874	0.1863695	0.0443514	0.0032112161		conditional
+7	0	-3	2	1.347410	29.13299	0.1403904	0.0453146	0.0048751361		conditional
+2	1	-5	4	1.341270	29.26931	0.41844611	0.0758904	0.0073382146		conditional
+3	3	-4	4	1.340322	29.29047	0	0.49246	—	zero	conditional at bound
+4	2	4	4	1.339246	29.31454	0	1.91865	—	zero	conditional at bound
+1	5	-2	4	1.339086	29.31813	0.14362444	0.0796166	0.002527703		conditional
+7	3	0	4	1.333925	29.43412	0.032059509	0.075508	5.690110E-4		conditional
+1	5	2	4	1.332509	29.46610	0	0.466108	—	zero	conditional at bound
+8	1	1	4	1.331688	29.48467	0.18168162	0.0691449	0.0032364492		conditional
+3	0	-5	2	1.324194	29.65535	0.041556099	0.035803	0.0014989454		conditional
+3	4	3	4	1.322454	29.69527	0	0.0799549	—	zero	conditional at bound
+8	0	-2	2	1.319613	29.76068	0	0.0451625	—	zero	conditional at bound
+5	1	4	4	1.314288	29.88405	0.10485959	0.03952	0.0019225297		conditional
+2	1	5	4	1.309169	30.00365	0.14417659	0.0470599	0.0026660987		conditional
+6	0	-4	2	1.304473	30.11421	0.099950794	0.0709752	0.0037258179		conditional
+8	2	0	4	1.303625	30.13428	0	0.416273	—	zero	conditional at bound
+6	4	0	4	1.302810	30.15357	0	0.461381	—	zero	conditional at bound
+3	3	4	4	1.302152	30.16917	0.043451895	0.0628697	8.130406E-4		conditional
+1	2	-5	4	1.296377	30.30678	0	0.0374134	—	zero	conditional at bound
+7	0	3	2	1.281676	30.66289	0	0.0601301	—	zero	conditional at bound
+1	2	5	4	1.281604	30.66466	0	0.0615778	—	zero	conditional at bound
+3	0	5	2	1.278607	30.73831	0.089866943	0.116625	0.0035007266		conditional
+4	5	-1	4	1.277260	30.77152	0.12238057	0.145446	0.0023891782		conditional
+3	5	-2	4	1.273783	30.85762	0.12266145	0.134182	0.00240909		conditional
+8	0	2	2	1.271635	30.91104	0.017526321	0.232806	6.910047E-4		conditional
+6	3	-3	4	1.270344	30.94324	0.22734078	0.178171	0.0044916934		conditional
+4	5	1	4	1.265914	31.05425	0.25636232	0.106489	0.0051042609		conditional
+7	3	-2	4	1.264210	31.09717	0.026251264	0.0949053	5.242271E-4		conditional
+7	2	-3	4	1.263987	31.10278	0	1.32778	—	zero	conditional at bound
+0	4	4	4	1.257435	31.26898	0.46986303	0.350769	0.0094949356		conditional
+3	5	2	4	1.257011	31.27981	0.47552235	0.353585	0.0096164683		conditional
+4	1	-5	4	1.251650	31.41724	0.16001387	0.0449175	0.003266659		conditional
+3	2	-5	4	1.244763	31.59559	0.10263266	0.0483222	0.0021209528		conditional
+8	2	-2	4	1.240956	31.69507	0.32568558	0.058543	0.0067762366		conditional
+2	4	-4	4	1.237023	31.79851	0	0.957191	—	zero	conditional at bound
+6	0	4	2	1.236652	31.80829	0.19053432	0.123927	0.0079897716		conditional
+6	4	-2	4	1.235022	31.85140	0.11669374	0.162203	0.0024538514		conditional
+0	5	3	4	1.234496	31.86532	0	1.03811	—	zero	conditional at bound
+9	0	-1	2	1.232774	31.91103	0.28591916	0.0998286	0.01207334		conditional
+6	2	-4	4	1.228340	32.02930	0.23873563	0.143135	0.0050809009		conditional
+7	3	2	4	1.226901	32.06787	0.028454125	0.178532	6.071524E-4		conditional
+5	4	-3	4	1.224428	32.13439	0.092960385	0.120833	0.0019924833		conditional
+9	1	0	4	1.223107	32.17004	0	0.425554	—	zero	conditional at bound
+6	3	3	4	1.222301	32.19183	0	0.677361	—	zero	conditional at bound
+5	5	0	4	1.221762	32.20642	0.35083626	0.0978558	0.0075561863		conditional
+5	3	-4	4	1.218116	32.30547	0.19289203	0.269138	0.0041821091		conditional
+2	4	4	4	1.216644	32.34561	0.005890785	1.28515	1.280621E-4		conditional
+0	6	0	2	1.216308	32.35481	0.2073458	1.11258	0.0090206856		conditional
+2	5	-3	4	1.212695	32.45385	0.093769026	0.112669	0.0020532642		conditional
+9	0	1	2	1.210148	32.52404	0.15197453	0.141222	0.0066867709		conditional
+7	2	3	4	1.209250	32.54888	0	0.754937	—	zero	conditional at bound
+5	0	-5	2	1.208398	32.57245	0	1.07663	—	zero	conditional at bound
+8	1	-3	4	1.207578	32.59520	0.096887239	0.40937	0.0021415917		conditional
+3	2	5	4	1.206671	32.62038	0.1551757	0.489733	0.0034357361		conditional
+0	3	5	4	1.205793	32.64478	0	1.94516	—	zero	conditional at bound
+6	4	2	4	1.204967	32.66780	0.14611608	0.232601	0.0032453361		conditional
+8	3	-1	4	1.202095	32.74804	0.12412055	0.218526	0.0027714874		conditional
+4	1	5	4	1.200815	32.78393	0.21615132	0.202653	0.0048379051		conditional
+8	2	2	4	1.200805	32.78421	0	66.1981	—	zero	conditional at bound
+2	5	3	4	1.198196	32.85763	0.31942504	0.0777876	0.0071842451		conditional
+1	6	-1	4	1.192387	33.02228	0.043323393	0.0754134	9.850084E-4		conditional
+7	4	-1	4	1.191380	33.05097	0	0.441316	—	zero	conditional at bound
+7	1	-4	4	1.190821	33.06693	0	0.550046	—	zero	conditional at bound
+2	3	-5	4	1.190077	33.08820	0	16.8076	—	zero	conditional at bound
+1	6	1	4	1.190054	33.08885	0.081220265	0.118655	0.0018547208		conditional
+2	6	0	4	1.188431	33.13535	0	1.09866	—	zero	conditional at bound
+5	4	3	4	1.188119	33.14430	0.27356048	0.0898852	0.0062696714		conditional
+8	3	1	4	1.183369	33.28122	0.032757001	0.0428914	7.574957E-4		conditional
+7	4	1	4	1.175377	33.51417	0.018212892	0.0366355	4.275949E-4		conditional
+9	1	-2	4	1.173125	33.58040	0	0.0644302	—	zero	conditional at bound
+6	2	4	4	1.171217	33.63672	0	0.0579262	—	zero	conditional at bound
+5	3	4	4	1.171109	33.63993	0	0.0589911	—	zero	conditional at bound
+9	2	-1	4	1.167921	33.73450	0	0.200152	—	zero	conditional at bound
+2	3	5	4	1.167483	33.74754	0	0.241158	—	zero	conditional at bound
+4	4	-4	4	1.163491	33.86680	0	0.863575	—	zero	conditional at bound
+5	5	-2	4	1.163155	33.87689	0	0.93592	—	zero	conditional at bound
+0	0	6	2	1.156961	34.06379	0	2.88715	—	zero	conditional at bound
+8	1	3	4	1.153178	34.17896	0	4.69681	—	zero	conditional at bound
+5	0	5	2	1.151778	34.22177	0	5.49425	—	zero	conditional at bound
+9	2	1	4	1.148628	34.31854	0	7.5595	—	overlap;zero	conditional at bound
+0	6	2	4	1.147867	34.34198	0	8.11654	—	overlap;zero	conditional at bound
+5	2	-5	4	1.147131	34.36471	0	8.67861	—	overlap;zero	conditional at bound
+2	0	-6	2	1.145122	34.42687	0	10.3287	—	zero	conditional at bound
+3	6	-1	4	1.143513	34.47684	0	11.7797	—	overlap;zero	conditional at bound
+1	1	-6	4	1.142882	34.49647	0	12.3811	—	overlap;zero	conditional at bound
+5	5	2	4	1.142033	34.52293	0	13.221	—	overlap;zero	conditional at bound
+4	5	-3	4	1.141125	34.55126	0	14.1576	—	zero	conditional at bound
+6	5	-1	4	1.139142	34.61330	0	16.3502	—	overlap;zero	conditional at bound
+3	6	1	4	1.137374	34.66882	0	18.484	—	overlap;zero	conditional at bound
+9	1	2	4	1.134975	34.74441	0	21.6682	—	zero	conditional at bound
+1	1	6	4	1.130721	34.87931	0	28.2303	—	overlap;zero	conditional at bound
+7	1	4	4	1.130500	34.88636	0	28.6073	—	overlap;zero	conditional at bound
+4	4	4	4	1.130207	34.89569	0	29.111	—	overlap;zero	conditional at bound
+6	1	-5	4	1.128715	34.94330	0	31.7809	—	overlap;zero	conditional at bound
+2	6	-2	4	1.128292	34.95683	0	32.5708	—	overlap;zero	conditional at bound
+6	5	1	4	1.127099	34.99502	0	34.878	—	overlap;zero	conditional at bound
+4	3	-5	4	1.126140	35.02578	0	36.8222	—	zero	conditional at bound
+2	0	6	2	1.121043	35.19024	0	48.6695	—	zero	conditional at bound
+2	6	2	4	1.120447	35.20954	0	50.2374	—	zero	conditional at bound
+9	0	-3	2	1.118598	35.26965	0	55.3864	—	overlap;zero	conditional at bound
+4	5	3	4	1.117291	35.31227	0	59.2993	—	overlap;zero	conditional at bound
+8	0	-4	2	1.117192	35.31551	0	59.6066	—	overlap;zero	conditional at bound
+10	0	0	2	1.116590	35.33516	0	61.4968	—	overlap;zero	conditional at bound
+1	5	-4	4	1.115289	35.37775	0	65.7718	—	overlap;zero	conditional at bound
+4	6	0	4	1.115056	35.38540	0	66.567	—	overlap;zero	conditional at bound
+3	1	-6	4	1.108922	35.58764	0	91.0427	—	zero	conditional at bound
+8	4	0	4	1.108551	35.59997	0	92.7814	—	zero	conditional at bound
+1	5	4	4	1.107711	35.62786	0	96.8337	—	zero	conditional at bound
+9	3	0	4	1.105216	35.71099	0	109.994	—	zero	conditional at bound
+1	4	-5	4	1.104084	35.74885	0	116.58	—	zero	conditional at bound
+0	2	6	4	1.102852	35.79014	0	124.237	—	zero	conditional at bound
+10	1	-1	4	1.099099	35.91649	0	151.25	—	zero	conditional at bound
+5	2	5	4	1.098360	35.94148	0	157.338	—	zero	conditional at bound
+1	4	5	4	1.094915	36.05846	0	189.903	—	zero	conditional at bound
+8	3	-3	4	1.093718	36.09927	0	203.118	—	zero	conditional at bound
+2	2	-6	4	1.092583	36.13806	0	216.743	—	zero	conditional at bound
+4	0	-6	2	1.089605	36.24028	0	258.618	—	zero	conditional at bound
+4	3	5	4	1.088686	36.27192	0	273.687	—	zero	conditional at bound
+7	4	-3	4	1.083868	36.43880	0	376.189	—	zero	conditional at bound
+10	1	1	4	1.081226	36.53098	0	457.615	—	overlap;zero	conditional at bound
+7	3	-4	4	1.081222	36.53113	0	457.761	—	overlap;zero	conditional at bound
+3	5	-4	4	1.080169	36.56800	0	497.618	—	zero	conditional at bound
+10	0	-2	2	1.079909	36.57713	0	508.31	—	zero	conditional at bound
+7	5	0	4	1.076812	36.68605	0	667.403	—	zero	conditional at bound
+3	1	6	4	1.076533	36.69590	0	685.134	—	zero	conditional at bound
+7	0	-5	2	1.076124	36.71033	0	712.498	—	zero	conditional at bound
+1	6	-3	4	1.074215	36.77792	0	872.324	—	zero	conditional at bound
+6	1	5	4	1.073524	36.80243	0	944.82	—	zero	conditional at bound
+3	4	-5	4	1.071674	36.86826	0	1168.61	—	zero	conditional at bound
+2	2	6	4	1.071609	36.87056	0	1177.3	—	zero	conditional at bound
+9	0	3	2	1.069842	36.93367	0	1474.3	—	zero	conditional at bound
+9	2	-3	4	1.069474	36.94684	0	1561.91	—	zero	conditional at bound
+8	4	-2	4	1.069241	36.95517	0	1625.43	—	zero	conditional at bound
+1	6	3	4	1.069121	36.95949	0	1661.26	—	zero	conditional at bound
+4	6	-2	4	1.068283	36.98954	0	1990	—	zero	conditional at bound
+8	2	-4	4	1.068244	36.99091	0	2009.21	—	zero	conditional at bound
+9	3	-2	4	1.067925	37.00239	0	2191.67	—	zero	conditional at bound
+10	2	0	4	1.067719	37.00978	0	2332.27	—	zero	conditional at bound
+6	4	-4	4	1.061140	37.24765	0	0	—		conditional
+8	0	4	2	1.060291	37.27855	0	0	—		conditional
+3	5	4	4	1.059889	37.29323	0	0	—		conditional
+5	6	-1	4	1.059808	37.29618	0	0	—		conditional
+4	6	2	4	1.055075	37.46970	0	0	—		conditional
+8	3	3	4	1.052811	37.55329	0	0	—		conditional
+5	6	1	4	1.051691	37.59480	0	0	—		conditional
+4	0	6	2	1.049140	37.68962	0	0	—		conditional
+7	4	3	4	1.048759	37.70384	0	0	—		conditional
+3	4	5	4	1.047075	37.76676	0	0	—		conditional
+10	0	2	2	1.046749	37.77897	0	0	—		conditional
+1	3	-6	4	1.044959	37.84616	0	0	—		conditional
+4	2	-6	4	1.044051	37.88034	0	0	—		conditional
+8	4	2	4	1.043236	37.91104	0	0	—		conditional
+6	5	-3	4	1.042523	37.93797	0	0	—		conditional
+3	6	-3	4	1.041167	37.98927	0	0	—		conditional
+5	1	-6	4	1.039764	38.04248	0	0	—		conditional
+7	5	-2	4	1.039125	38.06680	0	0	—		conditional
+9	3	2	4	1.038905	38.07516	0	0	—		conditional
+1	7	0	4	1.038034	38.10832	0	0	—		conditional
+1	3	6	4	1.035639	38.19987	0	0	—		conditional
+10	2	-2	4	1.035511	38.20478	0	0	—		conditional
+7	3	4	4	1.035469	38.20639	0	0	—		conditional
+6	3	-5	4	1.034097	38.25905	0	0	—		conditional
+7	2	-5	4	1.032173	38.33314	0	0	—		conditional
+0	7	1	4	1.030987	38.37898	0	0	—		conditional
+3	6	3	4	1.027429	38.51712	0	0	—		conditional
+9	2	3	4	1.026626	38.54844	0	0	—		conditional
+9	1	-4	4	1.025538	38.59095	0	0	—		conditional
+6	4	4	4	1.023658	38.66464	0	0	—		conditional
+9	4	-1	4	1.021455	38.75136	0	0	—		conditional
+7	0	5	2	1.020565	38.78649	0	0	—		conditional
+3	3	-6	4	1.018812	38.85591	0	0	—		conditional
+8	2	4	4	1.018177	38.88110	0	0	—		conditional
+6	6	0	4	1.018135	38.88279	0	0	—		conditional
+7	5	2	4	1.018107	38.88390	0	0	—		conditional
+10	1	-3	4	1.017329	38.91486	0	0	—		conditional
+6	5	3	4	1.015474	38.98881	0	0	—		conditional
+2	7	-1	4	1.015286	38.99632	0	0	—		conditional
+5	5	-4	4	1.013070	39.08508	0	0	—		conditional
+2	7	1	4	1.012410	39.11159	0	0	—		conditional
+11	0	-1	2	1.012179	39.12089	0	0	—		conditional
+10	3	-1	4	1.011179	39.16116	0	0	—		conditional
+9	4	1	4	1.008473	39.27055	0	0	—		conditional
+4	2	6	4	1.008291	39.27792	0	0	—		conditional
+5	4	-5	4	1.007459	39.31168	0	0	—		conditional
+6	0	-6	2	1.006999	39.33041	0	0	—		conditional
+10	2	2	4	1.006168	39.36422	0	0	—		conditional
+0	5	5	4	1.005948	39.37317	0	0	—		conditional
+11	1	0	4	1.005403	39.39541	0	0	—		conditional
+3	7	0	4	1.003910	39.45644	0	0	—		conditional
+8	5	-1	4	1.003798	39.46102	0	0	—		conditional
+8	1	-5	4	1.002150	39.52859	0	0	—		conditional
+10	3	1	4	0.997209	39.73269	0	0	—		conditional
+11	0	1	2	0.996799	39.74972	0	0	—		conditional
+2	5	-5	4	0.996769	39.75098	0	0	—		conditional
+5	1	6	4	0.996144	39.77697	0	0	—		conditional
+0	6	4	4	0.996034	39.78154	0	0	—		conditional
+1	7	-2	4	0.995871	39.78832	0	0	—		conditional
+3	3	6	4	0.993523	39.88633	0	0	—		conditional
+1	7	2	4	0.993157	39.90167	0	0	—		conditional
+8	5	1	4	0.992817	39.91591	0	0	—		conditional
+1	0	-7	2	0.992480	39.93004	0	0	—		conditional
+6	3	5	4	0.991157	39.98561	0	0	—		conditional
+2	6	-4	4	0.985796	40.21242	0	0	—		conditional
+5	5	4	4	0.985544	40.22316	0	0	—		conditional
+6	6	-2	4	0.984782	40.25560	0	0	—		conditional
+2	5	5	4	0.983380	40.31552	0	0	—		conditional
+1	0	7	2	0.983171	40.32444	0	0	—		conditional
+7	2	5	4	0.982847	40.33831	0	0	—		conditional
+0	1	7	4	0.982650	40.34676	0	0	—		conditional
+11	1	-2	4	0.979669	40.47486	0	0	—		conditional
+5	6	-3	4	0.979386	40.48707	0	0	—		conditional
+0	4	6	4	0.977067	40.58742	0	0	—		conditional
+2	1	-7	4	0.976648	40.60558	0	0	—		conditional
+10	1	3	4	0.976363	40.61798	0	0	—		conditional
+9	1	4	4	0.975828	40.64120	0	0	—		conditional
+2	6	4	4	0.975389	40.66031	0	0	—		conditional
+11	2	-1	4	0.975350	40.66203	0	0	—		conditional
+5	4	5	4	0.973939	40.72351	0	0	—		conditional
+3	0	-7	2	0.971258	40.84096	0	0	—		conditional
+6	2	-6	4	0.970712	40.86495	0	0	—		conditional
+2	4	-6	4	0.969905	40.90047	0	0	—		conditional
+4	7	-1	4	0.969639	40.91221	0	0	—		conditional
+6	6	2	4	0.969341	40.92533	0	0	—		conditional
+3	7	-2	4	0.968114	40.97951	0	0	—		conditional
+4	7	1	4	0.964646	41.13351	0	0	—		conditional
+5	3	-6	4	0.964402	41.14438	0	0	—		conditional
+10	0	-4	2	0.962735	41.21890	0	0	—		conditional
+7	6	-1	4	0.962225	41.24170	0	0	—		conditional
+11	2	1	4	0.961566	41.27128	0	0	—		conditional
+3	7	2	4	0.960689	41.31065	0	0	—		conditional
+5	6	3	4	0.960505	41.31895	0	0	—		conditional
+6	0	6	2	0.959815	41.34999	0	0	—		conditional
+2	1	7	4	0.959137	41.38059	0	0	—		conditional
+4	5	-5	4	0.958290	41.41884	0	0	—		conditional
+1	2	-7	4	0.957687	41.44611	0	0	—		conditional
+2	4	6	4	0.955143	41.56161	0	0	—		conditional
+7	6	1	4	0.953735	41.62581	0	0	—		conditional
+9	4	-3	4	0.953630	41.63061	0	0	—		conditional
+7	1	-6	4	0.953066	41.65638	0	0	—		conditional
+9	3	-4	4	0.953018	41.65858	0	0	—		conditional
+8	4	-4	4	0.952758	41.67048	0	0	—		conditional
+10	4	0	4	0.952385	41.68757	0	0	—		conditional
+11	1	2	4	0.952319	41.69056	0	0	—		conditional
+8	1	5	4	0.950834	41.75872	0	0	—		conditional
+9	0	-5	2	0.950705	41.76466	0	0	—		conditional
+0	7	3	4	0.950526	41.77292	0	0	—		conditional
+1	2	7	4	0.949315	41.82868	0	0	—		conditional
+11	0	-3	2	0.948414	41.87030	0	0	—		conditional
+4	6	-4	4	0.947352	41.91944	0	0	—		conditional
+10	3	-3	4	0.946419	41.96271	0	0	—		conditional
+3	0	7	2	0.945752	41.99370	0	0	—		conditional
+9	5	0	4	0.945297	42.01486	0	0	—		conditional
+5	7	0	4	0.944676	42.04380	0	0	—		conditional
+4	1	-7	4	0.942673	42.13739	0	0	—		conditional
+

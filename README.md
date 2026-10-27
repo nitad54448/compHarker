@@ -84,6 +84,7 @@ CIF / PDF / GRD / CSV
 comp-Harker reads ASCII diffraction exports such as:
 
 - Powder diffraction refinement exports (for example, Powder 5 output)
+- Powder 6 WPPF reports (`wppf_results_*.txt`) containing one dataset and one phase. Use **Select Data File**; cell, space group, wavelength and polarisation are read automatically. Corrected `I/(m*Lp)` values are imported directly, including zero-bound reflections. Overlapping reflections produce a warning because their individual intensities are undetermined.
 - Generic peak lists
 - SHELX HKLF 4-style data (`h, k, l, intensity, sigma`)
 
