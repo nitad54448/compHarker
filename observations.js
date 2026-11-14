@@ -2,7 +2,7 @@
 // expects and says so if a browser cache is serving something older - a stale
 // module reports errors at line numbers that no longer exist, which sends you
 // looking for a bug that was already fixed.
-const SHARKO_OBSERVATIONS_VERSION = '2026-08-09j';
+const SHARKO_OBSERVATIONS_VERSION = '2026-08-09k';
 
 /* ------------------------------------------------------------------
    Observation preparation for the Wyckoff structure search.

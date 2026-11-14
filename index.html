@@ -17,18 +17,18 @@
 
 <script src="symmetry_utils.js"></script>
 <script src="patterson3d.js"></script>
-<script src="wyckoff_assign.js?v=2026-08-09j"></script>
-<script src="observations.js?v=2026-08-09j"></script>
-<script src="scatterers.js?v=2026-08-09j"></script>
-<script src="contacts.js?v=2026-08-09j"></script>
-<script src="swarm_wyckoff.js?v=2026-08-09j"></script>
+<script src="wyckoff_assign.js?v=2026-08-09k"></script>
+<script src="observations.js?v=2026-08-09k"></script>
+<script src="scatterers.js?v=2026-08-09k"></script>
+<script src="contacts.js?v=2026-08-09k"></script>
+<script src="swarm_wyckoff.js?v=2026-08-09k"></script>
 </head>
 
 
 <body>
 
 <div id="top-right-controls">
-    <button id="info-btn" title="comp-Harker 2.1.2, 13 aug 2026" aria-label="Info">
+    <button id="info-btn" title="comp-Harker 2.1.3, 14 nov 2026" aria-label="Info">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
     </button>
     <button id="theme-toggle" title="Toggle light / dark theme" aria-label="Toggle theme">
@@ -2462,7 +2462,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
         // means a browser cache is serving an older copy, which is worth naming
         // explicitly: a stale module throws at line numbers that no longer
         // exist, and the obvious reading is that the fix never landed.
-        const SHARKO_MODULE_VERSION = '2026-08-09j';
+        const SHARKO_MODULE_VERSION = '2026-08-09k';
 
         function staleWyckoffModules() {
             const seen = {
@@ -2827,8 +2827,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
 
             const ff = wyckoffScatterTables
                 ? makeFormFactor(wyckoffScatterTables, { radiation: 'xray' }) : null;
-            const opts = { formFactor: ff, overallB: out.overallB,
-                           zOf: e => (ATOM_DATA[String(e).toUpperCase()] || {}).z || 1 };
+            const zOf = e => (ATOM_DATA[String(e).toUpperCase()] || {}).z || 1;
 
             // The scale factor and the overall B are fitted too, so they are
             // parameters of every model. A constant offset cannot change the
@@ -2841,6 +2840,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                 c._fit = null;
                 if (!c.sites || !c.sites.length) continue;
                 try {
+                    const opts = { formFactor: ff, overallB: Number.isFinite(c.overallB) ? c.overallB : out.overallB, zOf };
                     const { Fc } = structureFactors(c.sites, stg.sym_ops, rows, opts);
                     const res = powderResiduals(Fc, rows, groups);
                     if (res && Number.isFinite(res.wR) && res.wR > 0) {
@@ -2974,7 +2974,7 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
             const inert = res.length > 1 && (Math.max(...res) - Math.min(...res) < 5e-3);
             if (noteEl) noteEl.textContent =
                 `${out.assignments} assignment(s) searched | ${out.reflections} reflections in ` +
-                `${out.groups} group(s) | overall B ${out.overallB.toFixed(2)}` +
+                `${out.groups} group(s) | overall B ${Number.isFinite(out.overallB) ? out.overallB.toFixed(2) : '?'}` +
                 (out.stopped ? ' | stopped early' : '') +
                 ` | ${out.kept ?? returnedN} kept by the solver, ` +
                 `${out.candidates.length} shown` +
@@ -3145,6 +3145,13 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
             const c = list[idx];
             if (!c) return;
             state.wyckoffSelected = idx;
+            state.selectedOverallB = Number.isFinite(c.overallB) ? c.overallB : null;
+            if (window.sharkoWyckoffResult && Number.isFinite(c.overallB)) {
+                window.sharkoWyckoffResult.overallB = c.overallB;
+                if (typeof setTemperatureFactorB === 'function') {
+                    setTemperatureFactorB(c.overallB);
+                }
+            }
 
             document.querySelectorAll('.wyckoff-cand-row').forEach(r => {
                 r.classList.toggle('row-selected', parseInt(r.dataset.idx, 10) === idx);
@@ -3499,6 +3506,10 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                             shouldStop: () => swarmStopRequested
                         });
                         
+                        for (const c of out.candidates) {
+                            c.Z = testZ;
+                            c.overallB = out.overallB;
+                        }
                         allCandidates.push(...out.candidates);
                         
                         // Merge constraints and overall metadata to track global progress
@@ -3508,7 +3519,6 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
                             cumulativeOut.assignments += out.assignments;
                             cumulativeOut.groups = out.groups; 
                             cumulativeOut.reflections = out.reflections;
-                            cumulativeOut.overallB = out.overallB;
                             cumulativeOut.obsRows = out.obsRows;
                         }
                         
@@ -3534,6 +3544,12 @@ function nearestSymmetryImage(gBest, pos, off, nAtoms, symOps, orth, out) {
             const topN = cumulativeOut.topN || 20;
             cumulativeOut.candidates = allCandidates.slice(0, topN);
             cumulativeOut.kept = cumulativeOut.candidates.length;
+            if (Number.isFinite(cumulativeOut.candidates[0]?.overallB)) {
+                cumulativeOut.overallB = cumulativeOut.candidates[0].overallB;
+            }
+            if (Number.isFinite(cumulativeOut.candidates[0]?.Z)) {
+                cumulativeOut.Z = cumulativeOut.candidates[0].Z;
+            }
 
             renderWyckoffResults(cumulativeOut);
             // After rendering, so the summary reports the candidates that
@@ -5388,7 +5404,7 @@ function updateCrystalInfo() {
                     const ff = wyckoffScatterTables
                         ? makeFormFactor(wyckoffScatterTables, { radiation: 'xray' }) : null;
                     rf = structureRFactor(sites, stg.sym_ops, out.obsRows, {
-                        formFactor: ff, overallB: out.overallB,
+                        formFactor: ff, overallB: state.selectedOverallB ?? out.overallB,
                         zOf: e => (ATOM_DATA[String(e).toUpperCase()] || {}).z || 1
                     });
                 } catch (e) { rf = null; }

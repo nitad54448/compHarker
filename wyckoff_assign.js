@@ -2,7 +2,8 @@
 // expects and says so if a browser cache is serving something older - a stale
 // module reports errors at line numbers that no longer exist, which sends you
 // looking for a bug that was already fixed.
-const SHARKO_WYCKOFF_ASSIGN_VERSION = '2026-08-09j';
+const SHARKO_WYCKOFF_ASSIGN_VERSION = '2026-08-09k';
+const WY_MAX_SITES = 64;
 
 /* ------------------------------------------------------------------
    Wyckoff-space search for sHarko.
@@ -353,6 +354,10 @@ function buildAssignmentTables(assignments, symOpCount, demand) {
     const nTot = demand.reduce((n, d) => n + d.count, 0);
     const nA = assignments.length;
     const maxSites = assignments.reduce((m, A) => Math.max(m, A.nSites), 0);
+    if (maxSites > WY_MAX_SITES) {
+        throw new Error(
+            `Assignment requires ${maxSites} independent sites, exceeding kernel prop_coords limit (${WY_MAX_SITES}).`);
+    }
 
     const genSite = new Uint32Array(nA * nTot);
     const genOp = new Uint32Array(nA * nTot);

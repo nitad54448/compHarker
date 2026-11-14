@@ -2,7 +2,7 @@
 // expects and says so if a browser cache is serving something older - a stale
 // module reports errors at line numbers that no longer exist, which sends you
 // looking for a bug that was already fixed.
-const SHARKO_SWARM_WYCKOFF_VERSION = '2026-08-09j';
+const SHARKO_SWARM_WYCKOFF_VERSION = '2026-08-09k';
 
 /* ------------------------------------------------------------------
    swarm_wyckoff.js - the whole Wyckoff-constrained structure search.
@@ -867,7 +867,7 @@ async function runWyckoffSearch(o) {
             return out;
         }
 
-        function recordBest(fitArr, coords, scale) {
+        function recordBest(fitArr, coords, scale, forceRecord = false) {
 
 
 
@@ -879,7 +879,7 @@ async function runWyckoffSearch(o) {
                 const rawPen = Number.isFinite(cc) ? (cc - f) / scale : 0;
                 const gRef = Number.isFinite(gBestCC[A]) ? gBestCC[A] - gBestPen[A] * scale
                                                         : gBestFit[A];
-                if (f > gRef) {
+                if (forceRecord || f > gRef) {
                     gBestFit[A] = f; gBestCC[A] = cc; gBestPen[A] = rawPen;
                     gBestPos.set(coords.subarray(base, base + coordsPerParticle),
                                  A * coordsPerParticle);
@@ -889,12 +889,143 @@ async function runWyckoffSearch(o) {
             }
         }
 
+        async function rescoreAtFullResolution(candidateIds) {
+            const live = candidateIds.filter(A => Number.isFinite(gBestFit[A]) &&
+                                                  Number.isFinite(gBestCC[A]));
+            if (!live.length) return;
+            params[PARAM.nGroupsActive] = refl.nGroups;
+            const scale = SW_DEFAULTS.penRampEnd;
+            params[PARAM.penScale] = scale;
+
+            const saved = assignOf.slice();
+            const archived = new Float32Array(numParticles * coordsPerParticle);
+            for (let start = 0; start < live.length; start += numParticles) {
+                const chunk = live.slice(start, start + numParticles);
+                for (let i = 0; i < numParticles; i++) {
+                    const A = chunk[i % chunk.length];
+                    assignOf[i] = A;
+                    archived.set(
+                        gBestPos.subarray(A * coordsPerParticle, (A + 1) * coordsPerParticle),
+                        i * coordsPerParticle);
+                }
+                pushStateToGPU(assignOf);
+                const fArch = await evaluateCoords(archived);
+                recordBest(fArch, archived, scale, true);
+            }
+            assignOf.set(saved);
+            pushStateToGPU(assignOf);
+        }
+
         async function quench(candidateIds) {
-// ...
+            const live = candidateIds.filter(A => Number.isFinite(gBestFit[A]) &&
+                                                  Number.isFinite(gBestCC[A]));
+            if (!live.length) return;
+
+            params[PARAM.nGroupsActive] = refl.nGroups;
+            const scale = SW_DEFAULTS.penRampEnd;
+            params[PARAM.penScale] = scale;
+
+            await rescoreAtFullResolution(candidateIds);
+
+            const before = new Float32Array(assignments.length);
+            live.forEach(A => { before[A] = gBestCC[A]; });
+
+            for (let i = 0; i < numParticles; i++) assignOf[i] = live[i % live.length];
+            for (let i = 0; i < numParticles; i++) {
+                const base = i * coordsPerParticle, gb = assignOf[i] * coordsPerParticle;
+                positions.set(gBestPos.subarray(gb, gb + coordsPerParticle), base);
+                curFit[i] = gBestFit[assignOf[i]];
+                curCC[i] = gBestCC[assignOf[i]];
+                curPen[i] = gBestPen[assignOf[i]];
+            }
+            pushStateToGPU(assignOf);
+
+            const movableOf = assignments.map((_, A) => {
+                const m = [], nS = T.siteCount[A];
+                for (let s = 0; s < nS; s++) {
+                    const pb = (A * T.maxSites + s) * 12;
+                    if (T.siteProj[pb] + T.siteProj[pb + 4] + T.siteProj[pb + 8] > 1e-6) m.push(s);
+                }
+                return m;
+            });
+            const quenchPropose = (i, base, sd) => {
+                const mov = movableOf[assignOf[i]];
+                proposals.set(positions.subarray(base, base + coordsPerParticle), base);
+                const pick = mov.length > 1 && Math.random() < 0.75
+                    ? [mov[Math.floor(Math.random() * mov.length)]]
+                    : mov;
+                for (let m = 0; m < pick.length; m++) {
+                    for (let c = 0; c < 3; c++) {
+                        const k = pick[m] * 3 + c;
+                        const x = positions[base + k] + swGaussian() * sd;
+                        proposals[base + k] = x - Math.floor(x);
+                    }
+                }
+            };
+
+            const steps = SW_DEFAULTS.quenchSteps;
+            for (let q = 0; q < steps; q++) {
+                if (o.shouldStop && o.shouldStop()) { stopped = true; break; }
+                const t = steps > 1 ? q / (steps - 1) : 1;
+                const sd = SW_DEFAULTS.quenchStep0 *
+                    Math.pow(SW_DEFAULTS.quenchStep1 / SW_DEFAULTS.quenchStep0, t);
+
+                for (let i = 0; i < numParticles; i++) {
+                    const base = i * coordsPerParticle;
+                    quenchPropose(i, base, sd);
+                    projectSites(proposals, i, assignOf[i], T);
+                }
+
+                const fq = await evaluateCoords(proposals);
+                recordBest(fq, proposals, scale);
+                for (let i = 0; i < numParticles; i++) {
+                    const f = fq[i];
+                    if (!Number.isFinite(f) || !(f > curFit[i])) continue;
+                    const base = i * coordsPerParticle;
+                    positions.set(proposals.subarray(base, base + coordsPerParticle), base);
+                    curFit[i] = f;
+                }
+
+                if (o.onProgress && q % 25 === 0) await new Promise(r => setTimeout(r, 0));
+            }
+
+            let moved = 0, biggest = 0, leadBefore = -Infinity, leadAfter = -Infinity;
+            for (const A of live) {
+                const g = gBestCC[A] - before[A];
+                if (g > 5e-5) { moved++; if (g > biggest) biggest = g; }
+                if (before[A] > leadBefore) leadBefore = before[A];
+                if (gBestCC[A] > leadAfter) leadAfter = gBestCC[A];
+            }
+            say(`Quench: ${live.length} assignment(s) at full resolution; ` +
+                (moved ? `${moved} improved, largest ${(biggest * 100).toFixed(2)} pts of CC; ` : 'none improved; ') +
+                (leadAfter - leadBefore > 5e-5
+                    ? `best CC ${leadBefore.toFixed(4)} -> ${leadAfter.toFixed(4)}.`
+                    : `best CC unchanged at ${leadAfter.toFixed(4)}.`));
         }
 
         function checkSpread(fitArr) {
-// ...
+            let lo = Infinity, hi = -Infinity, finite = 0;
+            for (let i = 0; i < numParticles; i++) {
+                const f = fitArr[i];
+                if (!Number.isFinite(f)) continue;
+                finite++;
+                if (f < lo) lo = f;
+                if (f > hi) hi = f;
+            }
+            if (finite === 0) {
+                throw new Error('The GPU returned no finite fitness values. The kernel ran but ' +
+                                'produced NaN or Inf everywhere - check the browser console for ' +
+                                'WGSL validation errors.');
+            }
+            if (hi - lo < 1e-9) {
+                throw new Error(`Every chain scored exactly ${hi.toFixed(6)}. The kernel is not ` +
+                                `discriminating between structures, so any ranking would be the ` +
+                                `enumeration order rather than a result. Check the console for ` +
+                                `WGSL errors and that the reflection buffers are non-empty ` +
+                                `(${refl.nGroups} groups, ${refl.nRefl} reflections).`);
+            }
+            say(`Generation 0 fitness spread ${lo.toFixed(4)} to ${hi.toFixed(4)} ` +
+                `across ${finite} chain(s).`);
         }
 
       for (let restart = 0; restart < restarts && !stopped; restart++) {

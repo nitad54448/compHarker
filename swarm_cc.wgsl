@@ -145,7 +145,7 @@ var<workgroup> rIc:   array<f32, WG>;
 var<workgroup> rIc2:  array<f32, WG>;
 var<workgroup> rIoIc: array<f32, WG>;
 var<workgroup> rPen:  array<f32, WG>;
-var<workgroup> prop_coords: array<f32, 72>;
+var<workgroup> prop_coords: array<f32, 192>;
 
 fn cartDist(p1: vec3<f32>, p2: vec3<f32>) -> f32 {
     let d = p1 - p2;
